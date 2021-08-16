@@ -10,12 +10,12 @@ import javax.persistence.*;
 public class UserAccount {
 
     @Id @GeneratedValue
+    @Column(name = "user_account_id")
     private Long Id;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
-
-    private Long userId;
 
     @Enumerated(EnumType.STRING)
     private AuthType authType;
