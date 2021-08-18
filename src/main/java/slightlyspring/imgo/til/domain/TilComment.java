@@ -1,7 +1,6 @@
 package slightlyspring.imgo.til.domain;
 
 import lombok.Getter;
-import slightlyspring.imgo.series.domain.Series;
 import slightlyspring.imgo.user.domain.User;
 
 import javax.persistence.*;
