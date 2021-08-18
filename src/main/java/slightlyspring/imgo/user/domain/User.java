@@ -41,4 +41,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserNotice> userNotices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserBadge> userBadges = new ArrayList<>();
 }
