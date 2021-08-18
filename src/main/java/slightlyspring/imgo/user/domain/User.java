@@ -55,4 +55,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<TilComment> tilComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Til> tils = new ArrayList<>();
 }
