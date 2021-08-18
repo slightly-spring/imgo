@@ -51,4 +51,7 @@ public class Til {
 
     @OneToMany(mappedBy = "til")
     private List<UserLikesTil> userLikesTils = new ArrayList<>();
+
+    @OneToMany(mappedBy = "til")
+    private List<TilTag> tilTags = new ArrayList<>();
 }

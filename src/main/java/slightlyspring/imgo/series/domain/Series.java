@@ -1,6 +1,7 @@
 package slightlyspring.imgo.series.domain;
 
 import lombok.Getter;
+import slightlyspring.imgo.til.domain.Til;
 import slightlyspring.imgo.user.domain.UserLikesSeries;
 
 import javax.persistence.*;
@@ -32,5 +33,11 @@ public class Series {
     private Date modifiedAt;
 
     @OneToMany(mappedBy = "series")
+    private List<Til> tils = new ArrayList<>();
+
+    @OneToMany(mappedBy = "series")
     private List<UserLikesSeries> userLikesSeries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "series")
+    private List<SeriesTag> seriesTags = new ArrayList<>();
 }
