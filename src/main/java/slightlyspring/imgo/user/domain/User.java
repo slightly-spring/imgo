@@ -2,6 +2,8 @@ package slightlyspring.imgo.user.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import slightlyspring.imgo.til.domain.Til;
+import slightlyspring.imgo.til.domain.TilComment;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -47,4 +49,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserLikesSeries> userLikesSeries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserLikesTil> userLikesTils = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<TilComment> tilComments = new ArrayList<>();
 }
