@@ -1,17 +1,76 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password:
+  profiles:
+    group:
+      "local": "localdb,common"
 
+---
+
+spring:
+  profiles:
+    group:
+      "dev": "devdb,common"
+
+---
+
+spring:
+  profiles:
+    group:
+      "prod": "proddb,common"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "common"
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-        #        show_sql: true
-        format_sql: true
+      format_sql: true
 
-logging.level:
-  org.hibernate.SQL: debug
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "localdb"
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "devdb"
+  datasource:
+    url: ENC(65ZFRXaMWykX9ii4MmNFKQTSbGVs5O3mehkJgJZMTHG1i64dLEn5OeaXBzufTrfD)
+    username: ENC(R59JJdfpkFxYEUeZfhcJbg==)
+    password: ENC(mRrCFDTbYd0zO3NrtDx7MVKlt3lnY5gEgCCCicM+j0M=)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "proddb"
+  datasource:
+    url:
+    username: imgo
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
