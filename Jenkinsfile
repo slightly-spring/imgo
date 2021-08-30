@@ -33,7 +33,7 @@ pipeline {
 				sh '''ssh -T ubuntu@10.0.1.73 <<EOF
 					docker login -u dlckdgk4858 -p zskyui1212@
 					docker pull dlckdgk4858/imgo:dev
-					docker run -p 8080:8080 -d dlckdgk4858/imgo:dev --name imgo-web
+					docker run -p 8080:8080 -d dlckdgk4858/imgo:dev
 					exit
 					EOF'''
 			}
