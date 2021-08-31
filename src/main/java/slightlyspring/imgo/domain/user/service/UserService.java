@@ -12,8 +12,10 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 class UserService {
 
     @Autowired
-    UserRepository userRepository;
-    ModelMapper modelMapper;
+    private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public UserProfile getUserProfile(long userId) {
         User user = userRepository.find(userId);
