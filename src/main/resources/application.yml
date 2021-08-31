@@ -20,6 +20,13 @@ spring:
 ---
 
 spring:
+  profiles:
+    group:
+      "test": "testdb,common"
+
+---
+
+spring:
   config:
     activate:
       on-profile: "common"
@@ -74,3 +81,15 @@ spring:
     username: imgo
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "testdb"
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: root
+    password:
+    driver-class-name: org.h2.Driver
