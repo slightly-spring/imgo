@@ -31,6 +31,10 @@ dependencies {
 	compileOnly 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17'
 }
 
+jar {
+	enabled = false
+}
+
 test {
 	useJUnitPlatform()
 }
