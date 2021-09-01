@@ -1,6 +1,7 @@
-package slightlyspring.imgo.domain.badge.domain;
+package slightlyspring.imgo.domain.user.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import slightlyspring.imgo.domain.user.domain.UserBadge;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "badges")
-@Getter
+@Getter @Setter
 public class Badge {
     @Id
     @GeneratedValue

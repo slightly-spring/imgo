@@ -1,7 +1,6 @@
 package slightlyspring.imgo.domain.user.domain;
 
 import lombok.Getter;
-import slightlyspring.imgo.domain.badge.domain.Badge;
 
 import javax.persistence.*;
 import java.util.Date;
