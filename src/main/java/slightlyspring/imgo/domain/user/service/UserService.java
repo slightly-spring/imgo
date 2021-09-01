@@ -7,6 +7,8 @@ import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
+import java.util.Optional;
+
 
 @Service
 class UserService {
@@ -17,8 +19,8 @@ class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public UserProfile getUserProfile(long userId) {
-        User user = userRepository.find(userId);
+    public UserProfile getUserProfile(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
         UserProfile userProfile = modelMapper.map(user, UserProfile.class);
 
         return userProfile;
