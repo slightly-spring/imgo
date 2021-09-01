@@ -26,13 +26,21 @@ class UserServiceTest {
 
     @Test
     void 유저_프로필_출력() {
-        User user = new User();
         String nickname = "test01";
+        String profileImg = "sample_image_url";
+        String profileDescription = "hi it is description";
+
+        User user = new User();
         user.setNickname(nickname);
+        user.setProfileImg(profileImg);
+        user.setProfileDescription(profileDescription);
 
         Long savedId = userRepository.save(user);
+
         UserProfile userProfile = userService.getUserProfile(savedId);
 
         assertThat(userProfile.getNickname(), is(equalTo(nickname)));
+        assertThat(userProfile.getProfileImg(), is(equalTo(profileImg)));
+        assertThat(userProfile.getProfileDescription(), is(equalTo(profileDescription)));
     }
 }
