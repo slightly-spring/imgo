@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import slightlyspring.imgo.domain.user.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
@@ -24,6 +25,7 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
+
     @Test
     void 유저_프로필_출력() {
         String nickname = "test01";
@@ -35,9 +37,9 @@ class UserServiceTest {
         user.setProfileImg(profileImg);
         user.setProfileDescription(profileDescription);
 
-        Long savedId = userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        UserProfile userProfile = userService.getUserProfile(savedId);
+        UserProfile userProfile = userService.getUserProfile(savedUser.getId());
 
         assertThat(userProfile.getNickname(), is(equalTo(nickname)));
         assertThat(userProfile.getProfileImg(), is(equalTo(profileImg)));
