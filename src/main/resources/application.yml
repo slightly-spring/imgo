@@ -9,6 +9,7 @@ spring:
   profiles:
     group:
       "dev": "devdb,common"
+    include: "oauth"
 
 ---
 
@@ -74,3 +75,15 @@ spring:
     username: imgo
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+---
+
+sns:
+  google:
+    url: https://accounts.google.com/o/oauth2/v2/auth
+    client:
+      id: 614108897776-qfa6mesb3k9mi1552edhdvbnvin2n05u.apps.googleusercontent.com
+      secret: GQPDRafzqkXRktm5XBAnhZsx
+    callback:
+      url: http://localhost:8080/auth/google/callback
