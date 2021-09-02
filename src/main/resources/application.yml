@@ -81,7 +81,9 @@ spring:
 
 sns:
   google:
-    url: https://accounts.google.com/o/oauth2/v2/auth
+    url:
+      base: https://accounts.google.com/o/oauth2/v2/auth
+      token: https://oauth2.googleapis.com/token
     client:
       id: 614108897776-qfa6mesb3k9mi1552edhdvbnvin2n05u.apps.googleusercontent.com
       secret: GQPDRafzqkXRktm5XBAnhZsx
