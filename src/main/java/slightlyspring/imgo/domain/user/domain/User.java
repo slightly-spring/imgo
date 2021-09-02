@@ -1,5 +1,7 @@
 package slightlyspring.imgo.domain.user.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import slightlyspring.imgo.domain.til.domain.Til;
@@ -13,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter
+@Builder
+@AllArgsConstructor
 public class User {
 
     @Id @GeneratedValue
@@ -58,4 +62,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Til> tils = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Rival> rivals = new ArrayList<>();
+
+    public User() {
+
+    }
 }
