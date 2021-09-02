@@ -78,7 +78,6 @@ spring:
 
 
 ---
-
 sns:
   google:
     url:
