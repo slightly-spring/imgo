@@ -40,6 +40,9 @@ public class OauthController {
       @PathVariable(name = "authType") AuthType authType,
       @RequestParam(name = "code") String code) {
     log.info(">> 소셜 로그인 API 서버로부터 받은 code :: {}", code);
+
+    // access token을 리턴
+    // 컨트롤러에서 이걸 리턴하는게 아닌, 서비스에서 잘 처리해서 필요한 기능만을 불러오도록 만들어야 할 듯
     return oauthService.requestAccessToken(authType, code);
   }
 }
