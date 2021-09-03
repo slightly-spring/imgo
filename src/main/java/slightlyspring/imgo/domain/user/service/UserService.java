@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 @Service
-class UserService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -20,15 +20,18 @@ class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public UserProfile getUserProfile(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        UserProfile userProfile = modelMapper.map(user, UserProfile.class);
+    public Boolean isUserExist(Long userId) {
+        return userRepository.existsById(userId);
+    }
 
+    public UserProfile getUserProfile(Long userId) {
+        User user = userRepository.findById(userId).get();
+        UserProfile userProfile = modelMapper.map(user, UserProfile.class);
         return userProfile;
     }
 
     public UserProfileDetail getUserProfileDetail(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).get();
         UserProfileDetail userProfileDetail = modelMapper.map(user, UserProfileDetail.class);
         return userProfileDetail;
     }
