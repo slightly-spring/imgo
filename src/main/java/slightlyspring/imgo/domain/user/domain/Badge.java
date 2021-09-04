@@ -16,7 +16,11 @@ public class Badge {
     @Id
     @GeneratedValue
     @Column(name = "badge_id")
-    private Long id;
+    private int id;
+
+    private int type_id;
+
+    private int level;
 
     private String name;
 
