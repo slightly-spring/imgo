@@ -34,6 +34,9 @@ public class User {
     private int maxContinuousDays;
 
     @Temporal(TemporalType.TIMESTAMP)
+    private Date lastWriteAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)

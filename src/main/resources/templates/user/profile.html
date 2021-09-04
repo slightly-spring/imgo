@@ -5,11 +5,25 @@
     <title>Imgo</title>
 </head>
 <body>
-<div th:object="${userProfile}">
-    <p th:text="*{nickname}"></p>
-    <p th:text="*{profileImg}"></p>
-    <p th:text="*{profileDescription}"></p>
-</div>
-<p>profile</p>
+    <div th:object="${userProfile}">
+        <p th:text="*{nickname}"></p>
+        <p th:text="*{profileImg}"></p>
+        <p th:text="*{profileDescription}"></p>
+    </div>
+
+    <div th:object="${userProfileDetail}">
+        <div th:each="userBadge : *{userBadges}">
+            <p th:text="${userBadge.badge.logo}"></p>
+            <p th:text="${userBadge.badge.name}"></p>
+        </div>
+        <div th:each="rival : *{rivals}">
+            <p th:text="${rival.target.nickname}"></p>
+            <p th:text="${rival.target.profileImg}">
+            <p th:text="${rival.target.lastWriteAt}">
+        </div>
+        <div>
+
+        </div>
+    </div>
 </body>
 </html>
