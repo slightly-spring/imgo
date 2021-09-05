@@ -95,15 +95,20 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
+---
+# application-oauth.yml 설정을 application.yml 에 포함시키기
+spring:
+  profiles:
+    include: oauth
 
 ---
-sns:
-  google:
-    url:
-      base: https://accounts.google.com/o/oauth2/v2/auth
-      token: https://oauth2.googleapis.com/token
-    client:
-      id: 614108897776-qfa6mesb3k9mi1552edhdvbnvin2n05u.apps.googleusercontent.com
-      secret: GQPDRafzqkXRktm5XBAnhZsx
-    callback:
-      url: http://localhost:8080/auth/google/callback
+#sns:
+#  google:
+#    url:
+#      base: https://accounts.google.com/o/oauth2/v2/auth
+#      token: https://oauth2.googleapis.com/token
+#    client:
+#      id: 614108897776-qfa6mesb3k9mi1552edhdvbnvin2n05u.apps.googleusercontent.com
+#      secret: GQPDRafzqkXRktm5XBAnhZsx
+#    callback:
+#      url: http://localhost:8080/auth/google/callback
