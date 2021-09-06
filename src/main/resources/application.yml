@@ -69,6 +69,9 @@ spring:
     username: ENC(R59JJdfpkFxYEUeZfhcJbg==)
     password: ENC(mRrCFDTbYd0zO3NrtDx7MVKlt3lnY5gEgCCCicM+j0M=)
     driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+
 
 ---
 
