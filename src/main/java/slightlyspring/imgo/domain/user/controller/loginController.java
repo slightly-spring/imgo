@@ -20,8 +20,8 @@ public class loginController {
    * @param model
    * @return "login" template 불러오기
    */
-  @GetMapping("/login")
-  public String login(Model model) {
+  @GetMapping("/oauth_login")
+  public String getLoginPage(Model model) {
     // HttpSession 에 저장되어있는 'user' 세션을 불러오기
     SessionUser user = (SessionUser) httpSession.getAttribute("user");
     if (user != null) {
@@ -29,7 +29,7 @@ public class loginController {
       //세션에 저장된 값이 없다면, 로그인 버튼만 보일 것
       model.addAttribute("userName", user.getName());
     }
-    return "login";
+    return "oauth_login";
   }
 
 }
