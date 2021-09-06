@@ -11,6 +11,10 @@ import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.dto.UserProfileDetail;
 import slightlyspring.imgo.domain.user.service.UserService;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
+
 @Controller()
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -25,9 +29,10 @@ public class UserController {
         }
         UserProfile userProfile = userService.getUserProfile(userId);
         UserProfileDetail userProfileDetail = userService.getUserProfileDetail(userId);
-        System.out.println(userProfile.getProfileDescription());
+
         model.addAttribute("userProfile", userProfile)
-                .addAttribute("userProfileDetail", userProfileDetail);
+                .addAttribute("userProfileDetail", userProfileDetail)
+                .addAttribute("firstDayOfWeek", LocalDate.now().with(WeekFields.of(Locale.KOREA).dayOfWeek(), 1).getDayOfMonth());
 
         return "/user/profile";
     }
