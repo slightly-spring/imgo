@@ -18,8 +18,8 @@
         </div>
         <div th:each="rival : *{rivals}">
             <p th:text="${rival.target.nickname}"></p>
-            <p th:text="${rival.target.profileImg}">
-            <p th:text="${rival.target.lastWriteAt}">
+            <p th:text="${rival.target.profileImg}"
+               th:classappend="${userProfileDetail.isRivalActive(rival)} ? 'active'">
         </div>
         <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">
             <p th:text="${day}"
