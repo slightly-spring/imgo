@@ -13,8 +13,16 @@ public class loginController {
 
   private final HttpSession httpSession;
 
+  /**
+   * login
+   * HttpSession 에 저장되어있는 'user' 세션을 불러와서
+   * user 가 존재하면, model 에 이름 추가 / 없으면 패스
+   * @param model
+   * @return "login" template 불러오기
+   */
   @GetMapping("/login")
   public String login(Model model) {
+    // HttpSession 에 저장되어있는 'user' 세션을 불러오기
     SessionUser user = (SessionUser) httpSession.getAttribute("user");
     if (user != null) {
       //세션에 저장된 값이 있을때만, model 에 userName 으로 등록
