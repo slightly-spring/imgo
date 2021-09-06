@@ -3,7 +3,7 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "rivals")
@@ -17,14 +17,13 @@ public class Rival {
     @Column(name = "rival_id")
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_id")
     private User target;
 }
