@@ -21,8 +21,9 @@
             <p th:text="${rival.target.profileImg}">
             <p th:text="${rival.target.lastWriteAt}">
         </div>
-        <div>
-
+        <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">
+            <p th:text="${day}"
+               th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>
         </div>
     </div>
 </body>

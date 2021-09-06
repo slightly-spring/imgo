@@ -14,4 +14,8 @@ public class UserProfileDetail {
     private List<UserBadge> userBadges = new ArrayList<>();
     private List<Rival> rivals = new ArrayList<>();
     private List<UserTilRecord> userTilRecords = new ArrayList<>();
+
+    public boolean isRecorded(int day) {
+        return this.userTilRecords.stream().anyMatch(record -> record.getBaseDate().getDayOfMonth() == day);
+    }
 }
