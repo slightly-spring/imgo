@@ -14,11 +14,11 @@ public class UserLikesTil {
     @Column(name = "user_likes_til_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "til_id")
     private Til til;
 }
