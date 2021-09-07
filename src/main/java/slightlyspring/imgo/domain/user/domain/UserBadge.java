@@ -1,7 +1,6 @@
 package slightlyspring.imgo.domain.user.domain;
 
 import lombok.Getter;
-import slightlyspring.imgo.domain.badge.domain.Badge;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,11 +14,11 @@ public class UserBadge {
     @Column(name = "user_badge_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "badge_id")
     private Badge badge;
 

@@ -3,7 +3,7 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_notices")
@@ -18,10 +18,9 @@ public class UserNotice {
 
     private boolean isRead;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

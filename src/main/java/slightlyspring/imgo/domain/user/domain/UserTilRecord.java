@@ -3,7 +3,8 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_til_records")
@@ -14,20 +15,17 @@ public class UserTilRecord {
     @Column(name = "user_til_records_id")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date baseDate;
+    private LocalDate baseDate;
 
     private int tilCount;
 
     private int characterCount;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedAt;
+    private LocalDateTime modifiedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }
