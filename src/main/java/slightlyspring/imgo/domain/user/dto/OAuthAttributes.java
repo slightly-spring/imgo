@@ -1,4 +1,4 @@
-package slightlyspring.imgo.global.config.auth.dto;
+package slightlyspring.imgo.domain.user.dto;
 
 import java.util.Map;
 import lombok.Builder;

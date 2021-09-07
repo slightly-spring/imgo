@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import slightlyspring.imgo.domain.user.service.LoginService;
-import slightlyspring.imgo.global.config.auth.dto.SessionUser;
 
 @RequiredArgsConstructor
 @Controller
@@ -57,8 +57,9 @@ public class loginController {
     String userInfoEndpointUri = loginService.getUserInfoEndpointUri(client);
     System.out.println("userEndpoint: " + userInfoEndpointUri);
     if (StringUtils.hasLength(userInfoEndpointUri)) {
-      Map userAttributes = loginService.httpRequestToUserInformationEndpoint(client, userInfoEndpointUri);
-      model.addAttribute("name", userAttributes.get("name"));
+      OAuth2User userAttributes = loginService.httpRequestToUserInformationEndpoint(client, userInfoEndpointUri);
+      System.out.println(userAttributes);
+      model.addAttribute("name", userAttributes.getAttributes().get("name"));
     }
     return "loginSuccess";
   }
