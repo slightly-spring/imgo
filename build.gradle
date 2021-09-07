@@ -30,9 +30,11 @@ dependencies {
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
-	testCompileOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 }
 
 jar {

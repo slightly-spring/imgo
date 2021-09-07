@@ -9,6 +9,7 @@ spring:
   profiles:
     group:
       "dev": "devdb,common"
+    include: "oauth"
 
 ---
 
@@ -16,6 +17,7 @@ spring:
   profiles:
     group:
       "prod": "proddb,common"
+    include: "oauth"
 
 ---
 
