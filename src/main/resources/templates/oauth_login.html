@@ -10,10 +10,7 @@
   <h1>Login</h1>
   <div class="row">
     <div class="col-md-6">
-      <div th:if="${not #strings.isEmpty(userName)}">
-        <span th:text="${userName}">사용자</span> 님, 안녕하세요~
-      </div>
-      <div th:if="${#strings.isEmpty(userName)}">
+      <div th:if="${#strings.isEmpty(name)}">
         <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
       </div>
     </div>

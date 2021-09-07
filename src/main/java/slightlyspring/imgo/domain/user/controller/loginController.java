@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
+import slightlyspring.imgo.domain.user.service.LoginService;
 import slightlyspring.imgo.global.config.auth.dto.SessionUser;
 
 @RequiredArgsConstructor
@@ -22,7 +23,8 @@ import slightlyspring.imgo.global.config.auth.dto.SessionUser;
 public class loginController {
 
 //  private final HttpSession httpSession;
-  private OAuth2AuthorizedClientService authorizedClientService;
+  private final OAuth2AuthorizedClientService authorizedClientService;
+  private final LoginService loginService;
 
   /**
    * login
@@ -46,22 +48,16 @@ public class loginController {
   @GetMapping("/loginSuccess")
   public String getLoginInfo(Model model, OAuth2AuthenticationToken authorizedToken) {
     // 현재 userToken 에 해당하는 사용자 불러오기
+    System.out.println("test: " + authorizedToken);
     OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
         authorizedToken.getAuthorizedClientRegistrationId(),
         authorizedToken.getName()
     );
     // user info. endpoint 에 request 날려서 정보 받아오기
-    String userInfoEndpointUri = client.getClientRegistration()
-        .getProviderDetails().getUserInfoEndpoint().getUri();
-    if (!StringUtils.hasLength(userInfoEndpointUri)) {
-      RestTemplate restTemplate = new RestTemplate();
-      HttpHeaders headers = new HttpHeaders();
-      headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken()
-          .getTokenValue());
-      HttpEntity entity = new HttpEntity("", headers);
-      ResponseEntity<Map> response = restTemplate
-          .exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
-      Map userAttributes = response.getBody();
+    String userInfoEndpointUri = loginService.getUserInfoEndpointUri(client);
+    System.out.println("userEndpoint: " + userInfoEndpointUri);
+    if (StringUtils.hasLength(userInfoEndpointUri)) {
+      Map userAttributes = loginService.httpRequestToUserInformationEndpoint(client, userInfoEndpointUri);
       model.addAttribute("name", userAttributes.get("name"));
     }
     return "loginSuccess";
