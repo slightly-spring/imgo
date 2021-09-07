@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Imgo</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
     <div th:object="${userProfile}">
         <p th:text="*{nickname}"></p>
         <p th:text="*{profileImg}"></p>
@@ -26,5 +24,5 @@
                th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>
         </div>
     </div>
-</body>
+</th:block>
 </html>
