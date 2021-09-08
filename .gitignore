@@ -38,5 +38,3 @@ out/
 
 .DS_Store
 
-### Oauth ###
-application-oauth.yml
