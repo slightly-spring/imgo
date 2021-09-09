@@ -29,7 +29,7 @@ class UserServiceTest {
 
     private User user;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         String nickname = "test01";
         String profileImg = "sample_image_url";
