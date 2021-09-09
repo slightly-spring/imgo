@@ -19,17 +19,4 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    void testUser() throws Exception {
-        User user = new User();
-        user.setNickname("userA");
-
-        User savedUser = userRepository.save(user);
-        User findUser = userRepository.findById(savedUser.getId()).get();
-
-        assertThat(findUser.getId()).isEqualTo(user.getId());
-        assertThat(findUser.getNickname()).isEqualTo(user.getNickname());
-        assertThat(findUser).isEqualTo(user);
-        System.out.println("findUser == user" + (findUser == user));
-    }
 }

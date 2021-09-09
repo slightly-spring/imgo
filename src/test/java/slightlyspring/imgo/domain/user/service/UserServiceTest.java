@@ -3,12 +3,14 @@ package slightlyspring.imgo.domain.user.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import slightlyspring.imgo.domain.user.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
@@ -25,24 +27,32 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    private User user;
 
-    @Test
-    void 유저_프로필_출력() {
+    @BeforeAll
+    void setUp() {
         String nickname = "test01";
         String profileImg = "sample_image_url";
         String profileDescription = "hi it is description";
 
-        User user = new User();
-        user.setNickname(nickname);
-        user.setProfileImg(profileImg);
-        user.setProfileDescription(profileDescription);
+        user = User.builder()
+                .nickname(nickname)
+                .profileImg(profileImg)
+                .profileDescription(profileDescription)
+                .build();
 
-        User savedUser = userRepository.save(user);
-
-        UserProfile userProfile = userService.getUserProfile(savedUser.getId());
-
-        assertThat(userProfile.getNickname(), is(equalTo(nickname)));
-        assertThat(userProfile.getProfileImg(), is(equalTo(profileImg)));
-        assertThat(userProfile.getProfileDescription(), is(equalTo(profileDescription)));
+        userRepository.save(user);
     }
+
+    @Test
+    void 유저_프로필_출력() {
+        UserProfile userProfile = userService.getUserProfile(user.getId());
+
+        assertThat(userProfile.getNickname(), is(equalTo(user.getNickname())));
+        assertThat(userProfile.getProfileImg(), is(equalTo(user.getProfileImg())));
+        assertThat(userProfile.getProfileDescription(), is(equalTo(user.getProfileDescription())));
+    }
+
+
+
 }
