@@ -3,20 +3,20 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilComment;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
+@Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
@@ -67,7 +67,4 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Rival> rivals = new ArrayList<>();
 
-    public User() {
-
-    }
 }
