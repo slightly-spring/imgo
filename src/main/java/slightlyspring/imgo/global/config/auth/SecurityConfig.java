@@ -24,8 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
         // URL 별 권한 관리 설정 - antMatchers() 를 사용해 권한 별 설정이 가능. 현재는 그냥 모두 열어놓음.
         .authorizeRequests()
-          .antMatchers("/oauth_login").permitAll()
-          .anyRequest().authenticated()
+//          .antMatchers("/oauth_login").permitAll()
+//          .anyRequest().authenticated()
+            .anyRequest().permitAll() // 로그인 완성되기 전 임시 조치
           .and()
         .oauth2Login()
           .loginPage("/oauth_login")
