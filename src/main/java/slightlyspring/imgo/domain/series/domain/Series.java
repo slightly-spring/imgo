@@ -1,6 +1,9 @@
 package slightlyspring.imgo.domain.series.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.user.domain.UserLikesSeries;
 
@@ -12,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "series")
 @Getter
+@Builder
+@NoArgsConstructor
 public class Series {
     @Id
     @GeneratedValue
@@ -22,8 +27,10 @@ public class Series {
 
     private String description;
 
+    @ColumnDefault("FALSE")
     private boolean is_completed;
 
+    @ColumnDefault("0")
     private int like_count;
 
     @Temporal(TemporalType.TIMESTAMP)

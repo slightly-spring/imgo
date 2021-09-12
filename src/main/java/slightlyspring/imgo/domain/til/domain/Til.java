@@ -1,6 +1,9 @@
 package slightlyspring.imgo.domain.til.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserLikesTil;
@@ -12,7 +15,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "tils")
+@NoArgsConstructor
 @Getter
+@Builder
 public class Til {
     @Id
     @GeneratedValue
@@ -29,8 +34,10 @@ public class Til {
 
     private String source;
 
+    @ColumnDefault("0")
     private int likeCount;
 
+    @ColumnDefault("0")
     private int viewCount;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,11 +46,11 @@ public class Til {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "series_id")
     private Series series;
 
