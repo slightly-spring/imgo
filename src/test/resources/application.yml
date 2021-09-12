@@ -1,0 +1,10 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            # Encryption 필요
+            client-id: test
+            client-secret: test
+            scope: profile, email
