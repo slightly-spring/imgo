@@ -21,7 +21,8 @@ public class Til {
 
     private String title;
 
-    private String description;
+    @Column(columnDefinition = "LONGTEXT")
+    private String content;
 
     @Enumerated(EnumType.STRING)
     private SourceType sourceType;
