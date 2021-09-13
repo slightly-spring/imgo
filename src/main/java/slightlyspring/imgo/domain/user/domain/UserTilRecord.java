@@ -4,12 +4,12 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
 @Table(name = "user_til_records")
 @Getter
-public class UserTilRecord {
+public class UserTilRecord extends CreatedModifiedTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "user_til_records_id")
@@ -21,9 +21,9 @@ public class UserTilRecord {
 
     private int characterCount;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime modifiedAt;
+//    private LocalDateTime createdAt;
+//
+//    private LocalDateTime modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

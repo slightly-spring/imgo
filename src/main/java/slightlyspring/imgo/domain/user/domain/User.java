@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends CreatedModifiedTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -34,11 +35,11 @@ public class User {
 
     private int maxContinuousDays;
 
-    private LocalDateTime lastWriteAt;
+    private LocalDateTime lastWriteAt; // Til 에서 가져와야 되나?
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime modifiedAt;
+//    private LocalDateTime createdAt;
+//
+//    private LocalDateTime modifiedAt;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private UserAccount userAccount;
