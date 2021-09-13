@@ -26,15 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
           .antMatchers("/oauth_login").permitAll()
           .antMatchers("/user/*").hasRole("USER")
+          .antMatchers("/user/profile/*").permitAll()
           .anyRequest().authenticated()
           .and()
         .oauth2Login()
           .loginPage("/oauth_login")
-
           .defaultSuccessUrl("/loginSuccess")
           .failureUrl("/loginFailure");
-
-
   }
 
 }
