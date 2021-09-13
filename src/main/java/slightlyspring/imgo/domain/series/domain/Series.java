@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.domain.til.domain.Til;
+import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserLikesSeries;
 
 import javax.persistence.*;
@@ -40,6 +41,10 @@ public class Series {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "series")
     private List<Til> tils = new ArrayList<>();
