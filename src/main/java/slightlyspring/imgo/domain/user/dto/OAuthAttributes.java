@@ -4,7 +4,9 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 import slightlyspring.imgo.domain.user.domain.Role;
+import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserAccount;
+import slightlyspring.imgo.domain.user.helper.AuthType;
 
 /**
  * class OAuthAttributes
@@ -16,18 +18,20 @@ import slightlyspring.imgo.domain.user.domain.UserAccount;
 public class OAuthAttributes {
   private Map<String, Object> attributes;
   private String nameAttributeKey;
-  private String name;
-  private String email;
+  private String nickname;
   private String picture;
+  private String authId;
+  private AuthType authType;
 
   @Builder
   public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey,
-      String name, String email, String picture) {
+      String nickname, String picture, String authId, AuthType authType) {
     this.attributes = attributes;
     this.nameAttributeKey = nameAttributeKey;
-    this.name = name;
-    this.email = email;
+    this.nickname = nickname;
     this.picture = picture;
+    this.authId = authId;  // oauth identifier
+    this.authType = authType; // google, kakao, ...
   }
 
   /**
@@ -41,6 +45,8 @@ public class OAuthAttributes {
    */
   public static OAuthAttributes of(String registrationId, String userNameAttributeName,
       Map<String, Object> attributes) {
+
+    // 다른 서비스 추가시, switch 문으로 registrationId 케이스 처리
     return ofGoogle(userNameAttributeName, attributes);
   }
 
@@ -54,26 +60,42 @@ public class OAuthAttributes {
   private static OAuthAttributes ofGoogle(String userNameAttributeName,
       Map<String, Object> attributes) {
     return OAuthAttributes.builder()
-        .name((String) attributes.get("name"))
-        .email((String) attributes.get("email"))
+        .nickname((String) attributes.get("name"))
         .picture((String) attributes.get("picture"))
+        .authId((String) attributes.get("sub"))
+        .authType(AuthType.GOOGLE) //ofGoogle 이니깐!
         .attributes(attributes)
         .nameAttributeKey(userNameAttributeName)
         .build();
   }
 
   /**
-   * toEntity
+   * toUserEntity
+   * User 엔터티를 생성함.
+   * 다만, 처음 가입할 때만 생성해야 함
+   * @return UserAccount
+   */
+  public User toUserEntity() {
+    return User.builder()
+        .nickname(nickname)
+        .profileImg(picture)
+        .build();
+  }
+
+  /**
+   * toUserAccountEntity
    * UserAccount 엔터티를 생성함.
    * 다만, 처음 가입할 때만 생성해야 함
-   * @return
+   * @return UserAccount
    */
-  public UserAccount toEntity() {
+  public UserAccount toUserAccountEntityWith(User user) {
     return UserAccount.builder()
-        .name(name)
-        .email(email)
-        .picture(picture)
+        .user(user)
+        .authId(authId)
+        .authType(authType)
         .role(Role.USER)
         .build();
   }
+
+
 }
