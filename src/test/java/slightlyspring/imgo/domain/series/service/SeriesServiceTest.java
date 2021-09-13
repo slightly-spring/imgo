@@ -23,6 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SeriesServiceTest {
 
     @Autowired
+    SeriesService seriesService;
+
+    @Autowired
     SeriesRepository seriesRepository;
 
     @Autowired
@@ -57,7 +60,7 @@ class SeriesServiceTest {
         seriesRepository.save(series3);
 
         // when
-        List<Series> savedSeriesList = seriesRepository.findAllByUserId(savedUser.getId());
+        List<Series> savedSeriesList = seriesService.getMySeries(savedUser.getId());
 
         // then
         assertThat(savedSeriesList).containsExactly(series, series3);
@@ -77,10 +80,10 @@ class SeriesServiceTest {
                 .build();
 
         // when
-        Series savedSeries = seriesRepository.save(series);
+        Long seriesId = seriesService.saveSeries(series);
 
         // then
-        assertThat(savedSeries)
+        assertThat(seriesRepository.getById(seriesId))
                 .usingComparator(Comparator.comparing(Series::getTitle))
                 .isEqualTo(series);
     }
