@@ -5,13 +5,13 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import lombok.NoArgsConstructor;
-import slightlyspring.imgo.domain.user.helper.AuthType;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
 @Table(name = "user_accounts")
 @NoArgsConstructor
 @Getter
-public class UserAccount {
+public class UserAccount extends CreatedModifiedTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "user_account_id")

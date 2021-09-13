@@ -3,12 +3,12 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
 @Table(name = "user_notices")
 @Getter
-public class UserNotice {
+public class UserNotice extends CreatedTimeOnlyEntity {
     @Id
     @GeneratedValue
     @Column(name = "user_notice_id")
@@ -18,7 +18,7 @@ public class UserNotice {
 
     private boolean isRead;
 
-    private LocalDateTime createdAt;
+//    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
