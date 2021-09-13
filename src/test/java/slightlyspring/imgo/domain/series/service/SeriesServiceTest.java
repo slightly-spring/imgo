@@ -12,6 +12,7 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +65,24 @@ class SeriesServiceTest {
 
     @Test
     void 시리즈_등록() {
+        // given
+        User user = User.builder()
+                .nickname("test")
+                .build();
+        User savedUser = userRepository.save(user);
 
+        Series series = Series.builder()
+                .title("series01")
+                .user(savedUser)
+                .build();
+
+        // when
+        Series savedSeries = seriesRepository.save(series);
+
+        // then
+        assertThat(savedSeries)
+                .usingComparator(Comparator.comparing(Series::getTitle))
+                .isEqualTo(series);
     }
 
 
