@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserLikesTil;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Til {
+public class Til extends CreatedModifiedTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "til_id")
@@ -41,12 +42,6 @@ public class Til {
 
     @ColumnDefault("0")
     private int viewCount;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
