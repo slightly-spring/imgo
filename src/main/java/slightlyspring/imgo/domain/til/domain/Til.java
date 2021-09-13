@@ -1,5 +1,6 @@
 package slightlyspring.imgo.domain.til.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "tils")
-@NoArgsConstructor
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Til {
     @Id
     @GeneratedValue
@@ -46,11 +48,11 @@ public class Til {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "series_id")
     private Series series;
 
