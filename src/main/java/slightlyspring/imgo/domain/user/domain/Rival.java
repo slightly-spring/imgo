@@ -3,7 +3,7 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
 @Table(name = "rivals")
@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Rival {
+public class Rival  extends CreatedTimeOnlyEntity {
     @Id
     @GeneratedValue
     @Column(name = "rival_id")
     private Long id;
 
-    private LocalDateTime createdAt;
+//    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

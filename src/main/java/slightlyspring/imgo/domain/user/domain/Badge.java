@@ -2,18 +2,16 @@ package slightlyspring.imgo.domain.user.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import slightlyspring.imgo.domain.user.domain.UserBadge;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
 @Table(name = "badges")
 @Getter @Setter
-public class Badge {
+public class Badge extends CreatedTimeOnlyEntity {
     @Id
     @GeneratedValue
     @Column(name = "badge_id")
@@ -29,7 +27,7 @@ public class Badge {
 
     private String logo;
 
-    private LocalDateTime createdAt;
+//    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "badge")
     private List<UserBadge> userBadges = new ArrayList<>();
