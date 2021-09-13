@@ -19,29 +19,44 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * Entity User
+ *
+ * id Long
+ * nickName String
+ * picture String
+ * nowContinuousDays int
+ * maxContinuousDays int
+ * lastWriteAt LocalDateTime함
+ *
+ * update(String nickname, String profileImg) User
+ *
+ * noCon, maxCont, lastWriteAt - 기본값 필요
+ * 0, 0, LocalDateTime.MIN힘
+ *
+ * 참조 값들은 기본값 null
+ */
 public class User extends CreatedModifiedTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
     private Long id;
 
-    private String nickname;
+    private String nickname; //글자수 제한 둬야하나?
 
     private String profileImg;
 
     private String profileDescription;
 
-    private int nowContinuousDays;
+    @Builder.Default private int nowContinuousDays = 0;
 
-    private int maxContinuousDays;
+    @Builder.Default private int maxContinuousDays = 0;
 
-    private LocalDateTime lastWriteAt; // Til 에서 가져와야 되나?
+    @Builder.Default private LocalDateTime lastWriteAt = LocalDateTime.MIN; // Til 에서 가져와야 되나?
 
-//    private LocalDateTime createdAt;
-//
-//    private LocalDateTime modifiedAt;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    /*---연관관계 매핑---*/
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY) //양방향 매핑.. 왜? 굳이?
     private UserAccount userAccount;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
