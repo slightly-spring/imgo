@@ -21,10 +21,6 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
 
     private int characterCount;
 
-//    private LocalDateTime createdAt;
-//
-//    private LocalDateTime modifiedAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

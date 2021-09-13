@@ -37,10 +37,6 @@ public class User extends CreatedModifiedTimeEntity {
 
     private LocalDateTime lastWriteAt; // Til 에서 가져와야 되나?
 
-//    private LocalDateTime createdAt;
-//
-//    private LocalDateTime modifiedAt;
-
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private UserAccount userAccount;
 
