@@ -1,5 +1,6 @@
 package slightlyspring.imgo.domain.user.repository;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import slightlyspring.imgo.domain.user.domain.UserAccount;
@@ -10,5 +11,6 @@ import slightlyspring.imgo.domain.user.domain.UserAccount;
  */
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
   // select * from user_accounts where user_accounts.email==email
-  Optional<UserAccount> findByEmail(String email);
+//  Optional<UserAccount> findByEmail(String email);
+  List<UserAccount> findByAuthId(String authId);
 }
