@@ -16,7 +16,6 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 class TilServiceTest {
