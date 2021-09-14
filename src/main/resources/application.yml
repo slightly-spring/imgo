@@ -37,6 +37,14 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        search:
+          backend:
+            aws:
+              signing:
+                enabled: false
+              region: "ap-northeast-2"
+            hosts: ENC(aVEeNTFMbN3II0NeEbIjx/zzmVUVpiE7FY1HHNQ0ZyOSvyUExxCVaCTBxLW9iWeuZY+xcX8dgPREnLABL4Fi1Zfg4eXmBHgmAMlmzuRfiiOrwuqIwNP6rApRhYzXTr/O)
+            protocol: "https"
       format_sql: true
 
 jasypt:

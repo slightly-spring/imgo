@@ -1,4 +1,18 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        search:
+          backend:
+            aws:
+              signing:
+                enabled: false
+              region: "ap-northeast-2"
+            hosts: "vpc-imgo-elasticsearch-s4gfaf3z4xagshj742yux6acl4.ap-northeast-2.es.amazonaws.com"
+            protocol: "https"
+      format_sql: true
   security:
     oauth2:
       client:
