@@ -29,7 +29,7 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
  * maxContinuousDays int
  * lastWriteAt LocalDateTime함
  *
- * update(String nickname, String profileImg) User
+ *
  *
  * noCon, maxCont, lastWriteAt - 기본값 필요
  * 0, 0, LocalDateTime.MIN힘
@@ -38,7 +38,8 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
  */
 public class User extends CreatedModifiedTimeEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "user_id")
     private Long id;
 
@@ -48,11 +49,14 @@ public class User extends CreatedModifiedTimeEntity {
 
     private String profileDescription;
 
-    @Builder.Default private int nowContinuousDays = 0;
+    @Builder.Default
+    private int nowContinuousDays = 0;
 
-    @Builder.Default private int maxContinuousDays = 0;
+    @Builder.Default
+    private int maxContinuousDays = 0;
 
-    @Builder.Default private LocalDateTime lastWriteAt = LocalDateTime.MIN; // Til 에서 가져와야 되나?
+    @Builder.Default
+    private LocalDateTime lastWriteAt = LocalDateTime.of(0,1,1,0,0,0,0); // Til 에서 가져와야 되나?
 
 
     /*---연관관계 매핑---*/
@@ -82,5 +86,15 @@ public class User extends CreatedModifiedTimeEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Rival> rivals = new ArrayList<>();
+
+    /*---메서드---*/
+    public User updateNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+    public User updateProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+        return this;
+    }
 
 }
