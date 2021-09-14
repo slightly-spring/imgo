@@ -6,7 +6,7 @@ import lombok.Getter;
 import slightlyspring.imgo.domain.user.domain.Role;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserAccount;
-import slightlyspring.imgo.domain.user.helper.AuthType;
+import slightlyspring.imgo.domain.user.domain.AuthType;
 
 /**
  * class OAuthAttributes
