@@ -6,7 +6,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import lombok.NoArgsConstructor;
-import slightlyspring.imgo.domain.user.helper.AuthType;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
@@ -45,27 +44,13 @@ public class UserAccount extends CreatedModifiedTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @Builder
-//    public UserAccount(User user, String authId, AuthType authType,
-//        Role role) {
-//        this.user = user;
-//        this.authId = authId;
-//        this.authType = authType;
-//        this.role = role;
-//    }
-
-//    public UserAccount update(String name, String picture) {
-//        this.name = name;
-//        this.picture = picture;
-//
-//        return this;
-//    }
-
+    /*---메서드---*/
     public UserAccount updateRole(Role role) {
         this.role = role;
 
         return this;
     }
+
     public String getRoleKey() {
         return this.role.getKey();
     }
