@@ -34,6 +34,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+
 	// security test
 	implementation 'org.springframework.security:spring-security-test'
 
