@@ -34,10 +34,15 @@ spring:
       on-profile: "common"
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
       format_sql: true
+  # session 을 db에 저장
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
 jasypt:
   encryptor:
