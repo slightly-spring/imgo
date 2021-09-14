@@ -3,6 +3,7 @@ package slightlyspring.imgo.domain.user.helper;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import slightlyspring.imgo.domain.user.domain.AuthType;
 
 @Configuration
 public class AuthTypeConverter implements Converter<String, AuthType> {
