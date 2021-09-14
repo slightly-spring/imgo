@@ -52,25 +52,36 @@ public class LoginService {
     String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
     OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-    User user = attributes.toUserEntity();
-    UserAccount userAccount = attributes.toUserAccountEntityWith(user);
-    if (!isDuplicatedUserAccount(userAccount)) {
+    String currentAuthId = attributes.getAuthId();
+    if (isDuplicatedUserAccount(currentAuthId)) {
+      List<UserAccount> findUserAccounts = userAccountRepository.findByAuthId(currentAuthId);
+      if (findUserAccounts.size() > 1) {
+        throw new IllegalStateException("같은 user 계정이 두 개 이상 등록되어있습니다");
+      }
+      UserAccount findUserAccount = findUserAccounts.get(0);
+      User findUser = findUserAccount.getUser();
+      findUser.updateNickname(attributes.getNickname());
+      findUser.updateProfileImg(attributes.getPicture());
+      findUserAccount.updateRole(currentUserRole(attributes));
+    } else {
+      User user = attributes.toUserEntity();
+      UserAccount userAccount = attributes.toUserAccountEntityWith(user);
       userRepository.save(user);
       userAccountRepository.save(userAccount);
     }
 
-    httpSession.setAttribute("user", new SessionUser(userAccount, user));
+    httpSession.setAttribute("user", new SessionUser(attributes));
 
     return new DefaultOAuth2User(
-        Collections.singleton(new SimpleGrantedAuthority(userAccount.getRoleKey()))
+        Collections.singleton(new SimpleGrantedAuthority(currentUserRole(attributes).getKey()))
         , attributes.getAttributes()
         , attributes.getNameAttributeKey()
     );
   }
 
   /*---helper 메서드---*/
-  private boolean isDuplicatedUserAccount(UserAccount userAccount) {
-    List<UserAccount> findAccount = userAccountRepository.findByAuthId(userAccount.getAuthId());
+  private boolean isDuplicatedUserAccount(String authId) {
+    List<UserAccount> findAccount = userAccountRepository.findByAuthId(authId);
     return !findAccount.isEmpty();
   }
 
