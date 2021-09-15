@@ -64,4 +64,7 @@ public class User extends CreatedModifiedTimeEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Rival> rivals = new ArrayList<>();
 
+    public void updateLastWriteAt(LocalDateTime date) {
+        lastWriteAt = date;
+    }
 }
