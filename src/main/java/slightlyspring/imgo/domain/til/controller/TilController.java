@@ -34,6 +34,6 @@ public class TilController {
 
         Long tilId = tilService.save(til);
 
-        return "redirect:/til/detail/"+ tilId ;
+        return "redirect:/til/detail/" + tilId ;
     }
 }

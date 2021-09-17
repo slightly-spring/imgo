@@ -46,10 +46,4 @@ public class UserService {
         return userProfileDetail;
     }
 
-    public void updateTilLog(User user, Long characterCount) {
-        user.updateLastWriteAt(LocalDateTime.now());
-        userRepository.save(user);
-
-        // TODO userTilRecord UPSERT
-    }
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
@@ -24,6 +25,7 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
 
     private LocalDate baseDate;
 
+    @ColumnDefault("1")
     private int tilCount;
 
     private int characterCount;
@@ -31,4 +33,10 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public UserTilRecord update(int c) {
+        tilCount++;
+        characterCount += c;
+        return this;
+    }
 }
