@@ -23,19 +23,20 @@ public class TilService {
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
 
+    @Transactional
     public Long save(Til til) {
         Long tilId = tilRepository.save(til).getId();
 
         User user = til.getUser();
         user.updateLastWriteAt(LocalDateTime.now());
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
         int characterCount = til.getContent().length();
-        Optional<UserTilRecord> userTilRecord = userTilRecordRepository.findUserTilRecordByUserAndBaseDate(user, LocalDate.now());
+        Optional<UserTilRecord> userTilRecord = userTilRecordRepository.getUserTilRecordByUserAndBaseDate(user, LocalDate.now());
         if (userTilRecord.isEmpty()) {
             UserTilRecord newUserTilRecord = UserTilRecord.builder()
                     .characterCount(characterCount)
-                    .user(user)
+                    .user(savedUser)
                     .build();
             userTilRecordRepository.save(newUserTilRecord);
         } else {

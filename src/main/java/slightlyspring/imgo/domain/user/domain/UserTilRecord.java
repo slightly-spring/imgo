@@ -23,6 +23,7 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
     @Column(name = "user_til_records_id")
     private Long id;
 
+    @ColumnDefault(value = "CURRENT_TIMESTAMP")
     private LocalDate baseDate;
 
     @ColumnDefault("1")

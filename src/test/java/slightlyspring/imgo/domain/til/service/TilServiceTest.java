@@ -4,14 +4,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.til.domain.SourceType;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
+import slightlyspring.imgo.domain.user.repository.UserTilRecordRepository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,18 +29,25 @@ class TilServiceTest {
     TilRepository tilRepository;
 
     @Autowired
+    TilService tilService;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
     SeriesRepository seriesRepository;
 
+    @Autowired
+    UserTilRecordRepository userTilRecordRepository;
+
     @Test
-    void TIL_게시물_작성() {
+    @Transactional
+    void TIL_게시물_오늘_첫_작성() {
         // given
-        User user = User.builder()
-                .nickname("user01")
+        User member = User.builder()
+                .nickname("member01")
                 .build();
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(member);
 
         Series series = Series.builder()
                 .title("series title")
@@ -52,9 +64,17 @@ class TilServiceTest {
                 .build();
 
         // when
-        Til savedTil = tilRepository.save(til);
+        Long tilId = tilService.save(til);
 
         // then
+        Til savedTil = tilRepository.findById(tilId).orElse(null);
+
+        // FIXME 조회하는 것부터 문제 발생.
+//        UserTilRecord userTilRecord = userTilRecordRepository.getUserTilRecordByUserAndBaseDate(savedTil.getUser(), LocalDate.now()).orElse(null);
+//        System.out.println("userTilRecord = " + userTilRecord);
+//
         assertThat(savedTil).isEqualTo(til);
+//        assertThat(userTilRecord.getTilCount()).isEqualTo(1);
+//        assertThat(userTilRecord.getCharacterCount()).isEqualTo(til.getContent().length());
     }
 }
