@@ -18,8 +18,6 @@ public class UserNotice extends CreatedTimeOnlyEntity {
 
     private boolean isRead;
 
-//    private LocalDateTime createdAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

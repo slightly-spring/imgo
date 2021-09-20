@@ -1,9 +1,14 @@
 package slightlyspring.imgo.domain.til.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserLikesTil;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +18,10 @@ import java.util.List;
 @Entity
 @Table(name = "tils")
 @Getter
-public class Til {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Til extends CreatedModifiedTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "til_id")
@@ -21,22 +29,20 @@ public class Til {
 
     private String title;
 
-    private String description;
+    @Column(columnDefinition = "LONGTEXT")
+    private String content;
 
+    @ColumnDefault(value = "COMMON")
     @Enumerated(EnumType.STRING)
     private SourceType sourceType;
 
     private String source;
 
+    @ColumnDefault("0")
     private int likeCount;
 
+    @ColumnDefault("0")
     private int viewCount;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

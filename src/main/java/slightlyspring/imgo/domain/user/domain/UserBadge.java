@@ -22,6 +22,4 @@ public class UserBadge extends CreatedTimeOnlyEntity {
     @JoinColumn(name = "badge_id")
     private Badge badge;
 
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdAt;
 }
