@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import slightlyspring.imgo.domain.user.service.CustomOAuth2UserService;
 
 /**
  * class SecurityConfig extends WebSecurityConfigurerAdapter
@@ -15,7 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity // spring security 설정 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//  private final CustomOAuth2UserService customOAuth2UserService;
+  private final CustomOAuth2UserService customOAuth2UserService;
 //  private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 //  private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
@@ -29,9 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatchers("/user/profile/*").permitAll()
           .anyRequest().authenticated()
           .and()
+        .logout()
+          .logoutUrl("/logout")
+          .logoutSuccessUrl("/")
+          .invalidateHttpSession(true)
+          .deleteCookies("JSESSIONID", "SOME", "OTHER", "COOKIES")
+          .and()
         .oauth2Login()
           .loginPage("/oauth_login")
-          .defaultSuccessUrl("/loginSuccess")
+//          .defaultSuccessUrl("/loginSuccess", true)
+          .userInfoEndpoint()
+          .userService(customOAuth2UserService)
+          .and()
           .failureUrl("/loginFailure");
   }
 
