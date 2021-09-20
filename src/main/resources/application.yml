@@ -76,6 +76,9 @@ spring:
     username: ENC(R59JJdfpkFxYEUeZfhcJbg==)
     password: ENC(mRrCFDTbYd0zO3NrtDx7MVKlt3lnY5gEgCCCicM+j0M=)
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: ENC(GwYZNDvfxCxrfJ3UlinAipgrmZVlbIoJ0MZSFr5VH74r9XHQXCFl8F4iEOVmsRMXZuJ0myeL6D13GaFDh0Oq1ITgsFXgJRR9)
+    port: 6379
   thymeleaf:
     cache: false
 
