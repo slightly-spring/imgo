@@ -6,10 +6,12 @@
     <div class="row">
         <div class="col-md-6">
             <div th:if="${#strings.isEmpty(name)}">
-                <a href="/oauth_login" class="btn btn-success active" role="button">Sign-In</a>
+                <a href="/auth/oAuthLogin" class="btn btn-success active" role="button">Sign-In</a>
             </div>
             <div th:if="${not #strings.isEmpty(name)}">
-                <a href="/logout" class="btn btn-success active" role="button">로그아웃</a>
+                <form method="post" action="/auth/logout">
+                    <button class="btn btn-success active" role="button">로그아웃</button>
+                </form>
             </div>
         </div>
     </div>

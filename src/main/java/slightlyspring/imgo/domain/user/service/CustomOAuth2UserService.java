@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import slightlyspring.imgo.domain.user.domain.Role;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserAccount;
@@ -23,56 +24,60 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-  private final UserAccountRepository userAccountRepository;
-  private final UserRepository userRepository;
-  private final HttpSession httpSession;
+    private final UserAccountRepository userAccountRepository;
+    private final UserRepository userRepository;
+    private final HttpSession httpSession;
 
-  @Override
-  public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-    OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
-    OAuth2User oAuth2User = delegate.loadUser(userRequest);
+    @Override
+    @Transactional
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+        OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-    String registrationId = userRequest.getClientRegistration().getRegistrationId(); //1
-    String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); //2
+        String registrationId = userRequest.getClientRegistration().getRegistrationId(); //1
+        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); //2
 
-    OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); //3
+        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); //3
 
-    String currentAuthId = attributes.getAuthId();
-    if (isDuplicatedUserAccount(currentAuthId)) {
-      List<UserAccount> findUserAccounts = userAccountRepository.findByAuthId(currentAuthId);
-      if (findUserAccounts.size() > 1) {
-        throw new IllegalStateException("같은 user 계정이 두 개 이상 등록되어있습니다");
-      }
-      UserAccount findUserAccount = findUserAccounts.get(0);
-      User findUser = findUserAccount.getUser();
+        String currentAuthId = attributes.getAuthId();
+        if (isDuplicatedUserAccount(currentAuthId)) {
+            List<UserAccount> findUserAccounts = userAccountRepository.findByAuthId(currentAuthId);
+            if (findUserAccounts.size() > 1) {
+                throw new IllegalStateException("같은 user 계정이 두 개 이상 등록되어있습니다");
+            }
+            UserAccount findUserAccount = findUserAccounts.get(0);
+            User findUser = findUserAccount.getUser();
 
-      findUser.updateNickname(attributes.getNickname());
-      findUser.updateProfileImg(attributes.getPicture());
-      findUserAccount.updateRole(currentUserRole(attributes));
-    } else {
-      User user = attributes.toUserEntity();
-      UserAccount userAccount = attributes.toUserAccountEntityWith(user);
-      userRepository.save(user);
-      userAccountRepository.save(userAccount);
+            findUser.updateNickname(attributes.getNickname())
+                    .updateProfileImg(attributes.getPicture());
+            findUserAccount.updateRole(currentUserRole(attributes));
+
+            userRepository.save(findUser);
+            userAccountRepository.save(findUserAccount);
+        } else {
+            User user = attributes.toUserEntity();
+            UserAccount userAccount = attributes.toUserAccountEntityWith(user);
+            userRepository.save(user);
+            userAccountRepository.save(userAccount);
+        }
+
+        httpSession.setAttribute("user", new SessionUser(attributes));
+
+        return new DefaultOAuth2User(
+                Collections.singleton(new SimpleGrantedAuthority(currentUserRole(attributes).getKey()))
+                , attributes.getAttributes()
+                , attributes.getNameAttributeKey()
+        );
     }
 
-    httpSession.setAttribute("user", new SessionUser(attributes));
+    /*---helper 메서드---*/
+    private boolean isDuplicatedUserAccount(String authId) {
+        List<UserAccount> findAccount = userAccountRepository.findByAuthId(authId);
+        return !findAccount.isEmpty();
+    }
 
-    return new DefaultOAuth2User(
-        Collections.singleton(new SimpleGrantedAuthority(currentUserRole(attributes).getKey()))
-        , attributes.getAttributes()
-        , attributes.getNameAttributeKey()
-    );
-  }
-
-  /*---helper 메서드---*/
-  private boolean isDuplicatedUserAccount(String authId) {
-    List<UserAccount> findAccount = userAccountRepository.findByAuthId(authId);
-    return !findAccount.isEmpty();
-  }
-
-  private Role currentUserRole(OAuthAttributes attributes) {
-    // 수정 필요
-    return Role.USER;
-  }
+    private Role currentUserRole(OAuthAttributes attributes) {
+        // 수정 필요
+        return Role.USER;
+    }
 }

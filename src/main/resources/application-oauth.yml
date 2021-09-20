@@ -7,7 +7,6 @@ spring:
       client:
         registration:
           google:
-            # Encryption 필요
             client-id: ENC(acrzec47moEOeZ1hyRLQltT7s4qQz4xsvuIcsOP47TAx5Qd6R2UMFqFdWlDriyFqqt/gOR2Z2NGN0NUdyc/L3RpQ4BR4oHcvPvHGDo3MSTbALlC1bksHyA==)
             client-secret: ENC(q2LsBAvyUk/C03rK7Mdf4+JBnx7mXo6hXrcRO/QQMd3Hk+pDovVxBQ==)
             scope: profile, email

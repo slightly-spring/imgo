@@ -22,27 +22,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-        // URL 별 권한 관리 설정 - antMatchers() 를 사용해 권한 별 설정이 가능. 현재는 그냥 모두 열어놓음.
+    http.csrf().disable()
         .authorizeRequests()
-          .antMatchers("/oauth_login").permitAll()
-          .antMatchers("/user/*").hasRole("USER")
-          .antMatchers("/user/profile/*").permitAll()
-          .anyRequest().authenticated()
-          .and()
-        .logout()
-          .logoutUrl("/logout")
-          .logoutSuccessUrl("/")
-          .invalidateHttpSession(true)
-          .deleteCookies("JSESSIONID", "SOME", "OTHER", "COOKIES")
-          .and()
-        .oauth2Login()
-          .loginPage("/oauth_login")
-//          .defaultSuccessUrl("/loginSuccess", true)
-          .userInfoEndpoint()
-          .userService(customOAuth2UserService)
-          .and()
-          .failureUrl("/loginFailure");
+            .antMatchers("/*").permitAll()
+            .antMatchers("/til/write", "/til/analyze").hasRole("USER")
+            .anyRequest().authenticated()
+        .and()
+          .logout()
+            .logoutUrl("/auth/logout")
+            .logoutSuccessUrl("/")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+        .and()
+          .oauth2Login()
+            .userInfoEndpoint()
+            .userService(customOAuth2UserService)
+            .and()
+            .failureUrl("/loginFailure");
   }
 
 }

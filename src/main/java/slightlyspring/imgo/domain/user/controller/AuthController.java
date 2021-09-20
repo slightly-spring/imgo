@@ -8,10 +8,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class LoginController {
+@RequestMapping("/auth")
+public class AuthController {
 
 
   /**
@@ -21,9 +23,9 @@ public class LoginController {
    * @param model
    * @return "login" template 불러오기
    */
-  @GetMapping("/oauth_login")
+  @GetMapping("/oAuthLogin")
   public String getLoginPage(Model model) {
-    return "auth/oauth_login";
+    return "/auth/oAuthLogin";
   }
 
 //
