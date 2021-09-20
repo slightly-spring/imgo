@@ -38,11 +38,12 @@ spring:
     properties:
       hibernate:
       format_sql: true
-  # session 을 db에 저장
   session:
-    store-type: jdbc
-    jdbc:
-      initialize-schema: always
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace:
+        spring: session
 
 jasypt:
   encryptor:

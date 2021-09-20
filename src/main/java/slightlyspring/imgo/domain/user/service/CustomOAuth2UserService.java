@@ -39,6 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); //3
 
+        Long userId;
         String currentAuthId = attributes.getAuthId();
         if (isDuplicatedUserAccount(currentAuthId)) {
             List<UserAccount> findUserAccounts = userAccountRepository.findByAuthId(currentAuthId);
@@ -52,16 +53,17 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                     .updateProfileImg(attributes.getPicture());
             findUserAccount.updateRole(currentUserRole(attributes));
 
-            userRepository.save(findUser);
+            userId = userRepository.save(findUser).getId();
             userAccountRepository.save(findUserAccount);
         } else {
             User user = attributes.toUserEntity();
             UserAccount userAccount = attributes.toUserAccountEntityWith(user);
-            userRepository.save(user);
+            userId = userRepository.save(user).getId();
             userAccountRepository.save(userAccount);
         }
 
-        httpSession.setAttribute("user", new SessionUser(attributes));
+//        httpSession.setAttribute("user", new SessionUser(attributes));
+        httpSession.setAttribute("userId", userId);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(currentUserRole(attributes).getKey()))
