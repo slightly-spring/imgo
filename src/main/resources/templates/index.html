@@ -4,5 +4,13 @@
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="content">
     <p>index</p>
+    <div class="col-md-6">
+        <div th:if="${not #strings.isEmpty(name)}">
+            <span th:text="${name}">사용자</span> 님, 안녕하세요~
+        </div>
+        <div th:if="${#strings.isEmpty(name)}">
+            <p>name 이 안넘어 왔어요</p>
+        </div>
+    </div>
 </th:block>
 </html>
