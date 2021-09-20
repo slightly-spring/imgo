@@ -2,6 +2,7 @@ package slightlyspring.imgo.domain.til.domain;
 
 import lombok.Getter;
 import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,19 +10,13 @@ import java.util.Date;
 @Entity
 @Table(name = "til_comments")
 @Getter
-public class TilComment {
+public class TilComment extends CreatedModifiedTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "til_comment_id")
     private Long id;
 
     private String content;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

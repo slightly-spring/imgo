@@ -17,7 +17,6 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
 @Transactional
 class UserServiceTest {
 
