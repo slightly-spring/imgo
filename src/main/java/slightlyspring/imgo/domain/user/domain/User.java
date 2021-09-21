@@ -39,12 +39,11 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
  */
 public class User extends CreatedModifiedTimeEntity {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "user_id")
     private Long id;
 
-    private String nickname; //글자수 제한 둬야하나?
+    private String nickname;
 
     private String profileImg;
 
@@ -98,4 +97,7 @@ public class User extends CreatedModifiedTimeEntity {
         return this;
     }
 
+    public void updateLastWriteAt(LocalDateTime date) {
+        lastWriteAt = date;
+    }
 }

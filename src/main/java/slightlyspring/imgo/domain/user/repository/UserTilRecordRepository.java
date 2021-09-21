@@ -6,7 +6,9 @@ import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserTilRecordRepository extends JpaRepository<UserTilRecord, Long> {
     List<UserTilRecord> findAllByUserAndBaseDateBetween(User user, LocalDate start, LocalDate end);
+    Optional<UserTilRecord> getUserTilRecordByUserAndBaseDate(User user, LocalDate date);
 }

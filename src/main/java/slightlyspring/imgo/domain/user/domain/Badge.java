@@ -27,8 +27,6 @@ public class Badge extends CreatedTimeOnlyEntity {
 
     private String logo;
 
-//    private LocalDateTime createdAt;
-
     @OneToMany(mappedBy = "badge")
     private List<UserBadge> userBadges = new ArrayList<>();
 }

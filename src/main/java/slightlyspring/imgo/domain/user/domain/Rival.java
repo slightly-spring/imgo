@@ -17,8 +17,6 @@ public class Rival  extends CreatedTimeOnlyEntity {
     @Column(name = "rival_id")
     private Long id;
 
-//    private LocalDateTime createdAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
