@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.user.service;
+package slightlyspring.imgo.domain.auth.service;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,12 +13,11 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import slightlyspring.imgo.domain.user.domain.Role;
+import slightlyspring.imgo.domain.auth.domain.Role;
 import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.domain.UserAccount;
-import slightlyspring.imgo.domain.user.dto.OAuthAttributes;
-import slightlyspring.imgo.domain.user.dto.SessionUser;
-import slightlyspring.imgo.domain.user.repository.UserAccountRepository;
+import slightlyspring.imgo.domain.auth.domain.UserAccount;
+import slightlyspring.imgo.domain.auth.dto.OAuthAttributes;
+import slightlyspring.imgo.domain.auth.repository.UserAccountRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 @RequiredArgsConstructor

@@ -1,12 +1,12 @@
-package slightlyspring.imgo.domain.user.dto;
+package slightlyspring.imgo.domain.auth.dto;
 
 import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
-import slightlyspring.imgo.domain.user.domain.Role;
+import slightlyspring.imgo.domain.auth.domain.Role;
 import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.domain.UserAccount;
-import slightlyspring.imgo.domain.user.domain.AuthType;
+import slightlyspring.imgo.domain.auth.domain.UserAccount;
+import slightlyspring.imgo.domain.auth.domain.AuthType;
 
 /**
  * class OAuthAttributes

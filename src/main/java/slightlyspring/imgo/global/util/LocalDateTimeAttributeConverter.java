@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.user.helper;
+package slightlyspring.imgo.global.util;
 
 import java.time.LocalDateTime;
 import java.sql.Timestamp;

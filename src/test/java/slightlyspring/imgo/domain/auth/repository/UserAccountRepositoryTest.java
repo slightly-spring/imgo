@@ -1,19 +1,17 @@
-package slightlyspring.imgo.domain.user.repository;
+package slightlyspring.imgo.domain.auth.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import groovy.util.logging.Slf4j;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import slightlyspring.imgo.domain.user.domain.AuthType;
-import slightlyspring.imgo.domain.user.domain.Role;
-import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.domain.UserAccount;
+import slightlyspring.imgo.domain.auth.domain.AuthType;
+import slightlyspring.imgo.domain.auth.domain.Role;
+import slightlyspring.imgo.domain.auth.domain.UserAccount;
+import slightlyspring.imgo.domain.auth.repository.UserAccountRepository;
 
 @SpringBootTest
 @Transactional

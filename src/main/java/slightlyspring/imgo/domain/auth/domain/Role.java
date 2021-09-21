@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.user.domain;
+package slightlyspring.imgo.domain.auth.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

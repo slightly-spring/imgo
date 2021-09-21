@@ -1,10 +1,9 @@
-package slightlyspring.imgo.domain.user.dto;
+package slightlyspring.imgo.domain.auth.dto;
 
 import java.io.Serializable;
 import lombok.Getter;
-import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.domain.UserAccount;
-import slightlyspring.imgo.domain.user.domain.AuthType;
+import slightlyspring.imgo.domain.auth.domain.AuthType;
+import slightlyspring.imgo.domain.auth.dto.OAuthAttributes;
 
 @Getter
 public class SessionUser implements Serializable {

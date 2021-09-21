@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import slightlyspring.imgo.domain.user.service.CustomOAuth2UserService;
+import slightlyspring.imgo.domain.auth.service.CustomOAuth2UserService;
 
 /**
  * class SecurityConfig extends WebSecurityConfigurerAdapter

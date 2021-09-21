@@ -1,9 +1,9 @@
-package slightlyspring.imgo.domain.user.repository;
+package slightlyspring.imgo.domain.auth.repository;
 
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import slightlyspring.imgo.domain.user.domain.UserAccount;
+import slightlyspring.imgo.domain.auth.domain.UserAccount;
 
 /**
  * UserAccount extends JpaRepository<UserAccount, Long>

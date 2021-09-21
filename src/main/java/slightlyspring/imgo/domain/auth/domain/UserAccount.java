@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.user.domain;
+package slightlyspring.imgo.domain.auth.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import lombok.NoArgsConstructor;
+import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
