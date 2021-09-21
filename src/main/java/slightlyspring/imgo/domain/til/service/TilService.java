@@ -1,6 +1,7 @@
 package slightlyspring.imgo.domain.til.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import slightlyspring.imgo.domain.til.domain.Til;
@@ -24,6 +25,7 @@ public class TilService {
     private final UserTilRecordRepository userTilRecordRepository;
 
     @Transactional
+    @PreAuthorize("isAuthenticated()")
     public Long save(Til til) {
         Long tilId = tilRepository.save(til).getId();
 
