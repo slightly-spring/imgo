@@ -5,9 +5,11 @@
 <th:block layout:fragment="content">
     <p>index</p>
     <div class="col-md-6">
-        <span>userId is</span>
-        <span th:text="${userId}">
-        </span>
+        <div th:if="${not #strings.isEmpty(userId)}">
+            <span>userId is</span>
+            <span th:text="${userId}"/>
+            <a href="/auth/logout">로그아웃</a>
+        </div>
     </div>
 </th:block>
 </html>
