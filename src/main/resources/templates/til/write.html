@@ -4,10 +4,10 @@
       layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
-    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-    <link th:href="@{/css/til/write.css}" rel="stylesheet" />
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/til/write.css}" rel="stylesheet"/>
 </head>
-<th:block layout:fragment="content" >
+<th:block layout:fragment="content">
     <div class="content-wrapper">
         <!-- modal -->
         <section class="modal--show" id="modal" tabindex="-1"
@@ -22,27 +22,30 @@
             <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
                data-dismiss="modal">?</a>
         </section>
+        <form action="/til/save" th:object="${tilForm}" method="post" onsubmit="return onSubmit();">
+            <div class="block input-series">
+                <a href="#modal">modal</a>
+            </div>
+            <div class="block input-title">
+                <input type="text" name="title"/>
+            </div>
+            <div class="editor" id="editor">
 
-        <div class="block input-series">
-            <a href="#modal">modal</a>
-        </div>
-        <div class="block input-title">
-            <input type="text"/>
-        </div>
-        <div class="editor" id="editor">
-
-        </div>
-        <div class="block input-tags">
-            <div id="tag_input"/>
-        </div>
-        <div class="buttons">
-            <button class="cancel" type="button">
-                취소
-            </button>
-            <button class="submit" type="submit">
-                등록
-            </button>
-        </div>
+            </div>
+            <input type="hidden" name="content" id="content">
+            <div class="block input-tags">
+                <div id="tag_input"/>
+                <input type="hidden" name="tags" id="tags"/>
+            </div>
+            <div class="buttons">
+                <button class="cancel" type="button">
+                    취소
+                </button>
+                <button class="submit" type="submit">
+                    등록
+                </button>
+            </div>
+        </form>
     </div>
 
     <script src="https://uicdn.toast.com/editor/3.1.0/toastui-editor-all.min.js"></script>

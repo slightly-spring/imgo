@@ -5,8 +5,15 @@ const editor = new Editor({
     initialEditType: 'markdown',
     previewStyle: 'vertical'
 });
-
 editor.getMarkdown();
 
-const inputElement = document.querySelector('#tag_input');
-new Tagify(inputElement);
+const tagInput = document.querySelector('#tag_input');
+const tagify = new Tagify(tagInput, {
+    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+});
+
+function onSubmit() {
+    document.querySelector("#content").value = editor.getHTML();
+    document.querySelector("#tags").value = tagInput.value.split(",");
+    return true;
+}
