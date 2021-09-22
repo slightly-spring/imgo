@@ -10,6 +10,7 @@ import slightlyspring.imgo.domain.tag.repository.TagRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,11 @@ public class TagService {
     }
 
     @Transactional
-    public List<Tag> saveTags(List<Tag> tagList) {
+    public List<Tag> saveTags(List<String> tags) {
+        List<Tag> tagList = new ArrayList<>();
+        for (String tag : tags) {
+            tagList.add(Tag.builder().name(tag).build());
+        }
         return tagRepository.saveAll(tagList);
     }
 
