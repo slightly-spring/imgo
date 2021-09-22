@@ -1,6 +1,9 @@
 package slightlyspring.imgo.domain.til.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 
 import javax.persistence.*;
@@ -8,6 +11,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "til_tags")
 @Getter
+@Builder
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class TilTag {
     @Id
     @GeneratedValue

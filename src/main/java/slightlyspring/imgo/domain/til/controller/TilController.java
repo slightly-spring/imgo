@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import slightlyspring.imgo.domain.tag.domain.Tag;
+import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.service.TilService;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 public class TilController {
 
     private final TilService tilService;
+    private final TagService tagService;
     
     @GetMapping("/write")
     public String write() {
@@ -30,9 +32,8 @@ public class TilController {
         Til til = (Til) param.get("til");
         List<Tag> tags = (List<Tag>) param.get("tags");
 
-        // TODO tags 저장, 저장된 tag의 id를 til에 반영
-
-        Long tilId = tilService.save(til);
+        List<Tag> savedTags = tagService.saveTags(tags);
+        Long tilId = tilService.save(til, savedTags);
 
         return "redirect:/til/detail/" + tilId ;
     }
