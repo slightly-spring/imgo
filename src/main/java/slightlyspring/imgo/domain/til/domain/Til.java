@@ -32,7 +32,8 @@ public class Til extends CreatedModifiedTimeEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
-    @ColumnDefault(value = "COMMON")
+//    @ColumnDefault(value = "'COMMON'")
+    @Column(columnDefinition = "varchar(255) default 'COMMON'")
     @Enumerated(EnumType.STRING)
     private SourceType sourceType;
 
