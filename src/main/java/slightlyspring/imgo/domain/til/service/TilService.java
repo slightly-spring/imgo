@@ -1,10 +1,15 @@
 package slightlyspring.imgo.domain.til.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
+import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
+import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
@@ -22,6 +27,7 @@ public class TilService {
     private final TilRepository tilRepository;
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
+    private final TilTagRepository tilTagRepository;
 
     @Transactional
     public Long save(Til til) {
@@ -44,6 +50,10 @@ public class TilService {
         }
 
         return tilId;
+    }
+
+    public List<Til> findByUserId(Long userId) {
+        return tilRepository.findByUserId(userId);
     }
 
 }
