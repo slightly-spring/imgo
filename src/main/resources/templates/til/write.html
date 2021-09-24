@@ -9,22 +9,33 @@
 </head>
 <th:block layout:fragment="content">
     <div class="content-wrapper">
-        <!-- modal -->
-        <section class="modal--show" id="modal" tabindex="-1"
-                 role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="text-center">시리즈 선택하기</h5>
+                        <input id="series-input"  class="form-control" type="text" placeholder="검색할 시리즈명을 입력하세요." oninput="findSeries()">
 
-            <div class="modal-inner">
-                <header id="modal-label">Header</header>
-                <div class="modal-content">The modals content</div>
-                <footer>Footer</footer>
+                        <div class="series-list">
+                            <select class="form-select" size="3" aria-label="size 3 select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-md-evenly">
+                            <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn">선택한 시리즈로 등록</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-               data-dismiss="modal">?</a>
-        </section>
+        </div>
         <form action="/til/save" th:object="${tilForm}" method="post" onsubmit="return onSubmit();">
             <div class="block input-series">
-                <a href="#modal">modal</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">modal</a>
             </div>
             <div class="block input-title">
                 <input type="text" name="title"/>

@@ -12,6 +12,10 @@ const tagify = new Tagify(tagInput, {
     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
 });
 
+function findSeries() {
+
+}
+
 function onSubmit() {
     document.querySelector("#til-content").value = editor.getHTML();
     document.querySelector("#tags").value = tagInput.value.split(",");
