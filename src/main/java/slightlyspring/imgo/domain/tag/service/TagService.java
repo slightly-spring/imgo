@@ -37,7 +37,9 @@ public class TagService {
     public List<Tag> saveTags(List<String> tags) {
         List<Tag> tagList = new ArrayList<>();
         for (String tag : tags) {
-            tagList.add(Tag.builder().name(tag).build());
+            if(!tagRepository.existsByName(tag)) {
+                tagList.add(Tag.builder().name(tag).build());
+            }
         }
         return tagRepository.saveAll(tagList);
     }

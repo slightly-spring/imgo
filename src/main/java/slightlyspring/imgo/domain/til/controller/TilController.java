@@ -10,6 +10,7 @@ import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,8 @@ public class TilController {
     private final TilService tilService;
     private final TagService tagService;
     private final UserRepository userRepository;
-    
+    private final HttpSession httpSession;
+
     @GetMapping("/write")
     public String write() {
 
@@ -31,19 +33,17 @@ public class TilController {
 
     @PostMapping("save")
     public String save(@ModelAttribute("tilForm") TilForm tilForm) {
+        // TODO userId using principal
+        Long userId = (Long) httpSession.getAttribute("userId");
         List<String> tags = tilForm.getTags();
         Til til = Til.builder()
                 .title(tilForm.getTitle())
                 .content(tilForm.getContent())
                 .sourceType(tilForm.getSourceType())
                 .source(tilForm.getSource())
-                .user(userRepository.getById(6L))
+                .user(userRepository.getById(userId))
                 .series(tilForm.getSeries())
                 .build();
-
-        // TODO userId using principal
-        // TODO content serving
-        // TODO duplicated tags insert
 
         List<Tag> savedTags = tagService.saveTags(tags);
         Long tilId = tilService.save(til, savedTags);
