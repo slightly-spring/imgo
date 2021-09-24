@@ -13,7 +13,7 @@ const tagify = new Tagify(tagInput, {
 });
 
 function onSubmit() {
-    document.querySelector("#content").value = editor.getHTML();
+    document.querySelector("#til-content").value = editor.getHTML();
     document.querySelector("#tags").value = tagInput.value.split(",");
     return true;
 }
