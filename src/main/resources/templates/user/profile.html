@@ -24,5 +24,71 @@
                th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>
         </div>
     </div>
+
+    <div id="tilCard">
+        <h1>til card list</h1>
+    </div>
+
+
+    <script>
+        const testDiv = document.getElementById('tilCard');
+
+        fetch(`http://localhost:8080/til/1/til-cards`)
+        .then(response => {
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new TypeError("Oops, we haven't got JSON!");
+            }
+            return response.json();
+        })
+        .then(showTilCards)
+        .catch(alert);
+
+        // const testBtn = document.getElementById('');
+        // testBtn.addEventListener('click', function (e) {
+        //     // const json = fetch(`http://localhost:8080/til/1/til-cards`)
+        //     fetch(`http://localhost:8080/til/1/til-cards`)
+        //     .then(response => {
+        //         const contentType = response.headers.get('content-type');
+        //         if (!contentType || !contentType.includes('application/json')) {
+        //             throw new TypeError("Oops, we haven't got JSON!");
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(showTilCards)
+        //     .catch(alert);
+        // })
+
+        function showTilCards(jsonObj) {
+            for (let i = 0; i < jsonObj.length; i++) {
+                let tilCard = document.createElement('article');
+                let title = document.createElement('h2');
+                let likeCount = document.createElement('p');
+                let nickname = document.createElement('p');
+                let createdAt = document.createElement('p');
+                let tagList = document.createElement('ul');
+
+                title.textContent = jsonObj[i].title;
+                likeCount.textContent = jsonObj[i].likeCount;
+                nickname.textContent = jsonObj[i].nickname;
+                createdAt.textContent = jsonObj[i].createdAt;
+
+                let tags = jsonObj[i].tags;
+                for (let j = 0; j < tags.length; j++) {
+                    let listItem = document.createElement('li');
+                    listItem.textContent = tags[j];
+                    tagList.appendChild(listItem);
+                }
+
+                tilCard.appendChild(title);
+                tilCard.appendChild(likeCount);
+                tilCard.appendChild(nickname);
+                tilCard.appendChild(createdAt);
+                tilCard.appendChild(tagList);
+
+                testDiv.appendChild(tilCard);
+            }
+        }
+    </script>
 </th:block>
 </html>
