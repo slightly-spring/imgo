@@ -33,7 +33,7 @@
     <script>
         const testDiv = document.getElementById('tilCard');
 
-        fetch(`http://localhost:8080/til/1/til-cards`)
+        fetch(`/til/1/til-cards`)
         .then(response => {
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {

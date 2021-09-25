@@ -16,6 +16,7 @@ import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
+import slightlyspring.imgo.domain.til.service.TilCardService;
 import slightlyspring.imgo.domain.til.service.TilService;
 
 import java.util.List;
@@ -31,8 +32,9 @@ import slightlyspring.imgo.domain.user.service.UserService;
 public class TilController {
 
     private final TilService tilService;
-    private final UserService userService;
-    private final TilTagService tilTagService;
+    private final TilCardService tilCardService;
+//    private final UserService userService;
+//    private final TilTagService tilTagService;
 
     // 테스트 데이터 생성용 repository
     private final UserRepository userRepository;
@@ -62,25 +64,8 @@ public class TilController {
 
     @GetMapping("/{userId}/til-cards")
     public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
-        List<TilCardData> tilCardDataList = new ArrayList<>();
-
-        List<Til> tils = tilService.findByUserId(userId);
-        User user = userService.findById(userId);
-
-        for (Til til : tils) {
-//            List<Tag> tags = tilTagService.getTagsByTilId(til.getId());
-            List<Tag> tags = tilTagService.getTagsById(til.getId());
-            TilCardData tmp = TilCardData.builder()
-                .title(til.getTitle())
-                .likeCount(til.getLikeCount())
-                .createdAt(til.getCreatedDate())
-                .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
-                .nickname(user.getNickname())
-                .build();
-            tilCardDataList.add(tmp);
-        }
-
-        return new ResponseEntity<>(tilCardDataList, HttpStatus.OK);
+        return new ResponseEntity<>(tilCardService.getTilCardDataListByUserId(userId),
+            HttpStatus.OK);
     }
 
     /**
