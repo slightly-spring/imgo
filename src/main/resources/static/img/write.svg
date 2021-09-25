@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="vuesax_linear_edit-2" data-name="vuesax/linear/edit-2" transform="translate(-684 -252)">
+        <g id="edit-2" transform="translate(684 252)">
+            <path id="Vector" class="cls-1" d="M12.351 1.919 1.4 13.505a4.066 4.066 0 0 0-.893 1.907l-.493 4.32a2.036 2.036 0 0 0 2.493 2.36l4.293-.733a3.828 3.828 0 0 0 1.853-1L19.6 8.772c1.893-2 2.747-4.28-.2-7.067-2.929-2.76-5.156-1.786-7.049.214z" transform="translate(5.329 2.881)"/>
+            <path id="Vector-2" data-name="Vector" class="cls-1" d="M0 0a8.168 8.168 0 0 0 7.267 6.867" transform="translate(15.853 6.733)"/>
+            <path id="Vector-3" data-name="Vector" class="cls-1" d="M0 0h24" transform="translate(4 29.333)"/>
+        </g>
+    </g>
+</svg>

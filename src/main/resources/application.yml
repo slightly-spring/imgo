@@ -90,6 +90,10 @@ spring:
     port: 6379
   thymeleaf:
     cache: false
+    prefix: "file:src/main/resources/templates/"
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
 
 
 ---

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+  <g id="vuesax_outline_close-circle" data-name="vuesax/outline/close-circle" transform="translate(-236 -252)">
+    <g id="close-circle">
+      <path id="Vector" d="M0,0H12V12H0Z" transform="translate(236 252)" fill="none" opacity="0"/>
+      <g id="그룹_10" data-name="그룹 10" transform="translate(238 254)">
+        <line id="선_2" data-name="선 2" x2="8" y2="8" fill="none" stroke="#bbb" stroke-linecap="round" stroke-width="1"/>
+        <line id="선_3" data-name="선 3" x1="8" y2="8" fill="none" stroke="#bbb" stroke-linecap="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

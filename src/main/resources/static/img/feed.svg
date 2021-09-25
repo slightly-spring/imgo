@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#292d32;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <g id="element-1" transform="translate(-492 -252)">
+        <path id="Vector" class="cls-1" d="M8.5 17.9V2.1C8.5.6 7.86 0 6.27 0H2.23C.64 0 0 .6 0 2.1v15.8C0 19.4.64 20 2.23 20h4.04c1.59 0 2.23-.6 2.23-2.1z" transform="translate(494 254)"/>
+        <path id="Vector-2" data-name="Vector" class="cls-1" d="M8.5 8.9V2.1C8.5.6 7.86 0 6.27 0H2.23C.64 0 0 .6 0 2.1v6.8C0 10.4.64 11 2.23 11h4.04c1.59 0 2.23-.6 2.23-2.1z" transform="translate(505.5 254)"/>
+        <path id="Vector-3" data-name="Vector" class="cls-1" d="M8.5 3.9V2.1C8.5.6 7.86 0 6.27 0H2.23C.64 0 0 .6 0 2.1v1.8C0 5.4.64 6 2.23 6h4.04C7.86 6 8.5 5.4 8.5 3.9z" transform="translate(505.5 268)"/>
+    </g>
+</svg>

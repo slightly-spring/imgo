@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="33.999">
+    <g data-name="합치기 6" style="fill:#ddd">
+        <path d="M1 37.234V9c0-1.654 1.346-3 3-3h22c1.654 0 3 1.346 3 3v28.233l-13.485-8.09-.515-.31-.514.31L1 37.232z" style="stroke:none" transform="translate(0 -5)"/>
+        <path d="M2 35.467 7.78 32H2v3.467m26 0V32h-5.78L28 35.467M28 28V9c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v19h26m2 11-15-9h15v9zM0 39v-9h15L0 39zm30-9H0V9a4 4 0 0 1 4-4h22c2.21 0 4 1.79 4 4v21z" style="fill:#ddd;stroke:none" transform="translate(0 -5)"/>
+    </g>
+</svg>
