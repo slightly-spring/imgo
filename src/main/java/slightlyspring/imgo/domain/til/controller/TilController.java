@@ -2,7 +2,10 @@ package slightlyspring.imgo.domain.til.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import slightlyspring.imgo.domain.series.domain.Series;
+import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.til.domain.Til;
@@ -21,12 +24,17 @@ public class TilController {
     private final TilService tilService;
     private final TagService tagService;
     private final UserRepository userRepository;
+    private final SeriesRepository seriesRepository;
     private final HttpSession httpSession;
 
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model) {
+        // TODO userId using principal
+        Long userId = (Long) httpSession.getAttribute("userId");
 
-        // TODO 유저(+시리즈) 정보 가져오기
+
+        List<Series> seriesList = seriesRepository.findAllByUserId(userId);
+        model.addAttribute(seriesList);
 
         return "/til/write";
     }
@@ -50,4 +58,5 @@ public class TilController {
 
         return "redirect:/til/detail/" + tilId ;
     }
+
 }
