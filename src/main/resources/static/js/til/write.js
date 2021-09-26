@@ -12,8 +12,11 @@ const tagify = new Tagify(tagInput, {
     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
 });
 
-function findSeries() {
-
+function findMySeries() {
+    // 검색
+    // 비어있으면 기본값 show
+    // 있으면 검색된 list 출력
+    // 없으면 검색 버튼 출력
 }
 
 function onSubmit() {

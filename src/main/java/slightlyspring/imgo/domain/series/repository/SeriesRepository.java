@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface SeriesRepository extends JpaRepository<Series, Long> {
     List<Series> findAllByUserId(@Param("user_id") Long userId);
+    List<Series> findAllByTitleContainsAndUserId(@Param("title") String title, @Param("user_id") Long userId);
 }
