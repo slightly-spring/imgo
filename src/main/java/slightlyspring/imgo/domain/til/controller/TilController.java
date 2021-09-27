@@ -32,10 +32,9 @@ public class TilController {
         // TODO userId using principal
         Long userId = (Long) httpSession.getAttribute("userId");
 
-
         List<Series> seriesList = seriesRepository.findAllByUserId(userId);
-        model.addAttribute(seriesList);
-
+        model.addAttribute("seriesList", seriesList);
+        model.addAttribute("userId", userId);
         return "/til/write";
     }
 
@@ -50,7 +49,7 @@ public class TilController {
                 .sourceType(tilForm.getSourceType())
                 .source(tilForm.getSource())
                 .user(userRepository.getById(userId))
-                .series(tilForm.getSeries())
+                .series(seriesRepository.getById(tilForm.getSeriesId()))
                 .build();
 
         List<Tag> savedTags = tagService.saveTags(tags);

@@ -13,7 +13,7 @@ public class TilForm {
     private String content;
     private SourceType sourceType;
     private String source;
-    private Series series;
+    private Long seriesId;
     private Long userId;
     private List<String> tags;
 }

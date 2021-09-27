@@ -7,16 +7,63 @@ const editor = new Editor({
 });
 editor.getMarkdown();
 
-const tagInput = document.querySelector('#tag_input');
+const tagInput = document.querySelector('#tag-input');
 const tagify = new Tagify(tagInput, {
     originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
 });
 
-function findMySeries() {
-    // 검색
-    // 비어있으면 기본값 show
-    // 있으면 검색된 list 출력
-    // 없으면 검색 버튼 출력
+const seriesInput = document.querySelector('#series-input');
+
+async function searchMySeries() {
+    const seriesList = document.querySelector('#series-list');
+
+    const result = await _findMySeries(seriesInput.dataset.userId, seriesInput.value);
+    if (result.length) {
+        let series = "";
+        for (r of result) {
+            series += `<option value=${r.id}>${r.title}</option>`
+        }
+        seriesList.innerHTML = `<select class="form-select" size=${result.length}>` + series + "</select>";
+    } else {
+        seriesList.innerHTML = `<button onclick="addNewSeries(seriesInput.dataset.userId, seriesInput.value)" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
+    }
+
+}
+
+async function _findMySeries(userId, q) {
+    const url = `/series/${userId}?title=${q}`;
+    let response = await fetch(url, {
+        method: "GET",
+    });
+    if (response.ok) {
+        return await response.json();
+    } else {
+        alert("HTTP-Error: " + response.status);
+    }
+}
+
+async function addNewSeries(userId, q) {
+    const url = `/series/${userId}`;
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "content-type" : "application/json"
+        },
+        body: JSON.stringify({title: q})
+    });
+    if (response.ok) {
+        seriesInput.value = "";
+        await searchMySeries();
+        return await response.json();
+    } else {
+        alert("HTTP-Error: " + response.status);
+    }
+}
+
+function selectSeries() {
+    const seriesTitle = document.querySelector('#series-title');
+    const seriesSelect = document.querySelector('#series-select');
+    seriesTitle.innerHTML = seriesSelect.options[seriesSelect.selectedIndex].text;
 }
 
 function onSubmit() {
