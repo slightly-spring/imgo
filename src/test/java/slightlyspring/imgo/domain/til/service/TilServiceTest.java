@@ -78,7 +78,7 @@ class TilServiceTest {
 
         // then
         Til savedTil = tilRepository.findById(tilId).orElse(null);
-        UserTilRecord userTilRecord = userTilRecordRepository.getUserTilRecordByUserAndBaseDate(savedTil.getUser(), LocalDate.now()).orElse(null);
+        UserTilRecord userTilRecord = userTilRecordRepository.findUserTilRecordByUserAndBaseDate(savedTil.getUser(), LocalDate.now()).orElse(null);
 
         assertThat(savedTil).isEqualTo(til);
         assertThat(userTilRecord.getTilCount()).isEqualTo(1);

@@ -51,9 +51,10 @@ public class TilService {
         User savedUser = userRepository.save(user);
 
         int characterCount = til.getContent().length();
-        Optional<UserTilRecord> userTilRecord = userTilRecordRepository.getUserTilRecordByUserAndBaseDate(user, LocalDate.now());
+        Optional<UserTilRecord> userTilRecord = userTilRecordRepository.findUserTilRecordByUserAndBaseDate(user, LocalDate.now());
         if (userTilRecord.isEmpty()) {
             UserTilRecord newUserTilRecord = UserTilRecord.builder()
+                    .tilCount(1)
                     .characterCount(characterCount)
                     .user(savedUser)
                     .build();
