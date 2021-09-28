@@ -1,10 +1,13 @@
 package slightlyspring.imgo.domain.til.controller;
 
+import io.lettuce.core.dynamic.annotation.Param;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -62,10 +65,17 @@ public class TilController {
         return "redirect:/til/detail/" + tilId ;
     }
 
+//    @GetMapping("/{userId}/til-cards")
+//    public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
+//        List<TilCardData> tilCardDataList = tilCardService.getTilCardDataListByUserId(userId);
+//        return new ResponseEntity<>(tilCardDataList, HttpStatus.OK);
+//    }
+
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
-        return new ResponseEntity<>(tilCardService.getTilCardDataListByUserId(userId),
-            HttpStatus.OK);
+    public ResponseEntity getTilCardList(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataPageByUserId(pageable, userId);
+        return new ResponseEntity<>(tilCardDataPages, HttpStatus.OK);
     }
 
     /**
@@ -76,24 +86,19 @@ public class TilController {
         User user = User.builder().nickname("testUser").build();
         userRepository.save(user);
 
-        Tag tagA = Tag.builder().name("tagA").build();
-        Tag tagB = Tag.builder().name("tagB").build();
-        tagRepository.save(tagA);
-        tagRepository.save(tagB);
+        for (int i=0; i<20; i++) {
+            Tag tagA = Tag.builder().name("tag" + i).build();
+            Tag tagB = Tag.builder().name("tag" + (i + 20)).build();
+            tagRepository.save(tagA);
+            tagRepository.save(tagB);
 
+            Til til = Til.builder().title("testTil"+i).user(user).build();
+            tilRepository.save(til);
 
-        Til tilA = Til.builder().title("tilA").user(user).build();
-        Til tilB = Til.builder().title("tilB").user(user).build();
-        tilRepository.save(tilA);
-        tilRepository.save(tilB);
-
-        TilTag tilTagAA = new TilTag(tilA, tagA);
-        TilTag tilTagAB = new TilTag(tilA, tagB);
-        TilTag tilTagBA = new TilTag(tilB, tagA);
-        TilTag tilTagBB = new TilTag(tilB, tagB);
-        tilTagRepository.save(tilTagAA);
-        tilTagRepository.save(tilTagAB);
-        tilTagRepository.save(tilTagBA);
-        tilTagRepository.save(tilTagBB);
+            TilTag tilTagAA = new TilTag(til, tagA);
+            TilTag tilTagAB = new TilTag(til, tagB);
+            tilTagRepository.save(tilTagAA);
+            tilTagRepository.save(tilTagAB);
+        }
     }
 }
