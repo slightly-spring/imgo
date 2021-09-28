@@ -85,10 +85,10 @@ public class TilController {
     public void init() {
         User user = User.builder().nickname("testUser").build();
         userRepository.save(user);
-
-        for (int i=0; i<20; i++) {
+        int offset = 14;
+        for (int i=0; i<offset; i++) {
             Tag tagA = Tag.builder().name("tag" + i).build();
-            Tag tagB = Tag.builder().name("tag" + (i + 20)).build();
+            Tag tagB = Tag.builder().name("tag" + (i + offset)).build();
             tagRepository.save(tagA);
             tagRepository.save(tagB);
 
