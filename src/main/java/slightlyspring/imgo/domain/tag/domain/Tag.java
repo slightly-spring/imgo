@@ -37,4 +37,9 @@ public class Tag extends CreatedTimeOnlyEntity {
 
     @OneToMany(mappedBy = "series")
     private List<SeriesTag> seriesTags = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

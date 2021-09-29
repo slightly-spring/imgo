@@ -1,11 +1,14 @@
 package slightlyspring.imgo.domain.til.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.repository.TagRepository;
+import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
@@ -30,6 +33,7 @@ public class TilService {
     private final TilTagRepository tilTagRepository;
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
+    private final TilTagRepository tilTagRepository;
 
     @Transactional
     @PreAuthorize("isAuthenticated()")
@@ -64,6 +68,10 @@ public class TilService {
         }
 
         return tilId;
+    }
+
+    public List<Til> findByUserId(Long userId) {
+        return tilRepository.findByUserId(userId);
     }
 
 }

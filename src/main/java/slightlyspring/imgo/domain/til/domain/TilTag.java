@@ -24,4 +24,9 @@ public class TilTag {
     @ManyToOne
     @JoinColumn(name = "til_id")
     private Til til;
+
+    public TilTag(Til til, Tag tag) {
+        this.til = til;
+        this.tag = tag;
+    }
 }
