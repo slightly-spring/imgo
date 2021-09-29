@@ -42,7 +42,7 @@ class TilControllerTest {
         mockMvc.perform(post(SAVE_API_URI))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("user"))
-                .andExpect(view().name("/til/detail"))
+                .andExpect(view().name("/til/{tilId}"))
                 .andDo(print());
     }
 }

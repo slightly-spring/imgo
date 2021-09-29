@@ -18,7 +18,11 @@ public class SeriesService {
     }
 
     public Long saveSeries(Series series) {
-       return seriesRepository.save(series).getId();
+        if(!seriesRepository.existsByUserIdAndTitle(series.getUser().getId(), series.getTitle())) {
+            return seriesRepository.save(series).getId();
+        } else {
+            return 0L;
+        }
     }
 
     public void deleteSeries(Long seriesId) {

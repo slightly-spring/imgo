@@ -4,45 +4,57 @@
       layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
-    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-    <link th:href="@{/css/til/write.css}" rel="stylesheet" />
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/til/write.css}" rel="stylesheet"/>
 </head>
-<th:block layout:fragment="content" >
+<th:block layout:fragment="content">
     <div class="content-wrapper">
-        <!-- modal -->
-        <section class="modal--show" id="modal" tabindex="-1"
-                 role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+        <form action="/til/save" th:object="${tilForm}" method="post" onsubmit="return onSubmit();">
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h5 class="text-center">시리즈 선택하기</h5>
+                            <input id="series-input"  class="form-control" type="text" placeholder="검색할 시리즈명을 입력하세요." th:attr="data-user-id=${userId?:0}" oninput="searchMySeries()">
 
-            <div class="modal-inner">
-                <header id="modal-label">Header</header>
-                <div class="modal-content">The modals content</div>
-                <footer>Footer</footer>
+                            <div id="series-list" class="series-list">
+                                <select id="series-select" name="seriesId" class="form-select" th:size="${#lists.size(seriesList)}">
+                                    <option th:each="series : ${seriesList}" th:value="${series.id}" th:text="${series.title}"></option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-md-evenly">
+                                <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="btn" data-bs-dismiss="modal" onclick="selectSeries()">선택한 시리즈로 등록</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-               data-dismiss="modal">?</a>
-        </section>
-
-        <div class="block input-series">
-            <a href="#modal">modal</a>
-        </div>
-        <div class="block input-title">
-            <input type="text"/>
-        </div>
-        <div class="editor" id="editor">
-
-        </div>
-        <div class="block input-tags">
-            <div id="tag_input"/>
-        </div>
-        <div class="buttons">
-            <button class="cancel" type="button">
-                취소
-            </button>
-            <button class="submit" type="submit">
-                등록
-            </button>
-        </div>
+            <div class="block input-series">
+                <a href="#"data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <p id="series-title">시리즈 선택하기</p>
+                </a>
+            </div>
+            <div class="block input-title">
+                <input type="text" name="title"/>
+            </div>
+            <div class="editor" id="editor">
+            </div>
+            <input type="hidden" name="content" id="til-content"/>
+            <div class="block input-tags">
+                <div id="tag-input"/>
+                <input type="hidden" name="tags" id="tags"/>
+            </div>
+            <div class="buttons">
+                <button class="cancel" type="button">
+                    취소
+                </button>
+                <button class="submit" type="submit">
+                    등록
+                </button>
+            </div>
+        </form>
     </div>
 
     <script src="https://uicdn.toast.com/editor/3.1.0/toastui-editor-all.min.js"></script>

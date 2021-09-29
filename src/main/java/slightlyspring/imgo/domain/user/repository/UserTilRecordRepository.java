@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface UserTilRecordRepository extends JpaRepository<UserTilRecord, Long> {
     List<UserTilRecord> findAllByUserAndBaseDateBetween(User user, LocalDate start, LocalDate end);
-    Optional<UserTilRecord> getUserTilRecordByUserAndBaseDate(User user, LocalDate date);
+    Optional<UserTilRecord> findUserTilRecordByUserAndBaseDate(User user, LocalDate date);
 }

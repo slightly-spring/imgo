@@ -29,6 +29,7 @@ public class Tag extends CreatedTimeOnlyEntity {
     private Long id;
 
     @FullTextField
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "tag")

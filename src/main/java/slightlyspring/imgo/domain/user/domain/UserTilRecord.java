@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
 @Entity
@@ -23,7 +24,7 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
     @Column(name = "user_til_records_id")
     private Long id;
 
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @CreatedDate
     private LocalDate baseDate;
 
     @ColumnDefault("1")
