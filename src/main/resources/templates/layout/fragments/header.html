@@ -1,40 +1,30 @@
 <th:block th:fragment="headerFragment">
     <header id="header" class="header">
         <section class="header-main">
-            <nav class="nav">
-                <div class="logo">
-                    <a href="/"><img src="img/top-bi.svg" alt="IMGO"></a>
+            <div class="logo">
+                <a href="/"><img src="/img/top-bi.svg" alt="IMGO"></a>
+            </div>
+            <form class="search-field">
+                <input placeholder="search.."></input>
+                <span class="search-btn"><img src="/img/search-icon.svg" alt="search"></span>
+            </form>
+            <ul class="menu">
+                <div th:if="${#strings.isEmpty(userId)}">
+                    <li class="si"><a href="/auth/oAuthLogin">Login</a></li>
                 </div>
-                <form class="search-field">
-                    <input type="text" placeholder="search.."/>
-                    <span class="search-btn"><img src="img/search-icon.svg" alt="search"></span>
-                </form>
-                <ul class="menu">
-                    <div th:if="${#strings.isEmpty(userId)}">
-                        <li class="login"><a href="/auth/oAuthLogin">Login</a></li>
-                    </div>
-                    <div th:if="${not #strings.isEmpty(userId)}">
-                        <li class="feed selected"><a class="" href=""><img src="img/feed.svg"></a></li>
-                        <li class="mypage"><a class="" href=""><img src="img/mypage.svg"></a></li>
-                        <li class="notification"><a class="" href=""><img src="img/notification.svg"></a></li>
-                    </div>
+                <div th:if="${not #strings.isEmpty(userId)}">
+                    <li class="feed selected"><a class="" href="#"><img src="/img/feed.svg"></a></li>
+                    <li class="mypage" onclick="clickMypage()"><a class="" href="#"><img src="/img/mypage.svg"></a></li>
+                    <li class="notification"><a class="" href="#"><img src="/img/notification.svg"></a></li>
+                </div>
+            </ul>
+            <div class="arrow-box">
+                <ul class="mypage-list">
+                    <li>작성 목록</li>
+                    <li>읽기 목록</li>
+                    <li class="logout"><a href="/auth/logout">로그아웃</a></li>
                 </ul>
-            </nav>
+            </div>
         </section>
     </header>
-
-    <!--로그인 버튼-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-6">-->
-<!--            <div th:if="${#strings.isEmpty(name)}">-->
-<!--                <a href="/auth/oAuthLogin" class="btn btn-success active" role="button">Sign-In</a>-->
-<!--            </div>-->
-<!--            <div th:if="${not #strings.isEmpty(name)}">-->
-<!--                <form method="post" action="/auth/logout">-->
-<!--                    <button class="btn btn-success active" role="button">로그아웃</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
 </th:block>

@@ -1,24 +1,14 @@
-$(function() {
-
-    $('.dropdown > .caption').on('click', function() {
-        $(this).parent().toggleClass('open');
-    });
-
-    $('.dropdown > .list > .item').on('click', function() {
-        $('.dropdown > .list > .item').removeClass('selected');
-        $(this).addClass('selected').parent().parent().removeClass('open').children('.caption').text( $(this).text() );
-    });
-
-    $(document).on('keyup', function(evt) {
-        if ( (evt.keyCode || evt.which) === 27 ) {
-            $('.dropdown').removeClass('open');
-        }
-    });
-
-    $(document).on('click', function(evt) {
-        if ( $(evt.target).closest(".dropdown > .caption").length === 0 ) {
-            $('.dropdown').removeClass('open');
-        }
-    });
-
-});
+let isArrowBoxFold = true;
+function clickMypage() {
+    const mypage = document.querySelector(".mypage");
+    const arrowBox = document.querySelector(".arrow-box");
+    if (isArrowBoxFold) {
+        mypage.classList.add("selected")
+        arrowBox.style.display = "block";
+        isArrowBoxFold = false;
+    } else {
+        mypage.classList.remove("selected")
+        arrowBox.style.display = "none";
+        isArrowBoxFold = true;
+    }
+}
