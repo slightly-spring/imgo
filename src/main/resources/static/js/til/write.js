@@ -25,7 +25,7 @@ async function searchMySeries() {
         }
         seriesList.innerHTML = `<select class="form-select" size=${result.length}>` + series + "</select>";
     } else {
-        seriesList.innerHTML = `<button onclick="addNewSeries(seriesInput.dataset.userId, seriesInput.value)" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
+        seriesList.innerHTML = `<button type="button" onclick="addNewSeries(${seriesInput.dataset.userId}, '${seriesInput.value}')" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
     }
 
 }
