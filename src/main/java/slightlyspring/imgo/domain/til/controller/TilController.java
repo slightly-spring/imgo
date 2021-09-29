@@ -61,8 +61,6 @@ public class TilController {
 //    private final TilTagService tilTagService;
 
     // 테스트 데이터 생성용 repository
-    private final UserRepository userRepository;
-    private final TilRepository tilRepository;
     private final TagRepository tagRepository;
     private final TilTagRepository tilTagRepository;
 

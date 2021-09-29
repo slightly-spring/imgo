@@ -33,7 +33,6 @@ public class TilService {
     private final TilTagRepository tilTagRepository;
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
-    private final TilTagRepository tilTagRepository;
 
     @Transactional
     @PreAuthorize("isAuthenticated()")
