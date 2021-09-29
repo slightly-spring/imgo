@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+</head>
+<th:block layout:fragment="content">
+    <div th:object="${til}">
+        <p th:text="*{getSeries().getTitle()}"></p>
+        <p th:text="*{title}"></p>
+        <p th:text="*{createdDate}"></p>
+        <p th:text="*{content}"></p>
+
+        <p th:text="*{getUser().getNickname()}"></p>
+        <p th:text="*{likeCount}"></p>
+        <p th:text="*{viewCount}"></p>
+
+    </div>
+</th:block>
+</html>

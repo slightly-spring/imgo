@@ -10,6 +10,7 @@ import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilForm;
+import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
@@ -25,7 +26,15 @@ public class TilController {
     private final TagService tagService;
     private final UserRepository userRepository;
     private final SeriesRepository seriesRepository;
+    private final TilRepository tilRepository;
     private final HttpSession httpSession;
+
+    @GetMapping("/{tilId}")
+    public String detail(@PathVariable Long tilId, Model model) {
+        Til til = tilRepository.getById(tilId);
+        model.addAttribute("til", til);
+        return "/til/detail";
+    }
 
     @GetMapping("/write")
     public String write(Model model) {
@@ -38,7 +47,7 @@ public class TilController {
         return "/til/write";
     }
 
-    @PostMapping("save")
+    @PostMapping("/save")
     public String save(@ModelAttribute("tilForm") TilForm tilForm) {
         // TODO userId using principal
         Long userId = (Long) httpSession.getAttribute("userId");
@@ -55,7 +64,7 @@ public class TilController {
         List<Tag> savedTags = tagService.saveTags(tags);
         Long tilId = tilService.save(til, savedTags);
 
-        return "redirect:/til/detail/" + tilId ;
+        return "redirect:/til/" + tilId ;
     }
 
 }
