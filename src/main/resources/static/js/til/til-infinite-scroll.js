@@ -1,10 +1,11 @@
-let $container = $( '.container').infiniteScroll({
-  path: function() {
-    return `/til/1/til-cards?page=${this.pageIndex-1}&size=5`;
-  },
+let $container = $('.container').infiniteScroll({
+  path: '.pagination__next',
+  //     function() {
+  //   return `/til/1/til-cards?page=${this.pageIndex-1}&size=5`;
+  // },
   // load response as JSON
   responseBody: 'json',
-  status: '.scroll-status',
+  status: '.page-load-status',
   history: false,
 });
 

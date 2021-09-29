@@ -27,10 +27,9 @@
 
 
     <h1>TIL 카드 입니다아</h1>
-
-    <p>Loading photos from the <a href="https://unsplash.com/developers?utm_source=infinite-scroll-demos&utm_medium=referral&utm_campaign=api-credit">Unsplash API</a></p>
-
-    <div class="container"></div>
+    <div class="container">
+<!--        카드 리스트 들어올 부분-->
+    </div>
 
     <div class="page-load-status">
         <div class="loader-ellips infinite-scroll-request">
@@ -43,11 +42,14 @@
         <p class="infinite-scroll-error">No more pages to load</p>
     </div>
 
-    <!-- infinite scroll -->
+    <p class="pagination" style="display:none">
+        <a class="pagination__next" th:href="|/til/${userId}/til-cards?page=0&size=5|">Next page</a>
+<!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
+    </p>
+
+    <!-- infinite scroll js-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
-    <script type="text/javascript" th:src="@{/js/til/til-infinite-scroll.js}">
-
-    </script>
+    <script type="text/javascript" th:src="@{/js/til/til-infinite-scroll.js}"></script>
 </th:block>
 </html>
