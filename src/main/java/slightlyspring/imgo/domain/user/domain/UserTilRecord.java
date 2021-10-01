@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
@@ -16,8 +18,16 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
 @Table(name = "user_til_records")
 @Getter
 @Builder
+@DynamicInsert //Dynamic - null 값이 들어오면 쿼리에 미포함
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * 하루마다 최초에 글을 쓸 때에 생성
+ * 그날 쓴 글의 개수
+ * 그날 쓴 글자 수
+ * 기록
+ */
 public class UserTilRecord extends CreatedModifiedTimeEntity {
     @Id
     @GeneratedValue
@@ -27,10 +37,13 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
     @CreatedDate
     private LocalDate baseDate;
 
-    @ColumnDefault("1")
-    private int tilCount;
+    @Column(nullable = false)
+    @Builder.Default
+    private int tilCount = 1;
 
-    private int characterCount;
+    @Column(nullable = false)
+    @Builder.Default
+    private int characterCount = 0; // 본문 글자 수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

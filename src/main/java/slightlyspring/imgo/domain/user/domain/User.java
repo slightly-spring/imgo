@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import slightlyspring.imgo.domain.auth.domain.UserAccount;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilComment;
@@ -20,41 +23,30 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-/**
- * Entity User
- *
- * id Long
- * nickName String
- * picture String
- * nowContinuousDays int
- * maxContinuousDays int
- * lastWriteAt LocalDateTime함
- *
- *
- *
- * noCon, maxCont, lastWriteAt - 기본값 필요
- * 0, 0, LocalDateTime.MIN힘
- *
- * 참조 값들은 기본값 null
- */
+@DynamicUpdate
+@DynamicInsert
 public class User extends CreatedModifiedTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
     private Long id;
 
+    @Column(nullable = false)
     private String nickname;
 
     private String profileImg;
 
     private String profileDescription;
 
+    @Column(nullable = false)
     @Builder.Default
     private int nowContinuousDays = 0;
 
+    @Column(nullable = false)
     @Builder.Default
     private int maxContinuousDays = 0;
 
+    @Column(nullable = false)
     @Builder.Default
     private LocalDateTime lastWriteAt = LocalDateTime.of(0,1,1,0,0,0,0); // Til 에서 가져와야 되나?
 

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserLikesSeries;
@@ -19,6 +21,8 @@ import java.util.List;
 @Table(name = "series")
 @Getter
 @Builder
+@DynamicInsert //Dynamic - null 값이 들어오면 쿼리에 미포함
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Series extends CreatedModifiedTimeEntity {
@@ -27,7 +31,8 @@ public class Series extends CreatedModifiedTimeEntity {
     @Column(name = "series_id")
     private Long id;
 
-    private String title;
+    @Builder.Default //db 에 제대로 들어가는지 테스트
+    private String title = "미지정";
 
     private String description;
 

@@ -9,12 +9,6 @@ import lombok.NoArgsConstructor;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntity;
 
-@Entity
-@Table(name = "user_accounts")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Builder
 /**
  * Entity UserAccount
  *
@@ -27,6 +21,13 @@ import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedModifiedTimeEntit
  * 모든 칼럼이 올바른 값을 가져야 함
  * so, default 값 설정 안해놓기 => 0, null, false 로 기본값이 잡힘
  */
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Builder
+@Table(name = "user_accounts")
+@Entity
 public class UserAccount extends CreatedModifiedTimeEntity {
 
     @Id @GeneratedValue
@@ -37,11 +38,14 @@ public class UserAccount extends CreatedModifiedTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(nullable = false)
     private String authId;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AuthType authType;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 

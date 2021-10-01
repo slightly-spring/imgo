@@ -18,6 +18,7 @@ import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.tag.repository.TagRepository;
+import slightlyspring.imgo.domain.til.domain.SourceType;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
@@ -75,26 +76,26 @@ public class TilController {
         return "/til/write";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute("tilForm") TilForm tilForm) {
-        // TODO userId using principal
-        Long userId = (Long) httpSession.getAttribute("userId");
-        List<String> tags = tilForm.getTags();
-        Til til = Til.builder()
-                .title(tilForm.getTitle())
-                .content(tilForm.getContent())
-                .sourceType(tilForm.getSourceType())
-                .source(tilForm.getSource())
-                .user(userRepository.getById(userId))
-                .series(seriesRepository.getById(tilForm.getSeriesId()))
-                .build();
-
-        List<Tag> savedTags = tagService.saveTags(tags);
-        Long tilId = tilService.save(til, savedTags);
-
-        return "redirect:/til/" + tilId ;
-    }
-
+//    @PostMapping("/save")
+//    public String save(@ModelAttribute("tilForm") TilForm tilForm) {
+//        // TODO userId using principal
+//        Long userId = (Long) httpSession.getAttribute("userId");
+//        List<String> tags = tilForm.getTags();
+//        Til til = Til.builder()
+//                .title(tilForm.getTitle())
+//                .content(tilForm.getContent())
+//                .sourceType(tilForm.getSourceType())
+//                .source(tilForm.getSource())
+//                .user(userRepository.getById(userId))
+//                .series(seriesRepository.getById(tilForm.getSeriesId()))
+//                .build();
+//
+//        List<Tag> savedTags = tagService.saveTags(tags);
+//        Long tilId = tilService.save(til, savedTags);
+//
+//        return "redirect:/til/" + tilId ;
+//    }
+//
 
 //    @GetMapping("/{userId}/til-cards")
 //    public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
