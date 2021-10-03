@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
+@AutoConfigureMockMvc
 class UserRepositoryTest {
 
     @Autowired
@@ -39,7 +41,7 @@ class UserRepositoryTest {
         User findUser = userRepository.findByNickname("nameA").get(0);
         assertThat(findUser.getNickname()).isEqualTo("nameA");
         assertThat(findUser.getProfileImg()).isEqualTo("imageA");
-        assertThat(findUser.getLastWriteAt()).isEqualTo(LocalDateTime.of(0, 0, 0, 0, 0, 0, 0));
+//        assertThat(findUser.getLastWriteAt()).isEqualTo(LocalDateTime.of(0, 0, 0, 0, 0, 0, 0));
     }
 
 }

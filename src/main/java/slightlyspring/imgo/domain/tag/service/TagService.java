@@ -36,6 +36,7 @@ public class TagService {
     @Transactional
     public List<Tag> saveTags(List<String> tags) {
         List<Tag> tagList = new ArrayList<>();
+        System.out.println("tagList = " + tagList);
         for (String tag : tags) {
             if(!tagRepository.existsByName(tag)) {
                 tagList.add(Tag.builder().name(tag).build());

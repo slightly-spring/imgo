@@ -23,9 +23,6 @@ spring:
             client-id: test
             client-secret: test
             scope: profile, email
-  redis:
-    port: 6379
-    host: "imgo-redis-dev.dpi0ds.clustercfg.apn2.cache.amazonaws.com"
 
 #logging:
 #  level:
