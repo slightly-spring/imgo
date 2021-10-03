@@ -16,6 +16,14 @@ html, body {
     padding: 0;
 }
 
+a:link { color: #222; text-decoration: none;}
+
+a:visited { color: #222; text-decoration: none;}
+
+a:hover { color: #222; text-decoration: none;}
+
+a:active { color: #222;text-decoration: none;}
+
 #header {
     position: fixed;
     z-index: 50;
@@ -918,3 +926,110 @@ h3 {
     margin: 10px 10px 0 0;
 }
 
+#popup-login {
+    display: none;
+}
+
+.popup {
+    box-sizing: content-box;
+    margin: calc(50vh - 212px) auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 20px;
+    width: 340px;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+    z-index: 999;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup .close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    transition: all 200ms;
+    text-decoration: none;
+}
+
+.popup-header {
+    text-align: center;
+}
+
+.popup-bi {
+    height: 30px;
+    margin-top: 50px;
+}
+
+.popup-content span {
+    line-height: 48px;
+    margin-left: -40px;
+}
+
+.popup-content img {
+    padding: 12px 0px 12px 20px;
+    float: left;
+}
+
+.popup-content button {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.login-google {
+    width: 340px;
+    height: 48px;
+    border-radius: 10px;
+    margin-top: 40px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #ddd;
+    background-color: #fff;
+}
+
+.login-facebook {
+    width: 340px;
+    height: 48px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    background-color: #1877f2;
+    color: #fff;
+}
+
+.login-github {
+    width: 340px;
+    height: 48px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    background-color: #000;
+    color: #fff;
+}
+
+.login-kakao {
+    width: 340px;
+    height: 48px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    background-color: #ffdf00;
+}

@@ -12,3 +12,13 @@ function clickMypage() {
         isArrowBoxFold = true;
     }
 }
+
+function closeLoginPopup() {
+    const login = document.querySelector("#popup-login");
+    login.style.display = "none";
+}
+
+function openLoginPopup() {
+    const login = document.querySelector("#popup-login");
+    login.style.display = "block";
+}
