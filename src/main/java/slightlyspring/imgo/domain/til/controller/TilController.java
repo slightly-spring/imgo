@@ -30,6 +30,7 @@ import slightlyspring.imgo.domain.til.dto.TilCardData;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.til.service.TilCardService;
+import slightlyspring.imgo.domain.til.service.TilImageService;
 import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
@@ -52,8 +53,8 @@ public class TilController {
     private final UserRepository userRepository;
     private final SeriesRepository seriesRepository;
     private final TilRepository tilRepository;
+    private final TilImageService tilImageService;
     private final HttpSession httpSession;
-    private final S3FileUploader s3FileUploader;
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
@@ -118,7 +119,7 @@ public class TilController {
     @PostMapping("/image")
     @ResponseBody
     public String uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
-        return s3FileUploader.upload(multipartFile, "static/til");
+        return tilImageService.uploadImage(multipartFile, "static/til");
     }
 
 
