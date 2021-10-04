@@ -68,4 +68,7 @@ public class Til extends CreatedModifiedTimeEntity {
 
     @OneToMany(mappedBy = "til")
     private List<TilTag> tilTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "til")
+    private List<TilImage> tilImages = new ArrayList<>();
 }
