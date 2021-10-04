@@ -109,28 +109,4 @@ public class TilController {
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataPageByUserId(pageable, userId);
         return new ResponseEntity<>(tilCardDataPages, HttpStatus.OK);
     }
-
-//    /**
-//     * 테스트용 데이터 주입
-//     */
-//    @PostConstruct
-//    public void init() {
-//        User user = User.builder().nickname("testUser").build();
-//        userRepository.save(user);
-//        int offset = 14;
-//        for (int i=0; i<offset; i++) {
-//            Tag tagA = Tag.builder().name("tag" + i).build();
-//            Tag tagB = Tag.builder().name("tag" + (i + offset)).build();
-//            tagRepository.save(tagA);
-//            tagRepository.save(tagB);
-//
-//            Til til = Til.builder().title("testTil"+i).user(user).build();
-//            tilRepository.save(til);
-//
-//            TilTag tilTagAA = new TilTag(til, tagA);
-//            TilTag tilTagAB = new TilTag(til, tagB);
-//            tilTagRepository.save(tilTagAA);
-//            tilTagRepository.save(tilTagAB);
-//        }
-//    }
 }

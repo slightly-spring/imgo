@@ -1,7 +1,10 @@
 package slightlyspring.imgo.domain.til.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -21,5 +24,23 @@ public class TilTagService {
           tags.add(tt.getTag());
       }
       return tags;
+  }
+
+  // TilId - Tags 맵을 리턴
+  public Map<Long, List<Tag>> getTagsMapByTilIds(List<Long> tilIds) {
+//    List<TilTag> tilTags = tilTagRepository.findByTilId(tilId);
+    List<TilTag> tilTags = tilTagRepository.findByTilIdIn(tilIds);
+
+    Map<Long, List<Tag>> re = new HashMap<>();
+    for (TilTag tt : tilTags) {
+      if (re.containsKey(tt.getTil().getId())) {
+        re.get(tt.getTil().getId()).add(tt.getTag());
+      } else {
+        List<Tag> tmp = Arrays.asList(tt.getTag());
+        re.put(tt.getTil().getId(), tmp);
+      }
+    }
+
+    return re;
   }
 }
