@@ -1,6 +1,8 @@
 package slightlyspring.imgo.domain.til.controller;
 
 import io.lettuce.core.dynamic.annotation.Param;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -37,6 +40,7 @@ import slightlyspring.imgo.domain.til.service.TilTagService;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.service.UserService;
+import slightlyspring.imgo.infra.S3FileUploader;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,6 +53,7 @@ public class TilController {
     private final SeriesRepository seriesRepository;
     private final TilRepository tilRepository;
     private final HttpSession httpSession;
+    private final S3FileUploader s3FileUploader;
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
@@ -109,4 +114,35 @@ public class TilController {
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataPageByUserId(pageable, userId);
         return new ResponseEntity<>(tilCardDataPages, HttpStatus.OK);
     }
+
+    @PostMapping("/image")
+    @ResponseBody
+    public String uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        return s3FileUploader.upload(multipartFile, "static/til");
+    }
+
+
+//    /**
+//     * 테스트용 데이터 주입
+//     */
+//    @PostConstruct
+//    public void init() {
+//        User user = User.builder().nickname("testUser").build();
+//        userRepository.save(user);
+//        int offset = 14;
+//        for (int i=0; i<offset; i++) {
+//            Tag tagA = Tag.builder().name("tag" + i).build();
+//            Tag tagB = Tag.builder().name("tag" + (i + offset)).build();
+//            tagRepository.save(tagA);
+//            tagRepository.save(tagB);
+//
+//            Til til = Til.builder().title("testTil"+i).user(user).build();
+//            tilRepository.save(til);
+//
+//            TilTag tilTagAA = new TilTag(til, tagA);
+//            TilTag tilTagAB = new TilTag(til, tagB);
+//            tilTagRepository.save(tilTagAA);
+//            tilTagRepository.save(tilTagAB);
+//        }
+//    }
 }

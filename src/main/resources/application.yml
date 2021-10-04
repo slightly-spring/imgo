@@ -52,17 +52,17 @@ spring:
       flush-mode: on_save
       namespace:
         spring: session
-  cloud:
-    aws:
-      credentials:
-        accessKey: ENC(IGA/CN8zfKbBQeTZmuuudtWZaEkU+pAWhjHPdg/39zI=)
-        secretKey: ENC(p6yrrslJoRvG8ag9Ih8ePduDEPUongPWGVxVcoAmYBQ0zQscyTX9n1/jl+TFB0KfI+qXnrejZhE=)
-      s3:
-        bucket: imgo-bucket
-      region:
-        static: ap-northeast-2
-      stack:
-        auto: false
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(IGA/CN8zfKbBQeTZmuuudtWZaEkU+pAWhjHPdg/39zI=)
+      secretKey: ENC(p6yrrslJoRvG8ag9Ih8ePduDEPUongPWGVxVcoAmYBQ0zQscyTX9n1/jl+TFB0KfI+qXnrejZhE=)
+    s3:
+      bucket: imgo-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 jasypt:
   encryptor:
