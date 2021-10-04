@@ -3,8 +3,33 @@ const editor = new Editor({
     el: document.querySelector('#editor'),
     height: '500px',
     initialEditType: 'markdown',
-    previewStyle: 'vertical'
-});
+    previewStyle: 'vertical',
+    hooks: {
+            addImageBlobHook: async (blob, callback) => {
+                const upload = await this.uploadImage(blob);
+                callback(upload, "alt text");
+                return false;
+            }
+    }
+})
+
+async function uploadImage(blob) {
+    let formData = new FormData();
+    formData.append("image", blob);
+
+    const url = "/til/image";
+    let response = await fetch(url, {
+        method: "POST",
+        header: {"content-type": "multipart/formdata"},
+        body: formData
+    });
+    if (response.ok) {
+        return response.text();
+    } else {
+        alert("HTTP-Error: " + response.status);
+    }
+}
+
 editor.getMarkdown();
 
 const tagInput = document.querySelector('#tag-input');
