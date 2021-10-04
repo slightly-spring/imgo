@@ -44,6 +44,9 @@ dependencies {
 	// security test
 	implementation 'org.springframework.security:spring-security-test'
 	implementation 'org.json:json:20210307'
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
 }
 
 jar {
