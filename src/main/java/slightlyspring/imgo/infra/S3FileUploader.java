@@ -20,6 +20,7 @@ import java.util.UUID;
 @Component
 public class S3FileUploader {
     private final AmazonS3Client amazonS3Client;
+    private final String CLOUD_FRONT_DOMAIN_NAME = "cdn.imgo.dev";
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
@@ -27,8 +28,8 @@ public class S3FileUploader {
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
-
-        return s3upload(uploadFile, dirName);
+        String url = s3upload(uploadFile, dirName);
+        return getCdnUrl(url);
     }
 
     // S3로 파일 업로드하기
@@ -65,5 +66,9 @@ public class S3FileUploader {
         }
 
         return Optional.empty();
+    }
+
+    private String getCdnUrl(String url) {
+        return url.replace(bucket + ".s3." + amazonS3Client.getRegion() + ".amazonaws.com", CLOUD_FRONT_DOMAIN_NAME);
     }
 }
