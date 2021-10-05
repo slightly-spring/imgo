@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.domain.SeriesTag;
 import slightlyspring.imgo.domain.series.repository.SeriesTagRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -21,11 +24,13 @@ public class SeriesTagService {
 
     Map<Long, List<Tag>> re = new HashMap<>();
     for (SeriesTag st : seriesTags) {
-      if (re.containsKey(st.getSeries().getId())) {
-        re.get(st.getSeries().getId()).add(st.getTag()); // 테스트 필요함
+      Series series = st.getSeries();
+      Tag tag = st.getTag();
+      if (re.containsKey(series.getId())) {
+        re.get(series.getId()).add(tag);
       } else {
-        List<Tag> tmp = Arrays.asList(st.getTag());
-        re.put(st.getSeries().getId(), tmp);
+        List<Tag> tmpTags = Stream.of(tag).collect(Collectors.toList());
+        re.put(series.getId(), tmpTags);
       }
     }
 

@@ -25,8 +25,8 @@ public class SeriesCardService {
     List<SeriesCardData> seriesCardDataList = new ArrayList<>();
 
     List<Series> seriesPages = seriesRepository.findByUserId(userId, pageable);
-
     List<Long> seriesIds = seriesPages.stream().map(s -> s.getId()).collect(Collectors.toList());
+
     Map<Long, List<Tag>> tagMapBySeriesIds = seriesTagService.getTagsMapBySeriesIds(seriesIds);
 
     for (Series series : seriesPages) {
@@ -36,7 +36,8 @@ public class SeriesCardService {
       SeriesCardData tmp = SeriesCardData.builder()
           .title(series.getTitle())
           .description(series.getDescription())
-          .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
+//          .tags(Stream.ofNullable(tags).map(t -> t.toString()).collect(Collectors.toList())) //이렇게 하면 리스트 자체를 string 으로 만듦
+          .tags(tags.stream().map(t -> t.toString()).collect(Collectors.toList()))
           .isCompleted(series.isCompleted())
           .build();
       seriesCardDataList.add(tmp);
