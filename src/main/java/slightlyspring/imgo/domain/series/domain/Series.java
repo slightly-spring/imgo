@@ -34,13 +34,13 @@ public class Series extends CreatedModifiedTimeEntity {
     @Builder.Default //db 에 제대로 들어가는지 테스트
     private String title = "미지정";
 
-    private String description;
+    private String description; // 한 줄 소개
 
     @ColumnDefault("FALSE")
-    private boolean is_completed;
+    private boolean completed;
 
     @ColumnDefault("0")
-    private int like_count;
+    private int likeCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
