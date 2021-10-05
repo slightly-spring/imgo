@@ -39,7 +39,7 @@ public class SeriesController {
 
     @PostMapping("/{userId}")
     @ResponseBody
-    public Long addNewSeries(@PathVariable Long userId, @RequestBody Map<String, String> map) {
+    public Long save(@PathVariable Long userId, @RequestBody Map<String, String> map) {
         String title = map.get("title");
         Series series = Series.builder()
                 .title(title)

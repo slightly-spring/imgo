@@ -1,10 +1,5 @@
 package slightlyspring.imgo.domain.til.controller;
 
-import io.lettuce.core.dynamic.annotation.Param;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,40 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
-import slightlyspring.imgo.domain.tag.domain.Tag;
-import slightlyspring.imgo.domain.tag.service.TagService;
-import slightlyspring.imgo.domain.tag.repository.TagRepository;
-import slightlyspring.imgo.domain.til.domain.SourceType;
 import slightlyspring.imgo.domain.til.domain.Til;
-import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
-import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
-import slightlyspring.imgo.domain.til.repository.TilRepository;
-import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.til.service.TilCardService;
-import slightlyspring.imgo.domain.til.service.TilService;
-import slightlyspring.imgo.domain.user.repository.UserRepository;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
-import slightlyspring.imgo.domain.til.service.TilTagService;
-import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.repository.UserRepository;
-import slightlyspring.imgo.domain.user.service.UserService;
+
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/til")
 public class TilController {
 
-    private final TilService tilService;
-    private final TagService tagService;
-    private final UserRepository userRepository;
     private final SeriesRepository seriesRepository;
     private final TilRepository tilRepository;
     private final HttpSession httpSession;
+    private final TilCardService tilCardService;
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
@@ -57,13 +35,6 @@ public class TilController {
         return "/til/detail";
     }
 
-    private final TilCardService tilCardService;
-//    private final UserService userService;
-//    private final TilTagService tilTagService;
-
-    // 테스트 데이터 생성용 repository
-    private final TagRepository tagRepository;
-    private final TilTagRepository tilTagRepository;
 
     @GetMapping("/write")
     public String write(Model model) {
@@ -95,18 +66,13 @@ public class TilController {
 //
 //        return "redirect:/til/" + tilId ;
 //    }
-//
-
-//    @GetMapping("/{userId}/til-cards")
-//    public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
-//        List<TilCardData> tilCardDataList = tilCardService.getTilCardDataListByUserId(userId);
-//        return new ResponseEntity<>(tilCardDataList, HttpStatus.OK);
-//    }
 
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity getTilCardList(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity tilCards(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
 
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataPageByUserId(pageable, userId);
-        return new ResponseEntity<>(tilCardDataPages, HttpStatus.OK);
+        ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
+            tilCardDataPages, HttpStatus.OK);
+        return tilCardResponse;
     }
 }

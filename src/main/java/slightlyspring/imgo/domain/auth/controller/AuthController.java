@@ -24,25 +24,9 @@ public class AuthController {
    * @return "login" template 불러오기
    */
   @GetMapping("/oAuthLogin")
-  public String getLoginPage(Model model) {
+  public String oAuthLogin(Model model) {
     return "/auth/oAuthLogin";
   }
-
-//
-//  @GetMapping("/loginSuccess")
-//  public String getLoginInfo(Model model, OAuth2AuthenticationToken authorizedToken) {
-//    // 현재 userToken 에 해당하는 사용자 불러오기
-//    System.out.println("test: " + authorizedToken);
-//    OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-//        authorizedToken.getAuthorizedClientRegistrationId(),
-//        authorizedToken.getName()
-//    );
-//    // user info. endpoint 에 request 날려서 정보 받아오기
-//      OAuth2User userAttributes = loginService.httpRequestToUserInformationEndpoint(client);
-//      System.out.println(userAttributes);
-//      model.addAttribute("name", userAttributes.getAttributes().get("name"));
-//    return "redirect:/"; //항상 메인페이지로 넘어가게 하기
-//  }
 
 
 }

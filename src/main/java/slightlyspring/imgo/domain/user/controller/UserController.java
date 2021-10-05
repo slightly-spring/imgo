@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/profile/{userId}")
+    @GetMapping("/{userId}")
     public String profile(@PathVariable Long userId, Model model) {
         if (!userService.isUserExist(userId)) {
             return "404";
