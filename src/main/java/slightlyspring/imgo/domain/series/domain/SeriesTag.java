@@ -1,9 +1,6 @@
 package slightlyspring.imgo.domain.series.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class SeriesTag {
     @Id
     @GeneratedValue
