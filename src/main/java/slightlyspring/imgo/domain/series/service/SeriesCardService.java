@@ -1,7 +1,9 @@
 package slightlyspring.imgo.domain.series.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +39,18 @@ public class SeriesCardService {
           .title(series.getTitle())
           .description(series.getDescription())
 //          .tags(Stream.ofNullable(tags).map(t -> t.toString()).collect(Collectors.toList())) //이렇게 하면 리스트 자체를 string 으로 만듦
-          .tags(tags.stream().map(t -> t.toString()).collect(Collectors.toList()))
+          .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
           .isCompleted(series.isCompleted())
           .build();
       seriesCardDataList.add(tmp);
     }
 
     return seriesCardDataList;
+  }
+
+  public Stream<Tag> tagListToStream(List<Tag> collection) {
+    return Optional.ofNullable(collection)
+        .map(Collection::stream)
+        .orElseGet(Stream::empty);
   }
 }

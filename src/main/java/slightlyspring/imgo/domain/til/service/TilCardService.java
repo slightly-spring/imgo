@@ -1,8 +1,10 @@
 package slightlyspring.imgo.domain.til.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,7 @@ public class TilCardService {
           .likeCount(til.getLikeCount())
           .createdAt(til.getCreatedDate())
 //          .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
-          .tags(tags.stream().map(t -> t.toString()).collect(Collectors.toList()))
+          .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
           .build();
       tilCardDataList.add(tmp);
@@ -46,6 +48,11 @@ public class TilCardService {
     return tilCardDataList;
   }
 
+  public Stream<Tag> tagListToStream(List<Tag> collection) {
+    return Optional.ofNullable(collection)
+        .map(Collection::stream)
+        .orElseGet(Stream::empty);
+  }
 
 
 }
