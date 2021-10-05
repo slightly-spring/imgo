@@ -3,12 +3,19 @@ package slightlyspring.imgo.domain.series.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import slightlyspring.imgo.domain.series.domain.Series;
+import slightlyspring.imgo.domain.series.dto.SeriesCardData;
 import slightlyspring.imgo.domain.series.dto.SeriesTitle;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
+import slightlyspring.imgo.domain.series.service.SeriesCardService;
 import slightlyspring.imgo.domain.series.service.SeriesService;
+import slightlyspring.imgo.domain.til.dto.TilCardData;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import java.util.List;
@@ -24,6 +31,7 @@ public class SeriesController {
     private final SeriesRepository seriesRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final SeriesCardService seriesCardService;
 
     @GetMapping("/{userId}")
     @ResponseBody
@@ -46,5 +54,14 @@ public class SeriesController {
                 .user(userRepository.getById(userId))
                 .build();
         return seriesService.saveSeries(series);
+    }
+
+    @GetMapping("/{userId}/series-cards")
+    public ResponseEntity seriesCards(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+
+        List<SeriesCardData> seriesCardDataPages = seriesCardService.getSeriesCardDataByUserID(pageable, userId);
+        ResponseEntity<List<SeriesCardData>> tilCardResponse = new ResponseEntity<>(
+            seriesCardDataPages, HttpStatus.OK);
+        return tilCardResponse;
     }
 }
