@@ -48,15 +48,14 @@ class UserControllerTest {
         // user In-memory DB, so should add new data before test
         LocalDateTime time = LocalDateTime.now();
         User testUser = new User().builder()
-                            .id(1L)
                             .nickname("nickNameA")
                             .profileImg("ImgPathA")
                             .profileDescription("DescriptionA")
                             .build();
-        userRepository.save(testUser);
+        User savedTestUser = userRepository.save(testUser);
 
         String PROFILE_API_URI = "/user/profile/";
-        Long testUserId = 1L;
+        Long testUserId = savedTestUser.getId();
         User user = userRepository.getById(testUserId);
 
         Assertions.assertTrue(mockMvc.perform(
