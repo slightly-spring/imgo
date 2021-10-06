@@ -40,7 +40,7 @@ public class SeriesCardService {
           .description(series.getDescription())
 //          .tags(Stream.ofNullable(tags).map(t -> t.toString()).collect(Collectors.toList())) //이렇게 하면 리스트 자체를 string 으로 만듦
           .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
-          .isCompleted(series.isCompleted())
+          .completed(series.isCompleted())
           .build();
       seriesCardDataList.add(tmp);
     }

@@ -18,6 +18,6 @@ public class SeriesCardData {
   String title;
   String description;
   List<String> tags;
-  boolean isCompleted;
+  boolean completed;
   // like
 }
