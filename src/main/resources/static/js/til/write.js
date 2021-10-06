@@ -48,7 +48,7 @@ async function searchMySeries() {
         for (r of result) {
             series += `<option value=${r.id}>${r.title}</option>`
         }
-        seriesList.innerHTML = `<select class="form-select" size=${result.length}>` + series + "</select>";
+        seriesList.innerHTML = `<select id="series-select" name="seriesId" class="form-select" size=${result.length}>` + series + "</select>";
     } else {
         seriesList.innerHTML = `<button type="button" onclick="addNewSeries(${seriesInput.dataset.userId}, '${seriesInput.value}')" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
     }
