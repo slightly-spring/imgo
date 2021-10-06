@@ -5,11 +5,11 @@ const editor = new Editor({
     initialEditType: 'markdown',
     previewStyle: 'vertical',
     hooks: {
-            addImageBlobHook: async (blob, callback) => {
-                const upload = await this.uploadImage(blob);
-                callback(upload, "alt text");
-                return false;
-            }
+        addImageBlobHook: async (blob, callback) => {
+            const upload = await this.uploadImage(blob);
+            callback(upload, "alt text");
+            return false;
+        }
     }
 })
 
@@ -34,8 +34,30 @@ editor.getMarkdown();
 
 const tagInput = document.querySelector('#tag-input');
 const tagify = new Tagify(tagInput, {
-    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
+    whitelist: [],
 });
+let controller;
+tagify.on('input', onTagInput);
+
+function onTagInput(e) {
+    const value = e.detail.value
+    tagify.whitelist = null // reset the whitelist
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+    controller && controller.abort()
+    controller = new AbortController()
+
+    // show loading animation and hide the suggestions dropdown
+    tagify.loading(true).dropdown.hide()
+
+    fetch(`/tag/suggestions?value=${value}`, {signal: controller.signal})
+        .then(RES => RES.json())
+        .then(function (newWhitelist) {
+            tagify.whitelist = newWhitelist // update inwhitelist Array in-place
+            tagify.loading(false).dropdown.show(value) // render the suggestions dropdown
+        })
+}
 
 const seriesInput = document.querySelector('#series-input');
 
@@ -72,7 +94,7 @@ async function addNewSeries(userId, q) {
     let response = await fetch(url, {
         method: "POST",
         headers: {
-            "content-type" : "application/json"
+            "content-type": "application/json"
         },
         body: JSON.stringify({title: q})
     });

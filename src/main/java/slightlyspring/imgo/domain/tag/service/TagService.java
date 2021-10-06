@@ -2,6 +2,7 @@ package slightlyspring.imgo.domain.tag.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.search.engine.search.query.SearchResult;
+import org.hibernate.search.engine.search.sort.dsl.SearchSortFactory;
 import org.hibernate.search.mapper.orm.Search;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +27,10 @@ public class TagService {
     public List<Tag> searchTags(String word) {
         SearchResult<Tag> result = Search.session(entityManager)
                 .search(Tag.class)
-                .where(f -> f.match()
-                        .fields("name")
-                        .matching(word))
+                .where(f -> f.wildcard()
+                        .field("name")
+                        .matching("*"+word+"*"))
+                .sort(SearchSortFactory::score)
                 .fetch(10);
         return result.hits();
     }
