@@ -9,17 +9,21 @@ import com.google.gson.JsonObject;
 import com.mysql.cj.util.StringUtils;
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import org.json.*;
+import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,21 +33,43 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TilControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    public MockHttpSession mockSession;  // FIXME write 테스트에서 세션을 가져올 수 없음
+
+
+    @Autowired
+    private UserRepository userRepository;
 
     private ObjectMapper objectMapper= new ObjectMapper();
+
+    @BeforeAll
+    void setUp() {
+        User user = User.builder().nickname("test").build();
+        User savedUser = userRepository.save(user);
+        mockSession = new MockHttpSession();
+        mockSession.setAttribute("userId", savedUser.getId());
+    }
+
+    @AfterAll
+    void clean(){
+        mockSession.clearAttributes();
+    }
+
 
     @Test
     @WithMockUser(roles = "USER")
     void write() throws Exception {
         String WRITE_API_URI = "/til/write";
 
-        mockMvc.perform(get(WRITE_API_URI))
+        mockMvc.perform(get(WRITE_API_URI)
+                        .session(mockSession))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("user"))
+                .andExpect(model().attributeExists("userId"))
+                .andExpect(model().attributeExists("seriesList"))
                 .andExpect(view().name("/til/write"))
                 .andDo(print());
     }
@@ -55,8 +81,7 @@ class TilControllerTest {
 
         mockMvc.perform(post(SAVE_API_URI))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("user"))
-                .andExpect(view().name("/til/{tilId}"))
+                .andExpect(view().name("/til/detail"))
                 .andDo(print());
     }
 

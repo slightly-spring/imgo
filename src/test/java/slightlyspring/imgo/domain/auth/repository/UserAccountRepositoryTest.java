@@ -41,7 +41,7 @@ class UserAccountRepositoryTest {
     //given
 //    LocalDateTime now = LocalDateTime.of(2100,2,15,0,0,0);
     LocalDateTime now = LocalDateTime.now();
-    userAccountRepository.save(UserAccount.builder().role(Role.USER).build());
+    userAccountRepository.save(UserAccount.builder().role(Role.USER).authId("test").authType(AuthType.GOOGLE).build());
 
     //when
     List<UserAccount> postsLists = userAccountRepository.findAll();
