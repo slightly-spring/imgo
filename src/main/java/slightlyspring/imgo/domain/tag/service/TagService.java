@@ -2,6 +2,7 @@ package slightlyspring.imgo.domain.tag.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.search.engine.search.query.SearchResult;
+import org.hibernate.search.engine.search.sort.dsl.SearchSortFactory;
 import org.hibernate.search.mapper.orm.Search;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,23 +28,29 @@ public class TagService {
     public List<Tag> searchTags(String word) {
         SearchResult<Tag> result = Search.session(entityManager)
                 .search(Tag.class)
-                .where(f -> f.match()
-                        .fields("name")
-                        .matching(word))
+                .where(f -> f.wildcard()
+                        .field("name")
+                        .matching("*"+word+"*"))
+                .sort(SearchSortFactory::score)
                 .fetch(10);
         return result.hits();
     }
 
     @Transactional
-    public List<Tag> saveTags(List<String> tags) {
-        List<Tag> tagList = new ArrayList<>();
-        System.out.println("tagList = " + tagList);
-        for (String tag : tags) {
-            if(!tagRepository.existsByName(tag)) {
-                tagList.add(Tag.builder().name(tag).build());
-            }
-        }
-        return tagRepository.saveAll(tagList);
+    public List<Tag> saveTags(List<String> tagNames) {
+        List<Tag> existingTags = tagRepository.findTagsByNameIn(tagNames);
+        List<String> existingTagNames = existingTags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList());
+
+        List<String> newTagNames = tagNames.stream()
+                .filter(tagName -> !existingTagNames.contains(tagName))
+                .collect(Collectors.toList());
+        List<Tag> newTags = newTagNames.stream()
+                .map(newTagName -> Tag.builder().name(newTagName).build())
+                .collect(Collectors.toList());
+
+        return tagRepository.saveAll(newTags);
     }
 
 }
