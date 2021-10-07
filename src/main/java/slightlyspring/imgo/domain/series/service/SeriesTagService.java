@@ -1,5 +1,6 @@
 package slightlyspring.imgo.domain.series.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +28,12 @@ public class SeriesTagService {
       Series series = st.getSeries();
       Tag tag = st.getTag();
       if (re.containsKey(series.getId())) {
-        re.get(series.getId()).add(tag);
+        List<Tag> tags = re.get(series.getId());
+        tags.add(tag);
+
       } else {
-        List<Tag> tmpTags = Stream.of(tag).collect(Collectors.toList());
+//        List<Tag> tmpTags = Stream.of(tag).collect(Collectors.toList());
+        List<Tag> tmpTags = new ArrayList<>(Arrays.asList(tag));
         re.put(series.getId(), tmpTags);
       }
     }

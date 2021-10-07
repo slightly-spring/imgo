@@ -8,6 +8,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import slightlyspring.imgo.domain.tag.domain.Tag;
+import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 
@@ -33,11 +34,13 @@ public class TilTagService {
 
     Map<Long, List<Tag>> re = new HashMap<>();
     for (TilTag tt : tilTags) {
-      if (re.containsKey(tt.getTil().getId())) {
-        re.get(tt.getTil().getId()).add(tt.getTag());
+      Til til = tt.getTil();
+      Tag tag = tt.getTag();
+      if (re.containsKey(til.getId())) {
+        re.get(til.getId()).add(tag);
       } else {
-        List<Tag> tmp = Arrays.asList(tt.getTag());
-        re.put(tt.getTil().getId(), tmp);
+        List<Tag> tmp = new ArrayList<>(Arrays.asList(tag));
+        re.put(til.getId(), tmp);
       }
     }
 
