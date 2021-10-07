@@ -9,6 +9,7 @@ import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.repository.TagRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,5 +62,29 @@ class TagServiceTest {
 
         // then
         assertThat(hits.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void saveTags_새_태그_저장() {
+        // given
+        List<String> tagNames = Arrays.asList("TIL", "List");
+
+        // when
+        List<Tag> savedTags = tagService.saveTags(tagNames);
+
+        // then
+        assertThat(savedTags.size()).isEqualTo(2);
+    }
+
+    @Test
+    void saveTags_중복포함_태그_저장() {
+        // given
+        List<String> tagNames = Arrays.asList("Spring", "OS");
+
+        // when
+        List<Tag> savedTags = tagService.saveTags(tagNames);
+
+        // then
+        assertThat(savedTags.size()).isEqualTo(1);
     }
 }

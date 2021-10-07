@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,15 +37,20 @@ public class TagService {
     }
 
     @Transactional
-    public List<Tag> saveTags(List<String> tags) {
-        List<Tag> tagList = new ArrayList<>();
-        System.out.println("tagList = " + tagList);
-        for (String tag : tags) {
-            if(!tagRepository.existsByName(tag)) {
-                tagList.add(Tag.builder().name(tag).build());
-            }
-        }
-        return tagRepository.saveAll(tagList);
+    public List<Tag> saveTags(List<String> tagNames) {
+        List<Tag> existingTags = tagRepository.findTagsByNameIn(tagNames);
+        List<String> existingTagNames = existingTags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList());
+
+        List<String> newTagNames = tagNames.stream()
+                .filter(tagName -> !existingTagNames.contains(tagName))
+                .collect(Collectors.toList());
+        List<Tag> newTags = newTagNames.stream()
+                .map(newTagName -> Tag.builder().name(newTagName).build())
+                .collect(Collectors.toList());
+
+        return tagRepository.saveAll(newTags);
     }
 
 }
