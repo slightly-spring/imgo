@@ -3,3 +3,28 @@
     height: 80px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
 }
+
+.input-tags {
+    padding-left: 15px;
+    padding-top: 20px;
+}
+.card-input {
+    --tags-border-color: transparent;
+    --tags-hover-border-color: transparent;
+    --tags-focus-border-color: transparent;
+}
+
+.buttons {
+    display: flex;
+    margin-top: 30px;
+}
+
+.button-cancel {
+    margin-left: auto;
+    margin-right: 10px;
+    background-color: #bbb;
+}
+
+.button-primary {
+    background-color: #156a2b;
+}

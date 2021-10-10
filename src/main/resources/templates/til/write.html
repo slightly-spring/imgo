@@ -31,26 +31,26 @@
                     </div>
                 </div>
             </div>
-            <div class="block input-series">
+            <div class="card input-series">
                 <a href="#"data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <p id="series-title">시리즈 선택하기</p>
+                    <p class="card-title" id="series-title">시리즈 선택하기</p>
                 </a>
             </div>
-            <div class="block input-title">
-                <input type="text" name="title"/>
+            <div class="card input-title">
+                <input class="card-input" type="text" name="title" placeholder="제목을 입력하세요"/>
             </div>
             <div class="editor" id="editor">
             </div>
             <input type="hidden" name="content" id="til-content"/>
-            <div class="block input-tags">
-                <div id="tag-input"/>
+            <div class="card input-tags">
+                <div class="card-input" id="tag-input" placeholder="#태그를 입력하세요"/>
                 <input type="hidden" name="tags" id="tags"/>
             </div>
             <div class="buttons">
-                <button class="cancel" type="button">
+                <button class="button button-cancel cancel" type="button">
                     취소
                 </button>
-                <button class="submit" type="submit">
+                <button class="button button-primary submit" type="submit">
                     등록
                 </button>
             </div>
