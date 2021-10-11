@@ -15,7 +15,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <h5 class="text-center">시리즈 선택하기</h5>
+                            <h4 class="text-center modal-title">시리즈 선택하기</h4>
                             <input id="series-input"  class="form-control" type="text" placeholder="검색할 시리즈명을 입력하세요." th:attr="data-user-id=${userId?:0}" oninput="searchMySeries()">
 
                             <div id="series-list" class="series-list">
@@ -23,9 +23,9 @@
                                     <option th:each="series : ${seriesList}" th:value="${series.id}" th:text="${series.title}"></option>
                                 </select>
                             </div>
-                            <div class="d-flex justify-content-md-evenly">
-                                <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
-                                <button type="button" class="btn" data-bs-dismiss="modal" onclick="selectSeries()">선택한 시리즈로 등록</button>
+                            <div class="buttons d-flex justify-content-center">
+                                <button type="button" class="button button-cancel" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="button button-primary" data-bs-dismiss="modal" onclick="selectSeries()">선택한 시리즈로 등록</button>
                             </div>
                         </div>
                     </div>

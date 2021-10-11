@@ -72,7 +72,7 @@ async function searchMySeries() {
         }
         seriesList.innerHTML = `<select id="series-select" name="seriesId" class="form-select" size=${result.length}>` + series + "</select>";
     } else {
-        seriesList.innerHTML = `<button type="button" onclick="addNewSeries(${seriesInput.dataset.userId}, '${seriesInput.value}')" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
+        seriesList.innerHTML = `<button class="add-button button btn-dark mx-auto" type="button" onclick="addNewSeries(${seriesInput.dataset.userId}, '${seriesInput.value}')" value="${seriesInput.value}">'${seriesInput.value}'으로 시리즈 추가</button>`;
     }
 
 }
