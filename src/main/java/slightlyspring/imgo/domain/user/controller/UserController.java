@@ -1,6 +1,16 @@
 package slightlyspring.imgo.domain.user.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import slightlyspring.imgo.domain.user.domain.Rival;
+import slightlyspring.imgo.domain.user.domain.UserBadge;
+import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.dto.UserProfileDetail;
 import slightlyspring.imgo.domain.user.service.UserService;
@@ -38,19 +51,66 @@ public class UserController {
 
         UserProfile userProfile = userService.getUserProfile(userId);
         UserProfileDetail userProfileDetail = userService.getUserProfileDetail(userId);
+        int firstDayOfWeek = LocalDate.now().with(WeekFields.of(Locale.KOREA).dayOfWeek(), 1)
+            .getDayOfMonth();
+        PageData pageData = new PageData(userProfile, userProfileDetail);
+        pageData.setFirstDayOfWeek(firstDayOfWeek);
 
         if (sessionUserId.equals(userId)) {
-            model.addAttribute("pageRole", "mypage");
+            pageData.setPageRole("myPage");
+            pageData.setSidebarBtn("Til 분석하기");
         } else {
-            model.addAttribute("pageRole", "profile");
+            pageData.setPageRole("profile");
+            pageData.setSidebarBtn("라이벌등록하기");
         }
 
-        model.addAttribute("userProfile", userProfile)
-            .addAttribute("userProfileDetail", userProfileDetail)
-            .addAttribute("firstDayOfWeek",
-                LocalDate.now().with(WeekFields.of(Locale.KOREA).dayOfWeek(), 1).getDayOfMonth())
-            .addAttribute("userId", userId);
-        return "/user/profile_test";
+        model.addAttribute("pageData", pageData);
+
+//        model.addAttribute("userProfile", userProfile)
+//            .addAttribute("userProfileDetail", userProfileDetail)
+//            .addAttribute("firstDayOfWeek",
+//                LocalDate.now().with(WeekFields.of(Locale.KOREA).dayOfWeek(), 1).getDayOfMonth())
+//            .addAttribute("userId", userId);
+        return "/user/profile";
+    }
+
+    @Data
+    class PageData {
+        //userProfile
+        private Long id;
+        private String nickname;
+        private String profileImg;
+        private String profileDescription;
+
+        //userProfileDetail
+        private List<UserBadge> userBadges = new ArrayList<>();
+        private List<Rival> rivals = new ArrayList<>();
+        private List<UserTilRecord> userTilRecords = new ArrayList<>();
+
+        private String pageRole;
+        private String sidebarBtn;
+        private int firstDayOfWeek;
+
+        public PageData(UserProfile userProfile, UserProfileDetail userProfileDetail) {
+            this.id = userProfile.getId();
+            this.nickname = userProfile.getNickname();
+            this.profileImg = userProfile.getProfileImg();
+            this.profileDescription = userProfile.getProfileDescription();
+
+            this.userBadges = userProfileDetail.getUserBadges();
+            this.rivals = userProfileDetail.getRivals();
+            this.userTilRecords = getUserTilRecords();
+        }
+
+        public boolean isRivalActive(Rival rival) {
+            LocalDateTime activeTime = LocalDateTime.now().plusDays(-1);
+            Duration duration = Duration.between(activeTime, rival.getTarget().getLastWriteAt());
+            return duration.getSeconds() >= 0;
+        }
+
+        public boolean isRecorded(int day) {
+            return this.userTilRecords.stream().anyMatch(record -> record.getBaseDate().getDayOfMonth() == day);
+        }
     }
 
 }

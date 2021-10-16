@@ -3,13 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="content">
-    <div th:object="${userProfile}">
+
+    <div th:object="${pageData}">
+        <p th:text="*{pageRole}">page role</p>
+        <p th:text="*{sidebarBtn}"></p>
         <p th:text="*{nickname}"></p>
         <p th:text="*{profileImg}"></p>
         <p th:text="*{profileDescription}"></p>
-    </div>
 
-    <div th:object="${userProfileDetail}">
         <div th:each="userBadge : *{userBadges}">
             <p th:text="${userBadge.badge.logo}"></p>
             <p th:text="${userBadge.badge.name}"></p>
@@ -17,13 +18,37 @@
         <div th:each="rival : *{rivals}">
             <p th:text="${rival.target.nickname}"></p>
             <p th:text="${rival.target.profileImg}"
-               th:classappend="${userProfileDetail.isRivalActive(rival)} ? 'active'">
+               th:classappend="${pageData.isRivalActive(rival)} ? 'active'"></p>
         </div>
-        <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">
-            <p th:text="${day}"
-               th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>
+        <div th:with="firstDayOfWeek=*{firstDayOfWeek}">
+            <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">
+                <p th:text="${day}"
+                   th:classappend="${pageData.isRecorded(day)} ? 'active'"></p>
+            </div>
         </div>
     </div>
+
+<!--    <div th:object="${userProfile}">-->
+<!--        <p th:text="*{nickname}"></p>-->
+<!--        <p th:text="*{profileImg}"></p>-->
+<!--        <p th:text="*{profileDescription}"></p>-->
+<!--    </div>-->
+
+<!--    <div th:object="${userProfileDetail}">-->
+<!--        <div th:each="userBadge : *{userBadges}">-->
+<!--            <p th:text="${userBadge.badge.logo}"></p>-->
+<!--            <p th:text="${userBadge.badge.name}"></p>-->
+<!--        </div>-->
+<!--        <div th:each="rival : *{rivals}">-->
+<!--            <p th:text="${rival.target.nickname}"></p>-->
+<!--            <p th:text="${rival.target.profileImg}"-->
+<!--               th:classappend="${userProfileDetail.isRivalActive(rival)} ? 'active'">-->
+<!--        </div>-->
+<!--        <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">-->
+<!--            <p th:text="${day}"-->
+<!--               th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>-->
+<!--        </div>-->
+<!--    </div>-->
 
 <!--    tab 구현-->
     <link rel="stylesheet" th:href="@{/css/card-tab.css}">
