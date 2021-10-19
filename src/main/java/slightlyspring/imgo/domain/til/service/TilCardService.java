@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
@@ -48,10 +50,41 @@ public class TilCardService {
     return tilCardDataList;
   }
 
+  public List<TilCardData> getTilCardData(Pageable pageable) {
+    List<TilCardData> tilCardDataList = new ArrayList<>();
+
+    List<Til> tilPages = findAll(pageable);
+
+    List<Long> tilIds = tilPages.stream().map(t -> t.getId()).collect(Collectors.toList());
+    Map<Long, List<Tag>> tagMapByTilIds = tilTagService.getTagsMapByTilIds(tilIds);
+
+    for (Til til : tilPages) {
+      Long tilId = til.getId();
+      List<Tag> tags = tagMapByTilIds.get(tilId);
+
+      TilCardData tmp = TilCardData.builder()
+          .title(til.getTitle())
+          .likeCount(til.getLikeCount())
+          .createdAt(til.getCreatedDate())
+//          .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
+          .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
+          .nickname(til.getUser().getNickname())
+          .build();
+      tilCardDataList.add(tmp);
+    }
+
+    return tilCardDataList;
+  }
+
   public Stream<Tag> tagListToStream(List<Tag> collection) {
     return Optional.ofNullable(collection)
         .map(Collection::stream)
         .orElseGet(Stream::empty);
+  }
+
+  public List<Til> findAll(Pageable pageable){
+    Page<Til> tilPage = tilRepository.findAll(pageable);
+    return tilPage.getContent();
   }
 
 

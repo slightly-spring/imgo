@@ -57,11 +57,22 @@ public class SeriesController {
     }
 
     @GetMapping("/{userId}/series-cards")
-    public ResponseEntity seriesCards(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity seriesCardsByUserId(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
 
         List<SeriesCardData> seriesCardDataPages = seriesCardService.getSeriesCardDataByUserID(pageable, userId);
-        ResponseEntity<List<SeriesCardData>> tilCardResponse = new ResponseEntity<>(
+        ResponseEntity<List<SeriesCardData>> seriesCardResponse = new ResponseEntity<>(
             seriesCardDataPages, HttpStatus.OK);
-        return tilCardResponse;
+        return seriesCardResponse;
     }
+
+    @GetMapping("/series-cards")
+    public ResponseEntity seriesCards(@PageableDefault(size=5, sort="createdDate") Pageable pageable) {
+
+        List<SeriesCardData> seriesCardDataPages = seriesCardService.getSeriesCardData(pageable);
+        ResponseEntity<List<SeriesCardData>> seriesCardResponse = new ResponseEntity<>(
+            seriesCardDataPages, HttpStatus.OK);
+        return seriesCardResponse;
+    }
+
+
 }

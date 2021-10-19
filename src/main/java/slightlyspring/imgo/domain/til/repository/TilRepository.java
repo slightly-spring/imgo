@@ -11,4 +11,5 @@ public interface TilRepository extends JpaRepository<Til, Long> {
 
   List<Til> findByUserId(Long userId);
   List<Til> findByUserId(Long userId, Pageable pageable);
+  Page<Til> findAll(Pageable pageable);
 }
