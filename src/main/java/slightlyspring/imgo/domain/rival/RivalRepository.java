@@ -9,5 +9,7 @@ import java.util.List;
 public interface RivalRepository extends JpaRepository<Rival, Long> {
     List<String> findAllByUserId(@Param("user_id") String userId);
     List<Rival> findByUserId(Long userId);
+
+    void deleteByUserIdAndTargetId(Long userId, Long targetId);
     boolean existsByUserIdAndTargetId(Long userId, Long targetId);
 }

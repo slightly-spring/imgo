@@ -11,8 +11,8 @@ public class RivalService {
   private final RivalRepository rivalRepository;
   static int MAX_NUM = 5;
 
-  public boolean isRivalByUserId(Long myId, Long targetId) {
-    List<Rival> rivals = rivalRepository.findByUserId(myId);
+  public boolean isRivalByUserId(Long userId, Long targetId) {
+    List<Rival> rivals = rivalRepository.findByUserId(userId);
     for (int i = 0; i < rivals.size(); i++) {
       if (rivals.get(i).getTarget().getId() == targetId) {
         return true;
@@ -41,6 +41,10 @@ public class RivalService {
     }
 
     return rivalRepository.save(rival).getId();
+  }
+
+  public void deleteRival(Long userId, Long targetId) {
+    rivalRepository.deleteByUserIdAndTargetId(userId, targetId);
   }
 
 }
