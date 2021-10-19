@@ -1,8 +1,9 @@
-package slightlyspring.imgo.domain.user.domain;
+package slightlyspring.imgo.domain.rival;
 
 import lombok.*;
 
 import javax.persistence.*;
+import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
