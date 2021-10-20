@@ -1,4 +1,4 @@
-let $container = $('.container').infiniteScroll({
+let $tilContainer = $('.til-container').infiniteScroll({
   path: '.pagination__next',
   //     function() {
   //   return `/til/1/til-cards?page=${this.pageIndex-1}&size=5`;
@@ -9,20 +9,20 @@ let $container = $('.container').infiniteScroll({
   history: false,
 });
 
-$container.on( 'load.infiniteScroll', function( event, body ) {
+$tilContainer.on( 'load.infiniteScroll', function( event, body ) {
   // compile body data into HTML
-  let itemsHTML = body.map(getItemHTML).join('');
+  let itemsHTML = body.map(getItemHTMLFromTilCard).join('');
   // convert HTML string into elements
   let $items =  $( itemsHTML );
   // append item elements
-  $container.infiniteScroll( 'appendItems', $items );
+  $tilContainer.infiniteScroll( 'appendItems', $items );
 });
 
 // load initial page
-$container.infiniteScroll('loadNextPage');
+$tilContainer.infiniteScroll('loadNextPage');
 
 //------------------//
-function getItemHTML(data) {
+function getItemHTMLFromTilCard(data) {
   let result = document.createElement('div');
 
   let tilCard = document.createElement('article');

@@ -1,6 +1,6 @@
 package slightlyspring.imgo.domain.series.domain;
 
-import lombok.Getter;
+import lombok.*;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 
 import javax.persistence.*;
@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "series_tags")
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SeriesTag {
     @Id
     @GeneratedValue

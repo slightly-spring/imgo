@@ -1,8 +1,6 @@
 package slightlyspring.imgo.domain.til.controller;
 
 import io.lettuce.core.dynamic.annotation.Param;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,20 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.service.TagService;
-import slightlyspring.imgo.domain.tag.repository.TagRepository;
-import slightlyspring.imgo.domain.til.domain.SourceType;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
-import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
-import slightlyspring.imgo.domain.til.repository.TilRepository;
-import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.til.service.TilCardService;
 import slightlyspring.imgo.domain.til.service.TilImageService;
 import slightlyspring.imgo.domain.til.service.TilService;
@@ -36,12 +28,11 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
-import slightlyspring.imgo.domain.til.service.TilTagService;
-import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.service.UserService;
 import slightlyspring.imgo.infra.S3FileUploader;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -55,6 +46,10 @@ public class TilController {
     private final TilRepository tilRepository;
     private final TilImageService tilImageService;
     private final HttpSession httpSession;
+    private final TilCardService tilCardService;
+    private final UserRepository userRepository;
+    private final TilService tilService;
+    private final TagService tagService;
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
@@ -82,38 +77,42 @@ public class TilController {
         return "/til/write";
     }
 
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute("tilForm") TilForm tilForm) {
-//        // TODO userId using principal
-//        Long userId = (Long) httpSession.getAttribute("userId");
-//        List<String> tags = tilForm.getTags();
-//        Til til = Til.builder()
-//                .title(tilForm.getTitle())
-//                .content(tilForm.getContent())
-//                .sourceType(tilForm.getSourceType())
-//                .source(tilForm.getSource())
-//                .user(userRepository.getById(userId))
-//                .series(seriesRepository.getById(tilForm.getSeriesId()))
-//                .build();
-//
-//        List<Tag> savedTags = tagService.saveTags(tags);
-//        Long tilId = tilService.save(til, savedTags);
-//
-//        return "redirect:/til/" + tilId ;
-//    }
-//
+    @PostMapping("/save")
+    public String save(@ModelAttribute("tilForm") TilForm tilForm) {
+        // TODO userId using principal
+        Long userId = (Long) httpSession.getAttribute("userId");
+        List<String> tags = tilForm.getTags();
+        Til til = Til.builder()
+                .title(tilForm.getTitle())
+                .content(tilForm.getContent())
+                .sourceType(tilForm.getSourceType())
+                .source(tilForm.getSource())
+                .user(userRepository.getById(userId))
+                .series(seriesRepository.getById(tilForm.getSeriesId()))
+                .build();
 
-//    @GetMapping("/{userId}/til-cards")
-//    public ResponseEntity<List<TilCardData>> getTilCardList(@PathVariable Long userId) {
-//        List<TilCardData> tilCardDataList = tilCardService.getTilCardDataListByUserId(userId);
-//        return new ResponseEntity<>(tilCardDataList, HttpStatus.OK);
-//    }
+        List<Tag> savedTags = tagService.saveTags(tags);
+        Long tilId = tilService.save(til, savedTags);
+
+        return "redirect:/til/" + tilId ;
+    }
 
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity getTilCardList(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
 
-        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataPageByUserId(pageable, userId);
-        return new ResponseEntity<>(tilCardDataPages, HttpStatus.OK);
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserId(pageable, userId);
+        ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
+            tilCardDataPages, HttpStatus.OK);
+        return tilCardResponse;
+    }
+
+    @GetMapping("/til-cards")
+    public ResponseEntity tilCards(
+        @PageableDefault(size = 5, sort = "createdDate") Pageable pageable) {
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardData(pageable);
+        ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
+            tilCardDataPages, HttpStatus.OK);
+        return tilCardResponse;
     }
 
     @PostMapping("/image")

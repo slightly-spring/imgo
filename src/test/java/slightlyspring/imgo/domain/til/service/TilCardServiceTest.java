@@ -31,10 +31,6 @@ class TilCardServiceTest {
 
   @Mock
   private TilTagRepository tilTagRepository;
-  @Mock
-  private TilRepository tilRepository;
-  @Mock
-  private TagRepository tagRepository;
 
   @Test
   @DisplayName("TilId-Tags 맵 불러오기")
