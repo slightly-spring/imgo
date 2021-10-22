@@ -1,6 +1,7 @@
 package slightlyspring.imgo.domain.til.controller;
 
 import io.lettuce.core.dynamic.annotation.Param;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,14 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
+import slightlyspring.imgo.domain.tag.repository.TagRepository;
 import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
+import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.til.service.TilCardService;
 import slightlyspring.imgo.domain.til.service.TilImageService;
 import slightlyspring.imgo.domain.til.service.TilService;
@@ -47,9 +51,6 @@ public class TilController {
     private final TilImageService tilImageService;
     private final HttpSession httpSession;
     private final TilCardService tilCardService;
-    private final UserRepository userRepository;
-    private final TilService tilService;
-    private final TagService tagService;
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
@@ -57,10 +58,6 @@ public class TilController {
         model.addAttribute("til", til);
         return "/til/detail";
     }
-
-    private final TilCardService tilCardService;
-//    private final UserService userService;
-//    private final TilTagService tilTagService;
 
     // 테스트 데이터 생성용 repository
     private final TagRepository tagRepository;
