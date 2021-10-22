@@ -10,5 +10,6 @@ import slightlyspring.imgo.domain.til.domain.TilTag;
 public interface TilTagRepository extends JpaRepository<TilTag, Long> {
 
   List<TilTag> findByTilId(Long tilId);
+  Long countByTagId(Long tagId);
   List<TilTag> findByTilIdIn(List<Long> tilIds);
 }

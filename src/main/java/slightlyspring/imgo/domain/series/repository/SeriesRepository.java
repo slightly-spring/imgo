@@ -1,5 +1,7 @@
 package slightlyspring.imgo.domain.series.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +18,7 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
 
     List<Series> findByUserId(Long userId, Pageable pageable);
     Page<Series> findAll(Pageable pageable);
+
+    Long countByUserIdAndCreatedDateAfter(Long userId, LocalDateTime from);
 
 }
