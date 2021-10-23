@@ -17,7 +17,7 @@ import slightlyspring.imgo.domain.tag.domain.Tag;
 public class TilCardData {
   private String title;
   private int likeCount;
-  private LocalDateTime createdAt;
+  private String createdAt;
   private List<String> tags;
   private String nickname;
 }

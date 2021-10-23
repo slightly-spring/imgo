@@ -60,11 +60,6 @@ public class UserController {
 
         model.addAttribute("pageData", pageData);
 
-//        model.addAttribute("userProfile", userProfile)
-//            .addAttribute("userProfileDetail", userProfileDetail)
-//            .addAttribute("firstDayOfWeek",
-//                LocalDate.now().with(WeekFields.of(Locale.KOREA).dayOfWeek(), 1).getDayOfMonth())
-//            .addAttribute("userId", userId);
         return "/user/profile";
     }
 
