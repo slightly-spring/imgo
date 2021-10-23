@@ -8,17 +8,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.tag.repository.TagRepository;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
-import slightlyspring.imgo.domain.user.domain.User;
 
-//@ExtendWith(SpringExtension.class)
-//@DataJpaTest
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+//@SpringBootTest
 class TilTagRepositoryTest {
 
   @Autowired

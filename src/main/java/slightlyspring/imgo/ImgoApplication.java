@@ -11,27 +11,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
-@Controller
+//@Controller
 @SpringBootApplication
 public class ImgoApplication {
 
-    private final HttpSession httpSession;
+//    private final HttpSession httpSession;
 
     public static void main(String[] args) {
         SpringApplication.run(ImgoApplication.class, args);
     }
 
+//    @GetMapping("/")
+//    public String index(Model model) {
+//        model.addAttribute("userId", httpSession.getAttribute("userId"));
+//        return "index";
+//    }
 
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("userId", httpSession.getAttribute("userId"));
-        return "index";
-    }
-
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
-    }
 
 
 }
