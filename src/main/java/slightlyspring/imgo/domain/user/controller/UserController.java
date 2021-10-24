@@ -51,11 +51,9 @@ public class UserController {
         pageData.setFirstDayOfWeek(firstDayOfWeek);
 
         if (sessionUserId.equals(userId)) {
-            pageData.setPageRole("myPage");
-            pageData.setSidebarBtn("Til 분석하기");
+            pageData.setPageRole("mypage");
         } else {
             pageData.setPageRole("profile");
-            pageData.setSidebarBtn("라이벌등록하기");
         }
 
         model.addAttribute("pageData", pageData);
@@ -77,7 +75,6 @@ public class UserController {
         private List<UserTilRecord> userTilRecords = new ArrayList<>();
 
         private String pageRole;
-        private String sidebarBtn;
         private int firstDayOfWeek;
 
         public PageData(UserProfile userProfile, UserProfileDetail userProfileDetail) {

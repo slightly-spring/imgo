@@ -50,17 +50,28 @@
                 </ul>
             </div>
             <div class="bottom-btn">
-                <span class="text">내 TIL 분석하기</span><img src="/img/arrow.svg">
+                <a th:if="${pageData.pageRole == 'mypage'}" href="#">
+                    <span class="text">내 TIL 분석하기</span>
+                    <img src="/img/arrow.svg">
+                </a>
+                <a th:if="${pageData.pageRole == 'profile'}" href="#">
+                    <span class="text">라이벌 등록하기</span>
+                    <img src="/img/arrow.svg">
+                </a>
             </div>
         </div>
         <div class="right-content">
             <div class="list-name">작성목록</div>
-            <div class="category-box">
+            <div class="category-box tabnav">
                 <div class="category-title selected">
-                    TIL 9
+                    <a href="#tab1">
+                        TIL ?
+                    </a>
                 </div>
                 <div class="category-title">
-                    시리즈 12
+                    <a href="#tab2">
+                        시리즈 ?
+                    </a>
                 </div>
             </div>
             <div class="filter-box">
@@ -69,19 +80,23 @@
 <!--                <button type="button" class="filter-box-btn">Android<img src="/img/close-filter.svg"></button>-->
             </div>
 
-            <div class="content-box">
+            <div class="content-box tabcontent">
                 <ul id="tab1" class="content-list">
-                    <ul class="til-container content-list">
+                    <div class="til-container content-list">
                         <!--        카드 리스트 들어올 부분-->
-                    </ul>
+                    </div>
                     <p class="pagination" style="display:none">
                         <a class="pagination__next" th:href="|/til/${userId}/til-cards?page=0&size=5|">Next page</a>
                     </p>
                 </ul>
                 <ul id="tab2" class="content-list">
-                    <div class="til-container content-list">
+                    <div class="series-container content-list">
                         <!--        카드 리스트 들어올 부분-->
                     </div>
+                    <p class="pagination" style="display:none">
+                        <a class="pagination__next_series" th:href="|/series/${userId}/series-cards?page=0&size=5|">Next page</a>
+                        <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
+                    </p>
                 </ul>
             </div>
 

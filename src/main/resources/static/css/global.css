@@ -474,3 +474,196 @@ h3 {
 .modal-body .button-primary {
     width: 240px;
 }
+
+
+.content-list {
+    padding: 0;
+    margin: 0;
+}
+
+.content-list li {
+    display: flex;
+    list-style: none;
+    height: 160px;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.img-box {
+    background-size: cover;
+    height: 160px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.left-content .user-profile {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin: 40px 80px 20px 80px;
+    text-align: right;
+    background-position: center center;
+    background-image: url("../img/profile.jpg");
+}
+
+.left-content .profile-setting {
+    position: relative;
+    top: 60px;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    background: #222;
+    border-radius: 10px;
+    border: 0;
+    padding: 0;
+}
+
+.left-content .profile-setting img {
+    width: 20px;
+    height: 20px;
+}
+
+.left-content .user-info {
+    padding: 0px 30px 30px 30px;
+}
+
+.user-info .name {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+}
+
+.right-content .post .content-info {
+    width: 650px !important;
+}
+
+.content-list .post .content-info {
+    padding: 30px 0px 30px 30px;
+    height: 100px;
+    width: 730px;
+}
+
+.content-list .post img {
+    float: right;
+    height: 160px;
+    width: 240px;
+    border-radius: 0 10px 10px 0;
+    background: #ddd;
+}
+
+.right-content .series {
+    width: 450px !important;
+}
+
+.content-list .series {
+    float: left;
+    width: 490px;
+    height: 360px;
+}
+
+.content-list .series .content-info {
+    float: left;
+    padding: 30px;
+    height: 140px;
+    width: 430px;
+}
+
+.content-list .series img {
+    float: left;
+    height: 160px;
+    width: 490px;
+    border-radius: 10px 10px 0 0;
+    background: #ddd;
+}
+
+.content-list .series:nth-child(2n) {
+    margin-left: 20px;
+}
+
+.content-list .content-info .title {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.content-list .content-info .description {
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    margin-top: 12px;
+}
+
+.content-list .info-right {
+    width: 40px;
+    float: right;
+}
+
+.info-right .scrap img {
+    width: 30px;
+    height: 34px;
+    background: none;
+    border-radius: 0;
+}
+
+.info-right .check img {
+    width: 30px;
+    height: 30px;
+    background: none;
+}
+
+.scrap, .check {
+    background: none;
+    border: none;
+}
+
+.check {
+    position: relative;
+    top: 70px;
+}
+
+.tag-box {
+    margin-top: 15px;
+}
+
+.series .tag-box {
+    margin-top: 25px;
+}
+
+.tag-box-btn {
+    padding: 5px 14px;
+    font-size: 12px;
+    background: #eee;
+    height: 28px;
+    margin-right: 4px;
+    border: none;
+    border-radius: 15px;
+    color: #444;
+    text-align: center;
+}
+
+.series-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 900px;
+}
+
+.series-container .series {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 440px;
+}
+
+.series-container .series .content-info {
+    display: flex;
+}
+
+.series-container .series .content-info .info-right {
+    margin-left: auto;
+}
