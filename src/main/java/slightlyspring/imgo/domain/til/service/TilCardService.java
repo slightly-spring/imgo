@@ -40,7 +40,7 @@ public class TilCardService {
       TilCardData tmp = TilCardData.builder()
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
-          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
           .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
           .build();
@@ -65,7 +65,7 @@ public class TilCardService {
       TilCardData tmp = TilCardData.builder()
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
-          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
           .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
           .build();

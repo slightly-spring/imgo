@@ -1,6 +1,6 @@
 function getItemHTMLFromSeriesCard(data) {
   return `<li class="series">
-           <div class="img-box" style="background-image: url(${data.image ?? "/img/til-card-placeholder.png"})">
+           <div class="img-box" style="background-image: url(${data.image ?? "/img/series-card-placeholder.png"})">
            </div>
            <div class="content-info">
              <div class="info-left">

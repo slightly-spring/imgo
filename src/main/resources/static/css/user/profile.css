@@ -11,8 +11,7 @@
     display: inline-block;
     float: left;
     width: 240px;
-    padding-right: 20px;
-    margin-bottom: 100px;
+    margin-right: 40px;
 }
 
 .right-content {
@@ -35,7 +34,6 @@
 }
 
 .badge-box {
-    height: 125px;
     padding: 20px 20px 60px 20px;
     background: #fff;
     border-radius: 10px 10px 0 0;
@@ -69,7 +67,6 @@
 }
 
 .rival-box {
-    height: 275px;
     padding: 60px 20px 60px 20px;
     background: #fff;
 }
@@ -115,7 +112,6 @@
 }
 
 .stamp-box {
-    height: 100px;
     background: #fff;
     border-radius: 0 0 10px 10px;
     padding: 60px 20px 60px 20px;
@@ -129,6 +125,7 @@
 }
 
 .stamp-list .day {
+    margin-right: 5px;
     width: 24px;
     height: 24px;
     float: left;
@@ -174,81 +171,15 @@
     display: block;
     width: 100%;
     padding: 0;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-size: 28px;
     font-weight: bold;
     color: #444;
 }
 
-.category-box {
-    float: left;
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-}
-
-.category-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #444;
-    line-height: 5px;
-    float: left;
-    padding: 0 5px;
-    margin-right: 30px;
-}
-
-.category-title.selected {
-    border-bottom: 16px solid #ffde72;
-    line-height: 5px;
-    float: left;
-    padding: 0 5px;
-    margin-right: 30px;
-}
-
-.filter-box {
-    display: inline-block;
-    height: 32px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 800px;
-    margin-right: 0;
-    float: left;
-}
-
-.filter-box-btn {
-    padding: 7px 14px;
-    font-size: 14px;
-    background: #fff;
-    height: 32px;
-    margin-right: 4px;
-    border: 1px solid #ddd;
-    border-radius: 16px;
-    color: #444;
-    text-align: center;
-}
-
-.filter-box-btn img {
-    float: right;
-    padding: 2px 0px;
-    margin-left: 10px;
-}
-
-.select-box {
-    display: inline-block;
-    height: 32px;
-    width: 120px;
-    float: right;
-    margin: 20px 0;
-}
-
-.select-box img {
-    float: right;
-    padding: 4px 0px;
-    margin-left: 10px;
-}
-
 .content-box {
     display: inline-block;
+    margin-top: 30px;
 }
 
 .detail-box {

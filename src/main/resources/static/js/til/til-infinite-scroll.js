@@ -10,7 +10,7 @@ function getItemHTMLFromTilCard(data) {
             <div class="detail-box">
                 <span class="detail-info">${data.createdAt}</span>
                 <span class="like"><img src="/img/like.svg"/>${data.likeCount}</span>
-                <span class="writer">${data.nickname}</span>
+                <span class="writer">by ${data.nickname}</span>
             </div>
         </div>
         <img src="${data.tilImage ?? "/img/til-card-placeholder.png"}"/>
