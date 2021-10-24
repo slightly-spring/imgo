@@ -1,5 +1,6 @@
 package slightlyspring.imgo.domain.til.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +28,7 @@ public class TilCardService {
   public List<TilCardData> getTilCardDataByUserId(Pageable pageable ,Long userId) {
     List<TilCardData> tilCardDataList = new ArrayList<>();
 
-    List<Til> tilPages = tilRepository.findByUserId(userId, pageable);
+    List<Til> tilPages = tilRepository.findByUserIdOrderByIdDesc(userId, pageable);
 
     List<Long> tilIds = tilPages.stream().map(t -> t.getId()).collect(Collectors.toList());
     Map<Long, List<Tag>> tagMapByTilIds = tilTagService.getTagsMapByTilIds(tilIds);
@@ -39,9 +40,8 @@ public class TilCardService {
       TilCardData tmp = TilCardData.builder()
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
-          .createdAt(til.getCreatedDate())
-//          .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
-          .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
+          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+          .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
           .build();
       tilCardDataList.add(tmp);
@@ -65,9 +65,8 @@ public class TilCardService {
       TilCardData tmp = TilCardData.builder()
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
-          .createdAt(til.getCreatedDate())
-//          .tags(Stream.ofNullable(tags).map(Object::toString).collect(Collectors.toList()))
-          .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
+          .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+          .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
           .build();
       tilCardDataList.add(tmp);
