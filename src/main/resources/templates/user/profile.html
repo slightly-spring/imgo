@@ -2,101 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
+<head>
+    <link th:href="@{/css/user/profile.css}" rel="stylesheet"/>
+</head>
 <th:block layout:fragment="content">
-
-    <div th:object="${pageData}">
-        <p th:text="*{pageRole}">page role</p>
-        <p th:text="*{sidebarBtn}"></p>
-        <p th:text="*{nickname}"></p>
-        <p th:text="*{profileImg}"></p>
-        <p th:text="*{profileDescription}"></p>
-
-        <div th:each="userBadge : *{userBadges}">
-            <p th:text="${userBadge.badge.logo}"></p>
-            <p th:text="${userBadge.badge.name}"></p>
-        </div>
-        <div th:each="rival : *{rivals}">
-            <p th:text="${rival.target.nickname}"></p>
-            <p th:text="${rival.target.profileImg}"
-               th:classappend="${pageData.isRivalActive(rival)} ? 'active'"></p>
-        </div>
-        <div th:with="firstDayOfWeek=*{firstDayOfWeek}">
-            <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">
-                <p th:text="${day}"
-                   th:classappend="${pageData.isRecorded(day)} ? 'active'"></p>
-            </div>
-        </div>
-    </div>
-
-<!--    <div th:object="${userProfile}">-->
-<!--        <p th:text="*{nickname}"></p>-->
-<!--        <p th:text="*{profileImg}"></p>-->
-<!--        <p th:text="*{profileDescription}"></p>-->
-<!--    </div>-->
-
-<!--    <div th:object="${userProfileDetail}">-->
-<!--        <div th:each="userBadge : *{userBadges}">-->
-<!--            <p th:text="${userBadge.badge.logo}"></p>-->
-<!--            <p th:text="${userBadge.badge.name}"></p>-->
-<!--        </div>-->
-<!--        <div th:each="rival : *{rivals}">-->
-<!--            <p th:text="${rival.target.nickname}"></p>-->
-<!--            <p th:text="${rival.target.profileImg}"-->
-<!--               th:classappend="${userProfileDetail.isRivalActive(rival)} ? 'active'">-->
-<!--        </div>-->
-<!--        <div th:each="day : ${#numbers.sequence(firstDayOfWeek, firstDayOfWeek+6)}">-->
-<!--            <p th:text="${day}"-->
-<!--               th:classappend="${userProfileDetail.isRecorded(day)} ? 'active'"></p>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    tab 구현-->
-    <link rel="stylesheet" th:href="@{/css/card-tab.css}">
-    <script type="text/javascript" th:src="@{/js/card-tab.js}"></script>
-    <div class="tab">
-        <ul class="tabnav">
-            <li><a href="#tab01">TIL</a></li>
-            <li><a href="#tab02">SERIES</a></li>
-        </ul>
-        <div class="tabcontent">
-            <div id="tab01">
-                <h1>TIL 카드 입니다</h1>
-                <div class="til-container">
-            <!--        카드 리스트 들어올 부분-->
+    <div class="content-wrapper">
+        <div class="left-content">
+            <div class="myinfo-box">
+                <div class="user-profile" th:style="'background-image:url('+${pageData.userProfile.profileImg}+');'">
+                    <button class="profile-setting"><img src="/img/setting-profile.svg"></button>
                 </div>
-
-                <p class="pagination" style="display:none">
-                    <a class="pagination__next" th:href="|/til/${userId}/til-cards?page=0&size=5|">Next page</a>
-            <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
-                </p>
-            </div>
-            <div id="tab02">
-                <h1>Series 카드 입니다</h1>
-                <div class="series-container">
-                    <!--        카드 리스트 들어올 부분-->
+                <div class="user-info">
+                    <strong class="name" th:text="${pageData.userProfile.nickname}"></strong>
+                    <span class="detail">
+                        IMGO must go on!
+                    </span>
                 </div>
-
-                <p class="pagination" style="display:none">
-                    <a class="pagination__next_series" th:href="|/series/${userId}/series-cards?page=0&size=5|">Next page</a>
-                    <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
-                </p>
+            </div>
+            <div class="badge-box">
+                <strong class="subtitle">업적</strong>
+                <ul class="badge-list" th:each="userBadge : *{pageData.userProfileDetail.userBadges}">
+                    <li>
+                        <img th:src="${userBadge.badge.logo}">
+                        <span th:text="${userBadge.badge.name}" class="badge-name"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="rival-box">
+                <strong class="subtitle">라이벌</strong>
+                <ul class="rival-list">
+                    <li th:each="rival : *{pageData.userProfileDetail.rivals}">
+                        <div class="rival-profile" th:style="'background-image:url('+${rival.target.profileImg}+');'">
+                        </div>
+                        <span class="rival-name" th:text="${rival.target.nickname}"></span>
+                        <img src="/img/close-rival.svg"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="stamp-box">
+                <strong class="subtitle">스탬프</strong>
+                <ul class="stamp-list">
+                    <li th:each="day : ${#numbers.sequence(pageData.firstDayOfWeek, pageData.firstDayOfWeek+6)}"
+                        th:classappend="${pageData.userProfileDetail.isRecorded(day)} ? 'checked'"
+                        th:text="${day}"
+                        class="day">
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-btn">
+                <a th:if="${pageData.pageRole == 'mypage'}" href="#">
+                    <span class="text">내 TIL 분석하기</span>
+                    <img src="/img/arrow.svg">
+                </a>
+                <a th:if="${pageData.pageRole == 'profile'}" href="#">
+                    <span class="text">라이벌 등록하기</span>
+                    <img src="/img/arrow.svg">
+                </a>
             </div>
         </div>
-    </div>
-    <!-- infinite scroll js-->
-    <div class="page-load-status">
-        <div class="loader-ellips infinite-scroll-request">
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
+        <div class="right-content">
+            <div class="list-name">작성 목록</div>
+            <div class="category-box tabnav">
+                <div class="category-title selected">
+                    <a href="#tab1">
+                        TIL
+                        <span th:text="${pageData.userProfile.tilCount}"/>
+                    </a>
+                </div>
+                <div class="category-title">
+                    <a href="#tab2">
+                        시리즈
+                        <span th:text="${pageData.userProfile.seriesCount}"/>
+                    </a>
+                </div>
+            </div>
+<!--            <div class="filter-box">-->
+<!--                <button type="button" class="filter-box-btn">Java<img src="/img/close-filter.svg"></button>-->
+<!--                <button type="button" class="filter-box-btn">Flutter<img src="/img/close-filter.svg"></button>-->
+<!--                <button type="button" class="filter-box-btn">Android<img src="/img/close-filter.svg"></button>-->
+<!--            </div>-->
+            <div class="content-box tabcontent">
+                <ul id="tab1" class="content-list">
+                    <div class="til-container content-list">
+                        <!--        카드 리스트 들어올 부분-->
+                    </div>
+                    <p class="pagination" style="display:none">
+                        <a class="pagination__next" th:href="|/til/${userId}/til-cards?page=0&size=5|">Next page</a>
+                    </p>
+                </ul>
+                <ul id="tab2" class="content-list">
+                    <div class="series-container content-list">
+                        <!--        카드 리스트 들어올 부분-->
+                    </div>
+                    <p class="pagination" style="display:none">
+                        <a class="pagination__next_series" th:href="|/series/${userId}/series-cards?page=0&size=5|">Next page</a>
+                        <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
+                    </p>
+                </ul>
+            </div>
+
+            <button class="write-float"><img src="img/write.svg"></button>
         </div>
-        <p class="infinite-scroll-last">End of content</p>
-        <p class="infinite-scroll-error">No more pages to load</p>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
-    <script type="text/javascript" th:src="@{/js/til/til-infinite-scroll.js}"></script>
-    <script type="text/javascript" th:src="@{/js/series/series-infinite-scroll.js}"></script>
+    <script type="text/javascript" th:src="@{/js/user/profile.js}"></script>
 </th:block>
 </html>
