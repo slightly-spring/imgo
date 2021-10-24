@@ -55,7 +55,7 @@ class SeriesCardServiceTest {
     ReflectionTestUtils.setField(seriesTag2,"id", fakeId+1);
 
     //mocking
-    given(seriesRepository.findByUserId(any(),any()))
+    given(seriesRepository.findByUserIdOrderByIdDesc(any(),any()))
         .willReturn(Arrays.asList(series));
 
     Map<Long, List<Tag>> seriesMap = new HashMap<>();

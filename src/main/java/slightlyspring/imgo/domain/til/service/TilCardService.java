@@ -28,7 +28,7 @@ public class TilCardService {
   public List<TilCardData> getTilCardDataByUserId(Pageable pageable ,Long userId) {
     List<TilCardData> tilCardDataList = new ArrayList<>();
 
-    List<Til> tilPages = tilRepository.findByUserId(userId, pageable);
+    List<Til> tilPages = tilRepository.findByUserIdOrderByIdDesc(userId, pageable);
 
     List<Long> tilIds = tilPages.stream().map(t -> t.getId()).collect(Collectors.toList());
     Map<Long, List<Tag>> tagMapByTilIds = tilTagService.getTagsMapByTilIds(tilIds);
