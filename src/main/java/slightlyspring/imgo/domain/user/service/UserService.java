@@ -3,6 +3,8 @@ package slightlyspring.imgo.domain.user.service;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.series.repository.SeriesRepository;
+import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
@@ -11,7 +13,6 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.repository.UserTilRecordRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,9 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    private final TilRepository tilRepository;
+    private final SeriesRepository seriesRepository;
 
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
@@ -33,6 +37,8 @@ public class UserService {
     public UserProfile getUserProfile(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
         UserProfile userProfile = modelMapper.map(user, UserProfile.class);
+        userProfile.setTilCount(tilRepository.countAllByUserId(userId));
+        userProfile.setSeriesCount(seriesRepository.countAllByUserId(userId));
         return userProfile;
     }
 

@@ -9,12 +9,13 @@ import slightlyspring.imgo.domain.series.domain.Series;
 import java.util.List;
 
 public interface SeriesRepository extends JpaRepository<Series, Long> {
+    int countAllByUserId(Long userId);
     List<Series> findAllByUserId(@Param("user_id") Long userId);
 
     List<Series> findAllByUserIdAndTitleContains(@Param("user_id") Long userId, @Param("title") String title);
     Boolean existsByUserIdAndTitle(@Param("user_id") Long userId, @Param("title") String title);
 
-    List<Series> findByUserId(Long userId, Pageable pageable);
+    List<Series> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
     Page<Series> findAll(Pageable pageable);
 
 }
