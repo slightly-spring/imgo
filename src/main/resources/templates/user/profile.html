@@ -9,11 +9,11 @@
     <div class="content-wrapper">
         <div class="left-content">
             <div class="myinfo-box">
-                <div class="user-profile" th:style="'background-image:url('+${pageData.profileImg}+');'">
+                <div class="user-profile" th:style="'background-image:url('+${pageData.userProfile.profileImg}+');'">
                     <button class="profile-setting"><img src="/img/setting-profile.svg"></button>
                 </div>
                 <div class="user-info">
-                    <strong class="name" th:text="${pageData.nickname}"></strong>
+                    <strong class="name" th:text="${pageData.userProfile.nickname}"></strong>
                     <span class="detail">
                         IMGO must go on!
                     </span>
@@ -21,7 +21,7 @@
             </div>
             <div class="badge-box">
                 <strong class="subtitle">업적</strong>
-                <ul class="badge-list" th:each="userBadge : *{pageData.userBadges}">
+                <ul class="badge-list" th:each="userBadge : *{pageData.userProfileDetail.userBadges}">
                     <li>
                         <img th:src="${userBadge.badge.logo}">
                         <span th:text="${userBadge.badge.name}" class="badge-name"></span>
@@ -31,7 +31,7 @@
             <div class="rival-box">
                 <strong class="subtitle">라이벌</strong>
                 <ul class="rival-list">
-                    <li th:each="rival : *{pageData.rivals}">
+                    <li th:each="rival : *{pageData.userProfileDetail.rivals}">
                         <div class="rival-profile" th:style="'background-image:url('+${rival.target.profileImg}+');'">
                         </div>
                         <span class="rival-name" th:text="${rival.target.nickname}"></span>
@@ -43,7 +43,7 @@
                 <strong class="subtitle">스탬프</strong>
                 <ul class="stamp-list">
                     <li th:each="day : ${#numbers.sequence(pageData.firstDayOfWeek, pageData.firstDayOfWeek+6)}"
-                        th:classappend="${pageData.isRecorded(day)} ? 'checked'"
+                        th:classappend="${pageData.userProfileDetail.isRecorded(day)} ? 'checked'"
                         th:text="${day}"
                         class="day">
                     </li>
@@ -61,16 +61,18 @@
             </div>
         </div>
         <div class="right-content">
-            <div class="list-name">작성목록</div>
+            <div class="list-name">작성 목록</div>
             <div class="category-box tabnav">
                 <div class="category-title selected">
                     <a href="#tab1">
-                        TIL ?
+                        TIL
+                        <span th:text="${pageData.userProfile.tilCount}"/>
                     </a>
                 </div>
                 <div class="category-title">
                     <a href="#tab2">
-                        시리즈 ?
+                        시리즈
+                        <span th:text="${pageData.userProfile.seriesCount}"/>
                     </a>
                 </div>
             </div>
