@@ -1,12 +1,9 @@
 package slightlyspring.imgo.domain.tilAnalysis;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,20 +36,33 @@ class TilAnalysisServiceTest {
   private TilTagRepository tilTagRepository;
   
   @Test
-  void setIntro_test() {
+  void setIntro_NumTil_test() {
     //given
     User user = userRepository.save(User.builder().nickname("userA").build());
     Series series = seriesRepository.save(Series.builder().user(user).build());
     Til til = tilRepository.save(Til.builder().user(user).series(series).build());
 
     //when
-    TilAnalysisData tilAnalysisData = tilAnalysisService.getTilAnalysisDataByUserId(
+    Long numTilPast30Days = tilAnalysisService.getIntroNumTilPast30DaysByUserId(
         user.getId());
 
     //then
-    Long numTilPast30Days = tilAnalysisData.getNumTilPast30Days();
-    Long numSeriesPast30Days = tilAnalysisData.getNumSeriesPast30Days();
+
     assertThat(numTilPast30Days).isEqualTo(1l);
+  }
+
+  @Test
+  void setIntro_NumSeries_test() {
+    //given
+    User user = userRepository.save(User.builder().nickname("userA").build());
+    Series series = seriesRepository.save(Series.builder().user(user).build());
+    Til til = tilRepository.save(Til.builder().user(user).series(series).build());
+
+    //when
+    Long numSeriesPast30Days = tilAnalysisService.getIntroNumSeriesPast30DaysByUserId(
+        user.getId());
+
+    //then
     assertThat(numSeriesPast30Days).isEqualTo(1l);
   }
 
@@ -80,14 +90,42 @@ class TilAnalysisServiceTest {
     TilTag tilTagB2 = tilTagRepository.save(TilTag.builder().til(tilB2).tag(tag).build());
 
     //when
-    TilAnalysisData tmp = tilAnalysisService.getTilAnalysisDataByUserId(
+    List<Pair<Tag, Integer>> top5TagToRateTilSortedList = tilAnalysisService.getTop5TagToRateTilSortedListByUserId(
         userA.getId());
 
     //then
-    List<Pair<Tag, Integer>> rateAsTag = tmp.getRateAsTag();
-    assertThat(rateAsTag.size()).isEqualTo(1);
-    assertThat(rateAsTag.get(0).getFirst().getId()).isEqualTo(tag.getId());
-    assertThat(rateAsTag.get(0).getSecond()).isEqualTo((int)((1D/3D)*100));
+    assertThat(top5TagToRateTilSortedList.size()).isEqualTo(1);
+    assertThat(top5TagToRateTilSortedList.get(0).getFirst().getId()).isEqualTo(tag.getId());
+    assertThat(top5TagToRateTilSortedList.get(0).getSecond()).isEqualTo((int)((1D/3D)*100));
   }
 
+  @Test
+  void Tag_사용빈도() {
+    //given
+    int numOfTag = 10;
+    User user = userRepository.save(User.builder().nickname("userName").build());
+    List<Tag> tmpTags = new ArrayList<>();
+    for (int i = 0; i < numOfTag; i++) {
+      Tag tmpTag = tagRepository.save(Tag.builder().name("tag"+i).build());
+      tmpTags.add(tmpTag);
+      for (int j = 1; j < i + 2; j++) {
+        Til tmpTil = tilRepository.save(Til.builder().user(user).build());
+        tilTagRepository.save(TilTag.builder().til(tmpTil).tag(tmpTag).build());
+      }
+    }
+    //when
+    List<Pair<Tag, Integer>> tmp = tilAnalysisService.getTagToRateSortedListByUserId(
+        user.getId());
+
+    //then
+    for (Pair<Tag, Integer> p : tmp) {
+      System.out.println(String.format("{ p.tag , p.Rate } = {%s, %d}", p.getFirst(), p.getSecond()));
+    }
+    for (int i=0; i<numOfTag; i++) {
+      Pair<Tag, Integer> p = tmp.get(numOfTag - i - 1);
+      assertThat(p.getFirst().getId()).isEqualTo(tmpTags.get(i).getId());
+    }
+
+
+  }
 }
