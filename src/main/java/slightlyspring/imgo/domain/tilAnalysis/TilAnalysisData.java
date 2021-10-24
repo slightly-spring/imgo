@@ -20,8 +20,9 @@ public class TilAnalysisData {
   // Top5 Tag 별, 전체에 대한 나의 사용 비율
   private List<Pair<Tag,Integer>> tagToRateTilSortedList;
   // Til 작성 지속 기간
-  private Long nowContinuousDays;
-  private Long maxContinuousDays;
+  private int nowContinuousDays;
+  private int maxContinuousDays;
+  private int maxContinuousPast30Days;
   // Tag 사용빈도
   private List<Pair<Tag,Integer>> tagToRateSortedList;
   private List<Tag> tagTop3ByRate;

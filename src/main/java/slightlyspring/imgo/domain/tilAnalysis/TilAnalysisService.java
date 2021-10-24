@@ -15,9 +15,11 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
+import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
+import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 @Service
@@ -41,12 +43,17 @@ public class TilAnalysisService {
     List<Pair<Tag, Integer>> top5TagToRateTilList = getTop5TagToRateTilSortedListByUserId(userId);
     returnData.setTagToRateTilSortedList(top5TagToRateTilList);
 
+    // 지속시간
+    returnData.setNowContinuousDays(getNowContinuousDaysByUserId(userId));
+    returnData.setMaxContinuousDays(getMaxContinuousDaysByUserId(userId));
+    returnData.setMaxContinuousPast30Days(getMaxContinuousPast30DaysByUserId(userId));
+
     // Tag 사용빈도
     List<Pair<Tag, Integer>> tagToRateSortedList = getTagToRateSortedListByUserId(userId);
     returnData.setTagToRateSortedList(tagToRateSortedList);
     returnData.setTagTop3ByRate(
         tagToRateSortedList.subList(0, Math.min(tagToRateSortedList.size(), 3)).stream()
-            .map(p -> p.getFirst())
+            .map(Pair::getFirst)
             .collect(Collectors.toList()));
 
 //    setContinuousDays(tilAnalysisData);
@@ -83,15 +90,27 @@ public class TilAnalysisService {
     return tagToRateTilSortedList;
   }
 
-  public void setContinuousDays(TilAnalysisData tilAnalysisData) {
-
+  public int getMaxContinuousDaysByUserId(Long userId) {
+    User user = userRepository.findById(userId)
+        .orElse(null);
+    return user.getMaxContinuousDays();
+  }
+  public int getNowContinuousDaysByUserId(Long userId) {
+    User user = userRepository.findById(userId)
+        .orElse(null);
+    return user.getNowContinuousDays();
+  }
+  public int getMaxContinuousPast30DaysByUserId(Long userId) {
+    User user = userRepository.findById(userId)
+        .orElse(null);
+    return user.getMaxContinuousPast30Days();
   }
 
   public List<Pair<Tag,Integer>> getTagToRateSortedListByUserId(Long userId) {
     Map<Tag, Integer> tagToNumTilMapByUserId= getTagToNumTilMapByUserId(userId);
     List<Entry<Tag, Integer>> tagToNumTilSortedListByValue = tagToNumTilMapToSortedListByValue(tagToNumTilMapByUserId);
 
-    Long sum = 0l;
+    Long sum = 0L;
     for (Entry<Tag, Integer> e : tagToNumTilSortedListByValue) {
       sum += e.getValue().longValue();
     }
@@ -112,7 +131,7 @@ public class TilAnalysisService {
   // --- Helper ---
   private Map<Tag, Integer> getTagToNumTilMapByUserId(Long userId) {
     List<Long> tilIds = tilRepository.findByUserId(userId)
-        .stream().map(t -> t.getId()).collect(Collectors.toList());
+        .stream().map(Til::getId).collect(Collectors.toList());
 
     List<TilTag> tilTags = tilTagRepository.findByTilIdIn(tilIds);
 
@@ -131,10 +150,8 @@ public class TilAnalysisService {
   private List<Entry<Tag, Integer>> getTop5TagToNumTilSortedListByUserId(Long userId) {
     Map<Tag, Integer> tagToNumTilMapByUserId = getTagToNumTilMapByUserId(userId);
     List<Entry<Tag, Integer>> reListSorted = tagToNumTilMapToSortedListByValue(tagToNumTilMapByUserId);
-    List<Entry<Tag, Integer>> tagsTop5Sorted = new ArrayList<>(
+    return new ArrayList<>(
         reListSorted.subList(0, Math.min(reListSorted.size(), 5)));
-
-    return tagsTop5Sorted;
   }
 
   private Integer getNumTilByTagId(Long tagId) {

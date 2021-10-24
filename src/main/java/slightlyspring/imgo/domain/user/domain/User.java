@@ -48,6 +48,10 @@ public class User extends CreatedModifiedTimeEntity {
 
     @Column(nullable = false)
     @Builder.Default
+    private int maxContinuousPast30Days = 0;
+
+    @Column(nullable = false)
+    @Builder.Default
     private LocalDateTime lastWriteAt = LocalDateTime.of(0,1,1,0,0,0,0); // Til 에서 가져와야 되나?
 
 

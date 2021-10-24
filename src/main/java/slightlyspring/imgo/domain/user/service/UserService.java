@@ -11,7 +11,6 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.repository.UserTilRecordRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
@@ -32,8 +31,7 @@ public class UserService {
 
     public UserProfile getUserProfile(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
-        UserProfile userProfile = modelMapper.map(user, UserProfile.class);
-        return userProfile;
+        return modelMapper.map(user, UserProfile.class);
     }
 
     public UserProfileDetail getUserProfileDetail(Long userId) {
