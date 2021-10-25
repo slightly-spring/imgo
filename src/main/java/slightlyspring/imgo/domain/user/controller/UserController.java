@@ -33,7 +33,7 @@ public class UserController {
 
         ProfilePageData pageData = new ProfilePageData(userProfile, userProfileDetail);
 
-        if (sessionUserId.equals(userId)) {
+        if (sessionUserId != null && sessionUserId.equals(userId)) {
             pageData.setPageRole("mypage");
         } else {
             pageData.setPageRole("profile");
