@@ -1,6 +1,7 @@
 package slightlyspring.imgo.domain.tilAnalysis;
 
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.util.Pair;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -8,6 +9,7 @@ import slightlyspring.imgo.domain.user.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @Data
+@Builder
 public class TilAnalysisData {
 
   // owner
@@ -22,7 +24,6 @@ public class TilAnalysisData {
   // Til 작성 지속 기간
   private int nowContinuousDays;
   private int maxContinuousDays;
-  private int maxContinuousPast30Days;
   // Tag 사용빈도
   private List<Pair<Tag,Integer>> tagToRateSortedList;
   private List<Tag> tagTop3ByRate;

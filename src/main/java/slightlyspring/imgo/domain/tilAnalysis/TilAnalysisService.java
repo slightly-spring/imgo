@@ -19,6 +19,7 @@ import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
+import slightlyspring.imgo.domain.user.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
@@ -32,35 +33,43 @@ public class TilAnalysisService {
   private final TilTagRepository tilTagRepository;
 
   public TilAnalysisData getTilAnalysisDataByUserId(Long userId) {
-    TilAnalysisData returnData = new TilAnalysisData();
-    returnData.setUser(userRepository.getById(userId));
-
     // intro
-    returnData.setNumTilPast30Days(getIntroNumTilPast30DaysByUserId(userId));
-    returnData.setNumSeriesPast30Days(getIntroNumSeriesPast30DaysByUserId(userId));
+    Long numTilPast30Days = getIntroNumTilPast30DaysByUserId(userId);
+    Long numSeriesPast30Days = getIntroNumSeriesPast30DaysByUserId(userId);
 
     // Top5 Tag 별, 전체에 대한 나의 사용 비율
-    List<Pair<Tag, Integer>> top5TagToRateTilList = getTop5TagToRateTilSortedListByUserId(userId);
-    returnData.setTagToRateTilSortedList(top5TagToRateTilList);
+    List<Pair<Tag, Integer>> top5TagToRateTilSortedList = getTop5TagToRateTilSortedListByUserId(
+        userId);
 
     // 지속시간
-    returnData.setNowContinuousDays(getNowContinuousDaysByUserId(userId));
-    returnData.setMaxContinuousDays(getMaxContinuousDaysByUserId(userId));
-    returnData.setMaxContinuousPast30Days(getMaxContinuousPast30DaysByUserId(userId));
+    int nowContinuousDays = getNowContinuousDaysByUserId(userId);
+    int maxContinuousDays = getMaxContinuousDaysByUserId(userId);
 
     // Tag 사용빈도
     List<Pair<Tag, Integer>> tagToRateSortedList = getTagToRateSortedListByUserId(userId);
-    returnData.setTagToRateSortedList(tagToRateSortedList);
-    returnData.setTagTop3ByRate(
-        tagToRateSortedList.subList(0, Math.min(tagToRateSortedList.size(), 3)).stream()
-            .map(Pair::getFirst)
-            .collect(Collectors.toList()));
+    List<Tag> tagTop3ByRate = tagToRateSortedList.subList(0, Math.min(tagToRateSortedList.size(), 3))
+        .stream()
+        .map(Pair::getFirst)
+        .collect(Collectors.toList());
 
-//    setContinuousDays(tilAnalysisData);
+    // 얻은 뱃지
+    List<Badge> ownedBadges = getOwnedBadgesByUserId(userId);
+
 //    setBadges(tilAnalysisData);
 
-    return returnData;
+    return TilAnalysisData.builder()
+        .user(userRepository.getById(userId))
+        .numTilPast30Days(numTilPast30Days)
+        .numSeriesPast30Days(numSeriesPast30Days)
+        .tagToRateTilSortedList(top5TagToRateTilSortedList)
+        .nowContinuousDays(nowContinuousDays)
+        .maxContinuousDays(maxContinuousDays)
+        .tagToRateSortedList(tagToRateSortedList)
+        .tagTop3ByRate(tagTop3ByRate)
+        .ownedBadges(ownedBadges)
+        .build();
   }
+
 
   // --- PUBLIC SET ANALYSIS DATA ---
   public Long getIntroNumTilPast30DaysByUserId(Long userId) {
@@ -90,21 +99,16 @@ public class TilAnalysisService {
     return tagToRateTilSortedList;
   }
 
-  public int getMaxContinuousDaysByUserId(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElse(null);
-    return user.getMaxContinuousDays();
-  }
   public int getNowContinuousDaysByUserId(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElse(null);
+    User user = userRepository.getById(userId);
     return user.getNowContinuousDays();
   }
-  public int getMaxContinuousPast30DaysByUserId(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElse(null);
-    return user.getMaxContinuousPast30Days();
+
+  public int getMaxContinuousDaysByUserId(Long userId) {
+    User user = userRepository.getById(userId);
+    return user.getMaxContinuousDays();
   }
+
 
   public List<Pair<Tag,Integer>> getTagToRateSortedListByUserId(Long userId) {
     Map<Tag, Integer> tagToNumTilMapByUserId= getTagToNumTilMapByUserId(userId);
@@ -124,8 +128,9 @@ public class TilAnalysisService {
     return tagToRateSortedList;
   }
 
-  public void setBadges(TilAnalysisData tilAnalysisData) {
+  public List<Badge> getOwnedBadgesByUserId(Long userId) {
 
+    return null;
   }
 
   // --- Helper ---
