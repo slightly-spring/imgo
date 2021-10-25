@@ -1,8 +1,10 @@
 package slightlyspring.imgo.domain.user.service;
 
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
@@ -22,8 +24,70 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
+    private final TilRepository tilRepository;
 
     private final ModelMapper modelMapper;
+
+    public LocalDateTime updateLastWriteAt(Long userId, LocalDateTime time) {
+        return userRepository.getById(userId).updateLastWriteAt(time).getLastWriteAt();
+    }
+
+    public int updateNowContinuousDaysBatch(Long userId) {
+        User user = userRepository.getById(userId);
+        LocalDate from = LocalDate.now().minusDays(29);
+        LocalDate now = LocalDate.now();
+        List<UserTilRecord> records = userTilRecordRepository.findAllByUserAndBaseDateBetweenOrderByBaseDateDesc(
+            user, from, now);
+
+        if (records.isEmpty() || records.get(0).getBaseDate().isBefore(now)) {
+            return user.updateNowContinuousDays(0).getNowContinuousDays();
+        }
+
+        int newNowContinuousDays = 1;
+        for (int i=1; i<records.size(); i++) {
+            LocalDate previousDate = records.get(i-1).getBaseDate();
+            LocalDate currentDate = records.get(i).getBaseDate();
+            if (previousDate.minusDays(1).isEqual(currentDate)) {
+                newNowContinuousDays += 1;
+            } else {
+                break;
+            }
+        }
+        return user.updateNowContinuousDays(newNowContinuousDays).getNowContinuousDays();
+    }
+
+    public int updateMaxContinuousDaysBatch(Long userId) {
+        User user = userRepository.getById(userId);
+        LocalDate from = LocalDate.now().minusDays(29);
+        LocalDate now = LocalDate.now();
+        List<UserTilRecord> records = userTilRecordRepository.findAllByUserAndBaseDateBetweenOrderByBaseDateDesc(
+            user, from, now);
+
+        if (records.isEmpty()) {
+            return user.updateMaxContinuousDays(0).getMaxContinuousDays();
+        }
+
+        int newMax = 1;
+        int i = 0;
+        int j = 1;
+        while (true) {
+            if (j == records.size()) {
+                newMax = Math.max(j - i, newMax);
+                break;
+            }
+            LocalDate previousDate = records.get(j-1).getBaseDate();
+            LocalDate currentDate = records.get(j).getBaseDate();
+            if (!previousDate.minusDays(1).isEqual(currentDate)) {
+                newMax = Math.max(j - i, newMax);
+                i = j;
+                j = i+1;
+                continue;
+            }
+            j += 1;
+        }
+
+        return user.updateMaxContinuousDays(newMax).getMaxContinuousDays();
+    }
 
     public Boolean isUserExist(Long userId) {
         return userRepository.existsById(userId);

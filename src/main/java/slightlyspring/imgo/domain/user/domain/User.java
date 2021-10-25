@@ -44,11 +44,7 @@ public class User extends CreatedModifiedTimeEntity {
 
     @Column(nullable = false)
     @Builder.Default
-    private int maxContinuousDays = 0;
-
-    @Column(nullable = false)
-    @Builder.Default
-    private int maxContinuousPast30Days = 0;
+    private int maxContinuousDays = 0; //30일 기준
 
     @Column(nullable = false)
     @Builder.Default
@@ -84,6 +80,14 @@ public class User extends CreatedModifiedTimeEntity {
     private List<Rival> rivals = new ArrayList<>();
 
     /*---메서드---*/
+    public User updateNowContinuousDays(int nowContinuousDays) {
+        this.nowContinuousDays = nowContinuousDays;
+        return this;
+    }
+    public User updateMaxContinuousDays(int maxContinuousDays) {
+        this.maxContinuousDays = maxContinuousDays;
+        return this;
+    }
     public User updateNickname(String nickname) {
         this.nickname = nickname;
         return this;
@@ -93,7 +97,8 @@ public class User extends CreatedModifiedTimeEntity {
         return this;
     }
 
-    public void updateLastWriteAt(LocalDateTime date) {
-        lastWriteAt = date;
+    public User updateLastWriteAt(LocalDateTime date) {
+        this.lastWriteAt = date;
+        return this;
     }
 }
