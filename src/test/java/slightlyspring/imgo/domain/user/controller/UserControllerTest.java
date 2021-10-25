@@ -1,14 +1,12 @@
 package slightlyspring.imgo.domain.user.controller;
 
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -43,32 +42,28 @@ class UserControllerTest {
     }
 
     @Test
-//    @WithMockUser(roles = "USER") // temporary authorized user for mockMVC
+    @DisplayName("비회원 -> 프로필 조회")
     void profile() throws Exception {
-        // user In-memory DB, so should add new data before test
-        LocalDateTime time = LocalDateTime.now();
-        User testUser = new User().builder()
+        //given
+        User testUser = User.builder()
                             .nickname("nickNameA")
                             .profileImg("ImgPathA")
-                            .profileDescription("DescriptionA")
                             .build();
-        User savedTestUser = userRepository.save(testUser);
+        User savedUser = userRepository.save(testUser);
 
-        String PROFILE_API_URI = "/user/profile/";
-        Long testUserId = savedTestUser.getId();
-        User user = userRepository.getById(testUserId);
+        String PROFILE_API_URI = "/user/";
 
+        // when
+        // then
         Assertions.assertTrue(mockMvc.perform(
-            get(PROFILE_API_URI + testUserId)
+            get(PROFILE_API_URI + savedUser.getId())
         )
             .andExpect(status().isOk())
+            .andExpect(content().string(
+                    containsString(savedUser.getProfileImg())))
             .andReturn()
             .getResponse()
             .getContentAsString()
-            .contains(user.getNickname()));
-//                .andExpect(content().string(user.getNickname()))
-//                .andExpect(content().string(user.getProfileImg()))
-//                .andExpect(content().string(user.getProfileDescription()))
-//                .andDo(print());
+            .contains(savedUser.getNickname()));
     }
 }
