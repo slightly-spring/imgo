@@ -3,6 +3,7 @@ package slightlyspring.imgo.domain.user.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import slightlyspring.imgo.domain.badge.Badge;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity

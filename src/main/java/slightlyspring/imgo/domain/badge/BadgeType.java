@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.user.domain;
+package slightlyspring.imgo.domain.badge;
 
 public enum BadgeType {
     TYPE1, //셀럽

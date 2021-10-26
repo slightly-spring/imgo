@@ -1,19 +1,24 @@
-package slightlyspring.imgo.domain.user.domain;
+package slightlyspring.imgo.domain.badge;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
 @Table(name = "badges")
-@Getter @Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @DynamicInsert //Dynamic - null 값이 들어오면 쿼리에 미포함
 @DynamicUpdate
 public class Badge extends CreatedTimeOnlyEntity {
@@ -27,7 +32,8 @@ public class Badge extends CreatedTimeOnlyEntity {
     private BadgeType type_id; //db 에 잘 저장되는지 확인하기
 
     //type 별 level 이 있음
-    private int level;
+    @Builder.Default
+    private int level = 0;
 
     @Column(nullable = false)
     private String name;

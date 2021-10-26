@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.util.Pair;
 import slightlyspring.imgo.domain.tag.domain.Tag;
-import slightlyspring.imgo.domain.user.domain.Badge;
+import slightlyspring.imgo.domain.badge.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @Data

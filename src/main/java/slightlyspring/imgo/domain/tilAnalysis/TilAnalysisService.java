@@ -19,7 +19,7 @@ import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
-import slightlyspring.imgo.domain.user.domain.Badge;
+import slightlyspring.imgo.domain.badge.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
