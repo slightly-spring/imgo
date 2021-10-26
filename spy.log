@@ -1,0 +1,34 @@
+1634914936295|5|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists badges CASCADE |drop table if exists badges CASCADE 
+1634914936302|4|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists rivals CASCADE |drop table if exists rivals CASCADE 
+1634914936303|1|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists series CASCADE |drop table if exists series CASCADE 
+1634914936304|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists series_tags CASCADE |drop table if exists series_tags CASCADE 
+1634914936305|1|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists tags CASCADE |drop table if exists tags CASCADE 
+1634914936306|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists til_comments CASCADE |drop table if exists til_comments CASCADE 
+1634914936308|1|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists til_images CASCADE |drop table if exists til_images CASCADE 
+1634914936313|5|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists til_tags CASCADE |drop table if exists til_tags CASCADE 
+1634914936316|2|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists tils CASCADE |drop table if exists tils CASCADE 
+1634914936317|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_accounts CASCADE |drop table if exists user_accounts CASCADE 
+1634914936317|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_badges CASCADE |drop table if exists user_badges CASCADE 
+1634914936318|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_likes_series CASCADE |drop table if exists user_likes_series CASCADE 
+1634914936318|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_likes_tils CASCADE |drop table if exists user_likes_tils CASCADE 
+1634914936322|3|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_notices CASCADE |drop table if exists user_notices CASCADE 
+1634914936322|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists user_til_records CASCADE |drop table if exists user_til_records CASCADE 
+1634914936323|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop table if exists users CASCADE |drop table if exists users CASCADE 
+1634914936323|0|statement|connection 64|url jdbc:h2:mem:038e42b4-7f46-4eb7-b290-94cfeaa45826|drop sequence if exists hibernate_sequence|drop sequence if exists hibernate_sequence
+1634914936495|3|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists badges CASCADE |drop table if exists badges CASCADE 
+1634914936496|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists rivals CASCADE |drop table if exists rivals CASCADE 
+1634914936497|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists series CASCADE |drop table if exists series CASCADE 
+1634914936497|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists series_tags CASCADE |drop table if exists series_tags CASCADE 
+1634914936497|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists tags CASCADE |drop table if exists tags CASCADE 
+1634914936498|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists til_comments CASCADE |drop table if exists til_comments CASCADE 
+1634914936498|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists til_images CASCADE |drop table if exists til_images CASCADE 
+1634914936498|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists til_tags CASCADE |drop table if exists til_tags CASCADE 
+1634914936499|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists tils CASCADE |drop table if exists tils CASCADE 
+1634914936503|4|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_accounts CASCADE |drop table if exists user_accounts CASCADE 
+1634914936505|1|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_badges CASCADE |drop table if exists user_badges CASCADE 
+1634914936507|1|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_likes_series CASCADE |drop table if exists user_likes_series CASCADE 
+1634914936511|4|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_likes_tils CASCADE |drop table if exists user_likes_tils CASCADE 
+1634914936515|3|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_notices CASCADE |drop table if exists user_notices CASCADE 
+1634914936517|1|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists user_til_records CASCADE |drop table if exists user_til_records CASCADE 
+1634914936517|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop table if exists users CASCADE |drop table if exists users CASCADE 
+1634914936518|0|statement|connection 65|url jdbc:h2:mem:e6f28b93-ac2e-4c53-bcd2-9f2b713cdd88|drop sequence if exists hibernate_sequence|drop sequence if exists hibernate_sequence
