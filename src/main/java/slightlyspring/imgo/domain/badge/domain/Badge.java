@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.badge;
+package slightlyspring.imgo.domain.badge.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
