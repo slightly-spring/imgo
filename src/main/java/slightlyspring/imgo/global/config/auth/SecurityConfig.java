@@ -19,15 +19,11 @@ import slightlyspring.imgo.domain.auth.service.CustomOAuth2UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final CustomOAuth2UserService customOAuth2UserService;
-//  private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-//  private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .authorizeRequests()
-            .antMatchers("/css/**", "/img/**", "/js/**", "/**").permitAll()
-            .antMatchers("/til/write", "/til/analyze").hasRole("USER")
             .anyRequest().permitAll()
         .and()
           .logout()

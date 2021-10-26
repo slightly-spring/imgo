@@ -11,4 +11,7 @@ public class UserProfile {
     private String nickname;
     private String profileImg;
     private String profileDescription;
+
+    private int tilCount;
+    private int seriesCount;
 }
