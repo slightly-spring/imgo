@@ -16,7 +16,7 @@
 
 .right-content {
     display: inline-block;
-    float: right;
+    float: left;
     width: 600px;
     padding-left: 20px;
 }
@@ -164,56 +164,6 @@
     line-height: 60px;
     padding: 20px 0px 20px 5px;
 
-}
-
-.list-name {
-    float: left;
-    display: block;
-    width: 100%;
-    padding: 0;
-    margin-bottom: 40px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #444;
-}
-
-.content-box {
-    display: inline-block;
-    margin-top: 30px;
-}
-
-.detail-box {
-    display: block;
-    margin-top: 15px;
-    font-size: 12px;
-    line-height: 18px;
-    height: 18px;
-}
-
-.detail-box .detail-info {
-    display: block;
-    float: left;
-    margin-right: 20px;
-}
-
-.detail-box .like {
-    display: block;
-    float: left;
-    margin-right: 20px;
-}
-
-.detail-box .like img {
-    box-sizing: content-box;
-    height: 12px;
-    width: 12px;
-    float: left;
-    background: none;
-    padding: 3px 4px;
-}
-
-.detail-box .writer {
-    color: #156A2B;
-    font-weight: bold;
 }
 
 .dropdown {

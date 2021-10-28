@@ -3,13 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <th:block layout:fragment="content">
-    <p>index</p>
-    <div class="col-md-6">
-        <div th:if="${not #strings.isEmpty(userId)}">
-            <span>userId is</span>
-            <span th:text="${userId}"/>
-            <a href="/auth/logout">로그아웃</a>
-        </div>
-    </div>
+    <p>IMGO</p>
 </th:block>
 </html>

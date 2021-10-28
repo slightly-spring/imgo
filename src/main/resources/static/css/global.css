@@ -1,8 +1,13 @@
 .content-wrapper {
-    display: flex;
     margin: 0 auto;
     padding: 120px 0 120px 0;
     width: 1200px;
+}
+
+.content-wrapper-sm {
+    margin: 0 auto;
+    padding: 120px 0 120px 0;
+    width: 900px;
 }
 
 html, body {
@@ -475,6 +480,16 @@ h3 {
     width: 240px;
 }
 
+.list-name {
+    float: left;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #444;
+}
 
 .category-box {
     float: left;
@@ -550,13 +565,19 @@ h3 {
     margin: 0;
 }
 
-.content-list li {
+.content-list .post {
     display: flex;
     list-style: none;
+    width: 900px;
     height: 160px;
     background: #fff;
     border-radius: 10px;
     margin-bottom: 15px;
+}
+
+.content-box {
+    display: inline-block;
+    margin-top: 30px;
 }
 
 .img-box {
@@ -565,6 +586,40 @@ h3 {
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px 10px 0 0;
+}
+
+.detail-box {
+    display: block;
+    margin-top: 15px;
+    font-size: 12px;
+    line-height: 18px;
+    height: 18px;
+}
+
+.detail-box .detail-info {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
+.detail-box .like {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
+.detail-box .like img {
+    box-sizing: content-box;
+    height: 12px;
+    width: 12px;
+    float: left;
+    background: none;
+    padding: 3px 4px;
+}
+
+.detail-box .writer {
+    color: #156A2B;
+    font-weight: bold;
 }
 
 .left-content .user-profile {
@@ -610,7 +665,7 @@ h3 {
 }
 
 .right-content .post .content-info {
-    width: 650px !important;
+    width: 660px !important;
 }
 
 .content-list .post .content-info {
@@ -620,7 +675,7 @@ h3 {
     width: 730px;
 }
 
-.content-list .post img {
+.content-list .post > img {
     float: right;
     height: 160px;
     width: 240px;
@@ -728,6 +783,9 @@ h3 {
     display: flex;
     flex-direction: column;
     flex-basis: 440px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #fff;
 }
 
 .series-container .series .content-info {

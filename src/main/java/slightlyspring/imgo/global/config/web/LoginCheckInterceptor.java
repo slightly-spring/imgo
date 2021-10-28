@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.auth.interceptor;
+package slightlyspring.imgo.global.config.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

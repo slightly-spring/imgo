@@ -28,7 +28,11 @@
                     <li class="signup"on onclick="openLoginPopup()"><a href="#">Login</a></li>
                 </div>
                 <div th:if="${not #strings.isEmpty(userId)}">
-                    <li class="feed selected"><a class="" href="#"><img src="/img/feed.svg"></a></li>
+                    <li th:classappend="${#httpServletRequest.requestURI == '/' ? 'selected':''}"  class="feed">
+                        <a class="" href="/">
+                            <img src="/img/feed.svg">
+                        </a>
+                    </li>
                     <li class="mypage" onclick="clickMypage()"><a class="" href="#"><img src="/img/mypage.svg"></a></li>
                     <li class="notification"><a class="" href="#"><img src="/img/notification.svg"></a></li>
                 </div>

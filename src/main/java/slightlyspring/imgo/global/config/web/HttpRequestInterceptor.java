@@ -1,15 +1,19 @@
-package slightlyspring.imgo.domain.auth.interceptor;
+package slightlyspring.imgo.global.config.web;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
-public class LoginInterceptor implements HandlerInterceptor {
+public class HttpRequestInterceptor implements HandlerInterceptor {
 
   public static final String LOG_ID = "logId";
 
@@ -33,6 +37,16 @@ public class LoginInterceptor implements HandlerInterceptor {
   @Override
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception{
     log.info("postHandle [{}]", modelAndView);
+
+    String userId = Optional.of(request)
+            .map(r -> r.getSession(false))
+            .map(s -> s.getAttribute("userId"))
+            .map(Objects::toString)
+            .orElse("0");
+
+    if(modelAndView != null && !userId.equals("0")) {
+      modelAndView.getModelMap().addAttribute("userId", userId);
+    }
   }
 
   @Override
