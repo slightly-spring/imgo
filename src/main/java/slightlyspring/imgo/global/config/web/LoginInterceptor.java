@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.auth.interceptor;
+package slightlyspring.imgo.global.config.web;
 
 import java.util.Optional;
 import java.util.UUID;
