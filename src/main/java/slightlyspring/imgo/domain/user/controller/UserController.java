@@ -12,7 +12,7 @@ import slightlyspring.imgo.domain.user.dto.UserProfile;
 import slightlyspring.imgo.domain.user.dto.UserProfileDetail;
 import slightlyspring.imgo.domain.user.service.UserService;
 
-@Controller()
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {

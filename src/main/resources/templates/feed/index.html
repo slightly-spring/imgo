@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+  <div class="content-wrapper-sm">
+    <div class="list-name">새로 올라온 게시물</div>
+    <div class="category-box tabnav">
+      <div class="category-title selected">
+        <a href="#tab1">
+          TIL
+        </a>
+      </div>
+      <div class="category-title">
+        <a href="#tab2">
+          시리즈
+        </a>
+      </div>
+    </div>
+    <!--            <div class="filter-box">-->
+    <!--                <button type="button" class="filter-box-btn">Java<img src="/img/close-filter.svg"></button>-->
+    <!--                <button type="button" class="filter-box-btn">Flutter<img src="/img/close-filter.svg"></button>-->
+    <!--                <button type="button" class="filter-box-btn">Android<img src="/img/close-filter.svg"></button>-->
+    <!--            </div>-->
+    <div class="content-box tabcontent">
+      <ul id="tab1" class="content-list">
+        <div class="til-container content-list">
+          <!--        카드 리스트 들어올 부분-->
+        </div>
+        <p class="pagination" style="display:none">
+          <a class="pagination__next" th:href="|/til/til-cards?page=0&size=5|">Next page</a>
+        </p>
+      </ul>
+      <ul id="tab2" class="content-list">
+        <div class="series-container content-list">
+          <!--        카드 리스트 들어올 부분-->
+        </div>
+        <p class="pagination" style="display:none">
+          <a class="pagination__next_series" th:href="|/series/series-cards?page=0&size=5|">Next page</a>
+          <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
+        </p>
+      </ul>
+    </div>
+  </div>
+</th:block>
+</html>
