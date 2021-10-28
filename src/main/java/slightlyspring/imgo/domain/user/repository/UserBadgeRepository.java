@@ -7,5 +7,7 @@ import slightlyspring.imgo.domain.user.domain.UserBadge;
 
 public interface UserBadgeRepository extends JpaRepository<UserBadge, Long> {
 
-  List<UserBadge> findByUserIdAndBadgeIdIn(Long userId, List<Long> badgeIds);
+  List<UserBadge> findByUserIdAndBadgeIdIn(Long userId, List<Integer> badgeIds);
+  List<UserBadge> getByUserId(Long userId);
+
 }

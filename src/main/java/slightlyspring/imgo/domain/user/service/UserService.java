@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.badge.BadgeService;
+import slightlyspring.imgo.domain.badge.domain.BadgeType;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
@@ -25,7 +27,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserTilRecordRepository userTilRecordRepository;
     private final TilRepository tilRepository;
-
+    private final BadgeService badgeService;
     private final ModelMapper modelMapper;
 
     public LocalDateTime updateLastWriteAt(Long userId, LocalDateTime time) {
@@ -86,7 +88,9 @@ public class UserService {
             j += 1;
         }
 
-        return user.updateMaxContinuousDays(newMax).getMaxContinuousDays();
+        User updatedUser = user.updateMaxContinuousDays(newMax);
+        badgeService.updateToUserWithBadgeType(updatedUser.getId(), BadgeType.TYPE4);
+        return updatedUser.getMaxContinuousDays();
     }
 
     public Boolean isUserExist(Long userId) {

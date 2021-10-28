@@ -6,10 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Transactional;
+import slightlyspring.imgo.domain.badge.BadgeService;
+import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -26,8 +28,10 @@ import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 import slightlyspring.imgo.domain.user.dto.UserProfile;
+import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.repository.UserTilRecordRepository;
 
@@ -53,6 +57,11 @@ class UserServiceTest {
     private TagService tagService;
     @Autowired
     private TilRepository tilRepository;
+    @Autowired
+    private UserBadgeRepository userBadgeRepository;
+    @Autowired
+    private BadgeService badgeService;
+
 //    @Autowired
 //    private MockMvc mockMvc;
 
@@ -60,6 +69,8 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
+        badgeService.makeBadgesBatch();
+
         String nickname = "test01";
         String profileImg = "sample_image_url";
         String profileDescription = "hi it is description";
@@ -196,9 +207,12 @@ class UserServiceTest {
 
         //when
         int maxContinuousDays = userService.updateMaxContinuousDaysBatch(user.getId());
-
+        List<Badge> badgeType4 = userBadgeRepository.getByUserId(user.getId()).stream().map(UserBadge::getBadge).collect(
+            Collectors.toList());
         //then
         assertThat(maxContinuousDays).isEqualTo(0);
+        assertThat(badgeType4).hasSize(0);
+
     }
 
     @Test
@@ -216,9 +230,12 @@ class UserServiceTest {
 
         //when
         int maxContinuousDays = userService.updateMaxContinuousDaysBatch(user.getId());
-
+        List<Badge> badgeType4 = userBadgeRepository.getByUserId(user.getId()).stream().map(UserBadge::getBadge).collect(
+            Collectors.toList());
         //then
         assertThat(maxContinuousDays).isEqualTo(10);
+        assertThat(badgeType4).hasSize(2);
+
     }
 
     @Test
