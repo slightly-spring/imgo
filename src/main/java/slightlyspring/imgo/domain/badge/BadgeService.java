@@ -25,10 +25,13 @@ public class BadgeService {
   private final RivalRepository rivalRepository;
 
   public List<Badge> updateToUserWithBadgeType(Long userId, BadgeType badgeType) {
+    List<Badge> re = new ArrayList<>();
+
     List<Badge> badges = badgeRepository.getByBadgeType(badgeType);
+    /*(long)*/
     List<UserBadge> userBadgeList = userBadgeRepository.findByUserIdAndBadgeIdIn(
         userId,
-        badges.stream().map(b -> (long) b.getId()).collect(Collectors.toList())
+        badges.stream().map(Badge::getId).collect(Collectors.toList())
     );
     if (userBadgeList.isEmpty()) {
       Badge newBadge = badgeRepository.getByBadgeTypeAndLevel(badgeType, BadgeLevel.LV1);
@@ -36,36 +39,35 @@ public class BadgeService {
           .user(userRepository.getById(userId))
           .badge(newBadge)
           .build();
-      return new ArrayList<>(List.of(userBadgeRepository.save(newUserBadge).getBadge()));
-    } else {
-      List<Badge> badgesSortedByLevel = userBadgeList.stream().map(UserBadge::getBadge).sorted()
-          .collect(Collectors.toList());
-      Badge currentHighestBadge = badgesSortedByLevel.get(badgesSortedByLevel.size() - 1);
-
-      BadgeLevel currentLevel = currentHighestBadge.getLevel();
-      List<BadgeLevel> toSavedLevel = new ArrayList<>();
-      while (!currentHighestBadge.isLast()) {
-        Integer nextValue = badgeType.getNextValueByLevel(currentLevel);
-        Integer userOwnedValue = getUserOwnedValueByUserIdAndBadgeType(userId, badgeType);
-        if (nextValue == null || userOwnedValue == null || nextValue>userOwnedValue) {
-          break;
-        }
-        BadgeLevel nextLevel = currentLevel.next();
-        toSavedLevel.add(nextLevel);
-        currentLevel = nextLevel;
-      }
-
-      List<Badge> re = new ArrayList<>();
-      for (BadgeLevel badgeLevel : toSavedLevel) {
-        UserBadge newUserBadge = UserBadge.builder()
-            .user(userRepository.getById(userId))
-            .badge(badgeRepository.getByBadgeTypeAndLevel(badgeType, badgeLevel))
-            .build();
-        re.add(userBadgeRepository.save(newUserBadge).getBadge());
-      }
-
-      return re;
+      userBadgeList.add(userBadgeRepository.save(newUserBadge));
+      re.add(userBadgeList.get(0).getBadge());
     }
+    List<Badge> badgesSortedByLevel = userBadgeList.stream().map(UserBadge::getBadge).sorted()
+        .collect(Collectors.toList());
+    Badge currentHighestBadge = badgesSortedByLevel.get(badgesSortedByLevel.size() - 1);
+
+    BadgeLevel currentLevel = currentHighestBadge.getLevel();
+    List<BadgeLevel> toSavedLevel = new ArrayList<>();
+    while (!currentHighestBadge.isLast()) {
+      Integer nextValue = badgeType.getNextValueByLevel(currentLevel);
+      Integer userOwnedValue = getUserOwnedValueByUserIdAndBadgeType(userId, badgeType);
+      if (nextValue == null || userOwnedValue == null || nextValue>userOwnedValue) {
+        break;
+      }
+      BadgeLevel nextLevel = currentLevel.next();
+      toSavedLevel.add(nextLevel);
+      currentLevel = nextLevel;
+    }
+
+    for (BadgeLevel badgeLevel : toSavedLevel) {
+      UserBadge newUserBadge = UserBadge.builder()
+          .user(userRepository.getById(userId))
+          .badge(badgeRepository.getByBadgeTypeAndLevel(badgeType, badgeLevel))
+          .build();
+      re.add(userBadgeRepository.save(newUserBadge).getBadge());
+    }
+
+    return re;
   }
 
   private Integer getUserOwnedValueByUserIdAndBadgeType(Long userId, BadgeType badgeType) {
@@ -113,6 +115,25 @@ public class BadgeService {
     }
 
     return badgeInfo;
+  }
+
+  public EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> getBadgeMapByUserId(Long userId) {
+    List<Badge> badgesByUserId = userBadgeRepository.getByUserId(userId).stream().map(UserBadge::getBadge).collect(
+        Collectors.toList());
+    return generateBadgeMapFromBadgeList(badgesByUserId);
+  }
+
+  public EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> generateBadgeMapFromBadgeList(List<Badge> badgeList) {
+    EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> badgeMap = new EnumMap<>(BadgeType.class);
+    for (Badge b : badgeList) {
+      BadgeType badgeType = b.getBadgeType();
+      BadgeLevel level = b.getLevel();
+      if (badgeMap.containsKey(badgeType)){
+        badgeMap.put(badgeType, new EnumMap<>(BadgeLevel.class));
+      }
+      badgeMap.get(badgeType).put(level, b);
+    }
+    return badgeMap;
   }
 
 }
