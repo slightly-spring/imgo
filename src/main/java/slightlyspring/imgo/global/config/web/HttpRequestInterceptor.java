@@ -13,7 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
-public class LoginInterceptor implements HandlerInterceptor {
+public class HttpRequestInterceptor implements HandlerInterceptor {
 
   public static final String LOG_ID = "logId";
 

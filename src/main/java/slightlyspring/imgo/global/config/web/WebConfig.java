@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LoginInterceptor())
+    registry.addInterceptor(new HttpRequestInterceptor())
         .order(1)
         .addPathPatterns("/**")
         .excludePathPatterns("/css/**", "/*.ico", "/error");
