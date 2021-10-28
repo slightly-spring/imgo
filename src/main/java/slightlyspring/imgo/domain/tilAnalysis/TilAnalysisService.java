@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +14,19 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.badge.BadgeService;
+import slightlyspring.imgo.domain.badge.domain.BadgeLevel;
+import slightlyspring.imgo.domain.badge.domain.BadgeType;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilTag;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
-import slightlyspring.imgo.domain.badge.Badge;
+import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.user.domain.UserBadge;
+import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 @Service
@@ -31,6 +37,8 @@ public class TilAnalysisService {
   private final TilRepository tilRepository;
   private final SeriesRepository seriesRepository;
   private final TilTagRepository tilTagRepository;
+  private final UserBadgeRepository userBadgeRepository;
+  private final BadgeService badgeService;
 
   public TilAnalysisData getTilAnalysisDataByUserId(Long userId) {
     // intro
@@ -53,7 +61,8 @@ public class TilAnalysisService {
         .collect(Collectors.toList());
 
     // 얻은 뱃지
-    List<Badge> ownedBadges = getOwnedBadgesByUserId(userId);
+    EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> badgeMapByUserId = getOwnedBadgeMapByUserId(userId);
+
 
 //    setBadges(tilAnalysisData);
 
@@ -66,7 +75,7 @@ public class TilAnalysisService {
         .maxContinuousDays(maxContinuousDays)
         .tagToRateSortedList(tagToRateSortedList)
         .tagTop3ByRate(tagTop3ByRate)
-        .ownedBadges(ownedBadges)
+        .ownedBadgeMap(badgeMapByUserId)
         .build();
   }
 
@@ -114,23 +123,22 @@ public class TilAnalysisService {
     Map<Tag, Integer> tagToNumTilMapByUserId= getTagToNumTilMapByUserId(userId);
     List<Entry<Tag, Integer>> tagToNumTilSortedListByValue = tagToNumTilMapToSortedListByValue(tagToNumTilMapByUserId);
 
-    Long sum = 0L;
+    long sum = 0L;
     for (Entry<Tag, Integer> e : tagToNumTilSortedListByValue) {
       sum += e.getValue().longValue();
     }
 
     List<Pair<Tag, Integer>> tagToRateSortedList = new ArrayList<>();
     for (Entry<Tag, Integer> e : tagToNumTilSortedListByValue) {
-      int tmpRate = (int) ((e.getValue().doubleValue() / sum.doubleValue()) * 100);
+      int tmpRate = (int) ((e.getValue().doubleValue() / (double) sum) * 100);
       tagToRateSortedList.add(Pair.of(e.getKey(), tmpRate));
     }
 
     return tagToRateSortedList;
   }
 
-  public List<Badge> getOwnedBadgesByUserId(Long userId) {
-
-    return null;
+  public EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> getOwnedBadgeMapByUserId(Long userId) {
+    return badgeService.getBadgeMapByUserId(userId);
   }
 
   // --- Helper ---

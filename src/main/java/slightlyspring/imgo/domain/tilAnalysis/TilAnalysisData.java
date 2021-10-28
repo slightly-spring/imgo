@@ -1,11 +1,14 @@
 package slightlyspring.imgo.domain.tilAnalysis;
 
+import java.util.EnumMap;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.util.Pair;
+import slightlyspring.imgo.domain.badge.domain.BadgeLevel;
+import slightlyspring.imgo.domain.badge.domain.BadgeType;
 import slightlyspring.imgo.domain.tag.domain.Tag;
-import slightlyspring.imgo.domain.badge.Badge;
+import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @Data
@@ -28,5 +31,5 @@ public class TilAnalysisData {
   private List<Pair<Tag,Integer>> tagToRateSortedList;
   private List<Tag> tagTop3ByRate;
   // 얻은 뱃지
-  private List<Badge> ownedBadges;
+  private EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> ownedBadgeMap;
 }
