@@ -1,14 +1,20 @@
 package slightlyspring.imgo.domain.user.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import slightlyspring.imgo.domain.badge.Badge;
+import lombok.NoArgsConstructor;
+import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.global.config.JpaAuditConfig.CreatedTimeOnlyEntity;
 
 @Entity
 @Table(name = "user_badges")
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserBadge extends CreatedTimeOnlyEntity {
     @Id
     @GeneratedValue
