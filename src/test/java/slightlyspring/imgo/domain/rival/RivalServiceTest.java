@@ -1,22 +1,18 @@
 package slightlyspring.imgo.domain.rival;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.persistence.Column;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,7 +35,7 @@ class RivalServiceTest {
     given(rivalRepository.findByUserId(any())).willReturn(Arrays.asList(rivals.get(0)));
 
     //when
-    boolean tmp = rivalService.isRivalByUserId(users.get(0).getId(),
+    boolean tmp = rivalService.isRivalByUserIdAndTargetId(users.get(0).getId(),
         users.get(0 + numOfRivals).getId());
 
     //then
@@ -58,7 +54,7 @@ class RivalServiceTest {
     given(rivalRepository.findByUserId(any())).willReturn(Arrays.asList());
 
     //when
-    boolean tmp = rivalService.isRivalByUserId(users.get(0).getId(),
+    boolean tmp = rivalService.isRivalByUserIdAndTargetId(users.get(0).getId(),
         users.get(0 + numOfRivals).getId());
 
     //then
