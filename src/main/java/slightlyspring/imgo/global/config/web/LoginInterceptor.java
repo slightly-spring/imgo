@@ -1,5 +1,6 @@
 package slightlyspring.imgo.global.config.web;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -37,9 +38,13 @@ public class LoginInterceptor implements HandlerInterceptor {
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception{
     log.info("postHandle [{}]", modelAndView);
 
-    HttpSession session = request.getSession(false);
-    String userId = Optional.ofNullable(session.getAttribute("userId").toString()).orElse("0");
-    if(modelAndView != null) {
+    String userId = Optional.of(request)
+            .map(r -> r.getSession(false))
+            .map(s -> s.getAttribute("userId"))
+            .map(Objects::toString)
+            .orElse("0");
+
+    if(modelAndView != null && !userId.equals("0")) {
       modelAndView.getModelMap().addAttribute("userId", userId);
     }
   }
