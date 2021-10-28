@@ -54,4 +54,9 @@ public class UserTilRecord extends CreatedModifiedTimeEntity {
         characterCount += c;
         return this;
     }
+
+    /*---test---*/
+    public void setBaseDate(LocalDate date) {
+        this.baseDate = date;
+    }
 }

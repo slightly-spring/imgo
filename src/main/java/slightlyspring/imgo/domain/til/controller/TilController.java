@@ -1,11 +1,7 @@
 package slightlyspring.imgo.domain.til.controller;
 
-import io.lettuce.core.dynamic.annotation.Param;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -32,8 +28,6 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import slightlyspring.imgo.domain.til.service.TilService;
-import slightlyspring.imgo.domain.user.repository.UserRepository;
 import slightlyspring.imgo.domain.user.service.UserService;
 import slightlyspring.imgo.infra.S3FileUploader;
 
@@ -46,6 +40,7 @@ public class TilController {
     private final TilService tilService;
     private final TagService tagService;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final SeriesRepository seriesRepository;
     private final TilRepository tilRepository;
     private final TilImageService tilImageService;
@@ -59,16 +54,13 @@ public class TilController {
         return "/til/detail";
     }
 
-    // 테스트 데이터 생성용 repository
-    private final TagRepository tagRepository;
-    private final TilTagRepository tilTagRepository;
-
     @GetMapping("/write")
     public String write(Model model) {
         // TODO userId using principal
         Long userId = (Long) httpSession.getAttribute("userId");
 
         List<Series> seriesList = seriesRepository.findAllByUserId(userId);
+
         model.addAttribute("seriesList", seriesList);
         return "/til/write";
     }

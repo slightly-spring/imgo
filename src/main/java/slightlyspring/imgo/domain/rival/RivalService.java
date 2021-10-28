@@ -1,28 +1,30 @@
 package slightlyspring.imgo.domain.rival;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import slightlyspring.imgo.domain.badge.BadgeService;
+import slightlyspring.imgo.domain.badge.domain.BadgeType;
+import slightlyspring.imgo.domain.user.domain.User;
 
 @Service
 @RequiredArgsConstructor
 public class RivalService {
 
   private final RivalRepository rivalRepository;
+  private final BadgeService badgeService;
+
   static int MAX_NUM = 5;
 
-  public boolean isRivalByUserId(Long userId, Long targetId) {
+  public boolean isRivalByUserIdAndTargetId(Long userId, Long targetId) {
     List<Rival> rivals = rivalRepository.findByUserId(userId);
-    for (int i = 0; i < rivals.size(); i++) {
-      if (rivals.get(i).getTarget().getId() == targetId) {
+    for (Rival rival : rivals) {
+      if (rival.getTarget().getId().equals(targetId)) {
         return true;
       }
     }
     return false;
-  }
-
-  public List<Rival> getRivalsByUserId(Long userId) {
-    return rivalRepository.findByUserId(userId);
   }
 
   public Long save(Rival rival) {
@@ -32,15 +34,25 @@ public class RivalService {
     List<Rival> rivals = rivalRepository.findByUserId(
         userId);
     for (Rival r : rivals) {
-      if (r.getTarget().getId()==targetId) {
+      if (r.getTarget().getId().equals(targetId)) {
+        // 이미 UserId 가 TargetId 를 라이벌로 지정하고 있을 경우
         return r.getId();
       }
     }
+
     if (rivals.size() == MAX_NUM) {
-      return 0l; // 꽉 찼을 때
+      return 0L; // 꽉 찼을 때
     }
 
+    // 새롭게 추가될 때 type2,3 뱃지 업데이트 하기
+    badgeService.updateToUserWithBadgeType(userId, BadgeType.TYPE2);
+    badgeService.updateToUserWithBadgeType(targetId, BadgeType.TYPE3);
+
     return rivalRepository.save(rival).getId();
+  }
+
+  public List<User> getTargetsByUserId(Long userId) {
+    return rivalRepository.findByUserId(userId).stream().map(Rival::getTarget).collect(Collectors.toList());
   }
 
   public void deleteRival(Long userId, Long targetId) {
