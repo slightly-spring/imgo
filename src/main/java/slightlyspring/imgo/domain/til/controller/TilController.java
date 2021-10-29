@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,6 @@ public class TilController {
     private final TilService tilService;
     private final TagService tagService;
     private final UserRepository userRepository;
-    private final UserService userService;
     private final SeriesRepository seriesRepository;
     private final TilRepository tilRepository;
     private final TilImageService tilImageService;
@@ -86,7 +86,7 @@ public class TilController {
     }
 
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
 
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserId(pageable, userId);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
@@ -96,7 +96,7 @@ public class TilController {
 
     @GetMapping("/til-cards")
     public ResponseEntity tilCards(
-        @PageableDefault(size = 5, sort = "createdDate") Pageable pageable) {
+        @PageableDefault(size = 5, sort = "createdDate", direction = Direction.DESC) Pageable pageable) {
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardData(pageable);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
             tilCardDataPages, HttpStatus.OK);
