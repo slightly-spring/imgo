@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
@@ -28,7 +27,7 @@ public class TilCardService {
   public List<TilCardData> getTilCardDataByUserId(Pageable pageable ,Long userId) {
     List<TilCardData> tilCardDataList = new ArrayList<>();
 
-    List<Til> tilPages = tilRepository.findByUserIdOrderByIdDesc(userId, pageable);
+    List<Til> tilPages = tilRepository.findByUserId(userId, pageable);
 
     List<Long> tilIds = tilPages.stream().map(t -> t.getId()).collect(Collectors.toList());
     Map<Long, List<Tag>> tagMapByTilIds = tilTagService.getTagsMapByTilIds(tilIds);

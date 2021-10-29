@@ -93,7 +93,7 @@ public class BadgeService {
         Badge tmp = Badge.builder()
             .badgeType(badgeType)
             .level(pair.getFirst())
-            .name(badgeType.name)
+            .name(badgeType.badgeName)
 //            .description()
 //            .logo()
             .build();
