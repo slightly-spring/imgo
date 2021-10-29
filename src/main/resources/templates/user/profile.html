@@ -87,7 +87,7 @@
                         <!--        카드 리스트 들어올 부분-->
                     </div>
                     <p class="pagination" style="display:none">
-                        <a class="pagination__next" th:href="|/til/${userId}/til-cards?page=0&size=5|">Next page</a>
+                        <a class="pagination__next" th:href="|/til/${pageData.userProfile.id}/til-cards?page=0&size=5|">Next page</a>
                     </p>
                 </ul>
                 <ul id="tab2" class="content-list">
@@ -95,7 +95,7 @@
                         <!--        카드 리스트 들어올 부분-->
                     </div>
                     <p class="pagination" style="display:none">
-                        <a class="pagination__next_series" th:href="|/series/${userId}/series-cards?page=0&size=5|">Next page</a>
+                        <a class="pagination__next_series" th:href="|/series/${pageData.userProfile.id}/series-cards?page=0&size=5|">Next page</a>
                         <!--        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>-->
                     </p>
                 </ul>
