@@ -6,7 +6,7 @@
 </head>
 <th:block layout:fragment="content">
     <div th:object="${til}">
-        <p th:text="*{getSeries().getTitle()}"></p>
+        <p th:if="${til.getSeries()}" th:text="*{getSeries().getTitle()}"></p>
         <p th:text="*{title}"></p>
         <p th:text="*{createdDate}"></p>
         <p th:text="*{content}"></p>

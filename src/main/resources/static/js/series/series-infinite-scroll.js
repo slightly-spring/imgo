@@ -1,11 +1,15 @@
 function getItemHTMLFromSeriesCard(data) {
   return `<li class="series">
-           <div class="img-box" style="background-image: url(${data.image ?? "/img/series-card-placeholder.png"})">
-           </div>
+           <a href="/series/${data.seriesId}">
+               <div class="img-box" style="background-image: url(${data.seriesImageUrl || "/img/series-card-placeholder.png"})">
+               </div>
+           </a>
            <div class="content-info">
              <div class="info-left">
-               <strong class="title">${data.title}</strong>
-               <strong class="description">${data.description}</strong>
+                <a href="/series/${data.seriesId}">
+                   <strong class="title">${data.title}</strong>
+                   <strong class="description">${data.description}</strong>
+               </a>
                <div class="tag-box">
                 ${data.tags[0] ? `<button type="button" class="tag-box-btn">${data.tags[0]}</button>`: ''}
                 ${data.tags[1] ? `<button type="button" class="tag-box-btn">${data.tags[1]}</button>`: ''}
