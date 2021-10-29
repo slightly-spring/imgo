@@ -4,6 +4,7 @@ package slightlyspring.imgo.domain.series.controller;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class SeriesController {
     }
 
     @GetMapping("/{userId}/series-cards")
-    public ResponseEntity seriesCardsByUserId(@PageableDefault(size=5, sort="createdDate") Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity seriesCardsByUserId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
 
         List<SeriesCardData> seriesCardDataPages = seriesCardService.getSeriesCardDataByUserID(pageable, userId);
         ResponseEntity<List<SeriesCardData>> seriesCardResponse = new ResponseEntity<>(
@@ -66,7 +67,7 @@ public class SeriesController {
     }
 
     @GetMapping("/series-cards")
-    public ResponseEntity seriesCards(@PageableDefault(size=5, sort="createdDate") Pageable pageable) {
+    public ResponseEntity seriesCards(@PageableDefault(size=5, sort="createdDate" , direction = Direction.DESC) Pageable pageable) {
 
         List<SeriesCardData> seriesCardDataPages = seriesCardService.getSeriesCardData(pageable);
         ResponseEntity<List<SeriesCardData>> seriesCardResponse = new ResponseEntity<>(

@@ -17,7 +17,7 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
     List<Series> findAllByUserIdAndTitleContains(@Param("user_id") Long userId, @Param("title") String title);
     Boolean existsByUserIdAndTitle(@Param("user_id") Long userId, @Param("title") String title);
 
-    List<Series> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
+    List<Series> findByUserId(Long userId, Pageable pageable);
     Page<Series> findAll(Pageable pageable);
 
     Long countByUserIdAndCreatedDateAfter(Long userId, LocalDateTime from);

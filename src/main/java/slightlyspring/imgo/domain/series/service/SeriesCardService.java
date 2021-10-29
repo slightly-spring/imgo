@@ -15,7 +15,6 @@ import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.dto.SeriesCardData;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
-import slightlyspring.imgo.domain.til.dto.TilCardData;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +26,7 @@ public class SeriesCardService {
   public List<SeriesCardData> getSeriesCardDataByUserID(Pageable pageable, Long userId) {
     List<SeriesCardData> seriesCardDataList = new ArrayList<>();
 
-    List<Series> seriesPages = seriesRepository.findByUserIdOrderByIdDesc(userId, pageable);
+    List<Series> seriesPages = seriesRepository.findByUserId(userId, pageable);
     List<Long> seriesIds = seriesPages.stream().map(s -> s.getId()).collect(Collectors.toList());
 
     Map<Long, List<Tag>> tagMapBySeriesIds = seriesTagService.getTagsMapBySeriesIds(seriesIds);
