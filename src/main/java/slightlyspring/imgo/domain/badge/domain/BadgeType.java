@@ -39,12 +39,13 @@ public enum BadgeType {
         Pair.of(BadgeLevel.LV5, 50)
     );  //내일은 출판왕
 
-    public String name;
+    public final String badgeName;
+
     public List<Pair<BadgeLevel, Integer>> levelValues = new ArrayList<>();
 
     @SafeVarargs
     BadgeType(String name, Pair<BadgeLevel, Integer>... levelValueIn) {
-        this.name = name;
+        this.badgeName = name;
         this.levelValues.addAll(Arrays.asList(levelValueIn));
     }
 
