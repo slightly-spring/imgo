@@ -29,6 +29,8 @@ import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
+
 import slightlyspring.imgo.domain.user.service.UserService;
 import slightlyspring.imgo.infra.S3FileUploader;
 
@@ -70,14 +72,16 @@ public class TilController {
         // TODO userId using principal
         Long userId = (Long) httpSession.getAttribute("userId");
         List<String> tags = tilForm.getTags();
-        Til til = Til.builder()
+
+        Til.TilBuilder tilBuilder = Til.builder()
                 .title(tilForm.getTitle())
                 .content(tilForm.getContent())
                 .sourceType(tilForm.getSourceType())
                 .source(tilForm.getSource())
-                .user(userRepository.getById(userId))
-                .series(seriesRepository.getById(tilForm.getSeriesId()))
-                .build();
+                .user(userRepository.getById(userId));
+        Optional.ofNullable(tilForm.getSeriesId())
+                .ifPresent(id -> tilBuilder.series(seriesRepository.getById(id)));
+        Til til = tilBuilder.build();
 
         List<Tag> savedTags = tagService.saveTags(tags);
         Long tilId = tilService.save(til, savedTags);
@@ -86,7 +90,7 @@ public class TilController {
     }
 
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="id", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
 
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserId(pageable, userId);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
@@ -96,7 +100,7 @@ public class TilController {
 
     @GetMapping("/til-cards")
     public ResponseEntity tilCards(
-        @PageableDefault(size = 5, sort = "createdDate", direction = Direction.DESC) Pageable pageable) {
+        @PageableDefault(size = 5, sort = "id", direction = Direction.DESC) Pageable pageable) {
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardData(pageable);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
             tilCardDataPages, HttpStatus.OK);

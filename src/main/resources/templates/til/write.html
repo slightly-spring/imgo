@@ -21,6 +21,7 @@
                             <div id="series-list" class="series-list">
                                 <select id="series-select" name="seriesId" class="form-select" th:size="${#lists.size(seriesList)}">
                                     <option th:each="series : ${seriesList}" th:value="${series.id}" th:text="${series.title}"></option>
+                                    <option value="" selected disabled hidden ></option>
                                 </select>
                             </div>
                             <div class="buttons d-flex justify-content-center">

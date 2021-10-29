@@ -14,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import slightlyspring.imgo.domain.tag.domain.Tag;
 import slightlyspring.imgo.domain.til.domain.Til;
+import slightlyspring.imgo.domain.til.domain.TilImage;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
+import slightlyspring.imgo.domain.til.repository.TilImageRepository;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 
 @Service
@@ -23,7 +25,9 @@ public class TilCardService {
 
   private final TilTagService tilTagService;
   private final TilRepository tilRepository;
+  private final TilImageRepository tilImageRepository;
 
+  // TODO getTilCardDataByUserId, getTilCardData 함수 합치기
   public List<TilCardData> getTilCardDataByUserId(Pageable pageable ,Long userId) {
     List<TilCardData> tilCardDataList = new ArrayList<>();
 
@@ -37,11 +41,13 @@ public class TilCardService {
       List<Tag> tags = tagMapByTilIds.get(tilId);
 
       TilCardData tmp = TilCardData.builder()
+          .tilId(tilId)
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
           .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
           .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
+          .tilImageUrl(getThumbnailFromTil(til))
           .build();
       tilCardDataList.add(tmp);
     }
@@ -62,11 +68,13 @@ public class TilCardService {
       List<Tag> tags = tagMapByTilIds.get(tilId);
 
       TilCardData tmp = TilCardData.builder()
+          .tilId(tilId)
           .title(til.getTitle())
           .likeCount(til.getLikeCount())
           .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
           .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
+          .tilImageUrl(getThumbnailFromTil(til))
           .build();
       tilCardDataList.add(tmp);
     }
@@ -85,5 +93,10 @@ public class TilCardService {
     return tilPage.getContent();
   }
 
+  private String getThumbnailFromTil(Til til) {
+    return Optional.ofNullable(tilImageRepository.findTilImageByTilOrderById(til))
+            .map(TilImage::getUrl)
+            .orElse("");
+  }
 
 }

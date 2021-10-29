@@ -15,9 +15,11 @@ import slightlyspring.imgo.domain.tag.domain.Tag;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TilCardData {
+  private Long tilId;
   private String title;
   private int likeCount;
   private String createdAt;
   private List<String> tags;
   private String nickname;
+  private String tilImageUrl;
 }

@@ -675,7 +675,7 @@ h3 {
     width: 730px;
 }
 
-.content-list .post > img {
+.content-list .post > a > img {
     float: right;
     height: 160px;
     width: 240px;

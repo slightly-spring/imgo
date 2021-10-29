@@ -15,11 +15,17 @@ import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.dto.SeriesCardData;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
+import slightlyspring.imgo.domain.til.domain.Til;
+import slightlyspring.imgo.domain.til.domain.TilImage;
+import slightlyspring.imgo.domain.til.repository.TilImageRepository;
+import slightlyspring.imgo.domain.til.repository.TilRepository;
 
 @RequiredArgsConstructor
 @Service
 public class SeriesCardService {
 
+  private final TilRepository tilRepository;
+  private final TilImageRepository tilImageRepository;
   private final SeriesRepository seriesRepository;
   private final SeriesTagService seriesTagService;
 
@@ -36,10 +42,12 @@ public class SeriesCardService {
       List<Tag> tags = tagMapBySeriesIds.get(seriesId);
 
       SeriesCardData tmp = SeriesCardData.builder()
+          .seriesId(seriesId)
           .title(series.getTitle())
           .description(series.getDescription())
 //          .tags(Stream.ofNullable(tags).map(t -> t.toString()).collect(Collectors.toList())) //이렇게 하면 리스트 자체를 string 으로 만듦
           .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
+          .seriesImageUrl(getThumbnailFromSeries(series))
           .completed(series.isCompleted())
           .build();
       seriesCardDataList.add(tmp);
@@ -60,10 +68,12 @@ public class SeriesCardService {
       List<Tag> tags = tagMapBySeriesIds.get(seriesId);
 
       SeriesCardData tmp = SeriesCardData.builder()
+          .seriesId(seriesId)
           .title(series.getTitle())
           .description(series.getDescription())
 //          .tags(Stream.ofNullable(tags).map(t -> t.toString()).collect(Collectors.toList())) //이렇게 하면 리스트 자체를 string 으로 만듦
           .tags(tagListToStream(tags).map(t -> t.toString()).collect(Collectors.toList()))
+          .seriesImageUrl(getThumbnailFromSeries(series))
           .completed(series.isCompleted())
           .build();
       seriesCardDataList.add(tmp);
@@ -82,5 +92,13 @@ public class SeriesCardService {
   public List<Series> findAll(Pageable pageable){
     Page<Series> SeriesPage = seriesRepository.findAll(pageable);
     return SeriesPage.getContent();
+  }
+
+  // TODO 시리즈 대문 이미지 기능 개발
+  private String getThumbnailFromSeries(Series series) {
+    List<Til> tils = tilRepository.findBySeries(series);
+    return Optional.ofNullable(tilImageRepository.findTilImageByTilIn(tils))
+            .map(TilImage::getUrl)
+            .orElse("");
   }
 }
