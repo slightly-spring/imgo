@@ -9,4 +9,6 @@ import java.util.List;
 public interface TilImageRepository extends JpaRepository<TilImage, Long> {
     void deleteByTil(Til til);
     List<TilImage> findAllByTil(Til til);
+    TilImage findTilImageByTilOrderById(Til til);
+    TilImage findTilImageByTilIn(List<Til> tils);
 }

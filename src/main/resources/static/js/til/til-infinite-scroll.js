@@ -2,7 +2,9 @@ function getItemHTMLFromTilCard(data) {
     return `
     <li class="post">
         <div class="content-info">
-            <strong class="title">${data.title}</strong>
+            <a href="/til/${data.tilId}">
+                <strong class="title">${data.title}</strong>
+            </a>
             <div class="tag-box">
                 ${data.tags[0] ? `<button type="button" class="tag-box-btn">${data.tags[0]}</button>`: ''}
                 ${data.tags[1] ? `<button type="button" class="tag-box-btn">${data.tags[1]}</button>`: ''}
@@ -13,6 +15,8 @@ function getItemHTMLFromTilCard(data) {
                 <span class="writer">by ${data.nickname}</span>
             </div>
         </div>
-        <img src="${data.tilImage ?? "/img/til-card-placeholder.png"}"/>
+        <a href="/til/${data.tilId}">
+           <img src="${data.tilImageUrl || "/img/til-card-placeholder.png"}"/>
+        </a>
     </li>`;
 }
