@@ -14,10 +14,10 @@ import slightlyspring.imgo.domain.til.dto.TilCardData;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SeriesCardData {
-
-  String title;
-  String description;
-  List<String> tags;
-  boolean completed;
-  // like
+  private Long seriesId;
+  private String title;
+  private String description;
+  private List<String> tags;
+  private String seriesImageUrl;
+  private boolean completed;
 }
