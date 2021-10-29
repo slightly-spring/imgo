@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <link th:href="@{/css/user/profile.css}" rel="stylesheet"/>
+</head>
+<th:block layout:fragment="content">
+  <div class="content-wrapper">
+    <div th:text="${analysisData.user.nickname}"></div>
+    <div th:text="${analysisData.numTilPast30Days}"></div>
+    <div th:text="${analysisData.numSeriesPast30Days}"></div>
+
+    <label for="barbar">Top5 Tag 별, 전체에 대한 나의 사용 비율</label>
+    <div name="tag 사용빈도" id="barbar">
+      <div th:each="tagPair : ${analysisData.tagToRateTilSortedList}">
+        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
+      </div>
+    </div>
+
+    <label for="foofoo">tag 사용빈도</label>
+    <div name="tag 사용빈도" id="foofoo">
+      <div th:each="tagPair : ${analysisData.tagToRateSortedList}">
+        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
+      </div>
+      <div th:each="tag : ${analysisData.tagTop3ByRate}">
+        <div th:text="|${tag}|"></div>
+      </div>
+    </div>
+
+    <label for="foo">전체 뱃지: </label>
+    <select name="전체 뱃지" id="foo">
+      <div th:each="badges : ${T(slightlyspring.imgo.domain.badge.domain.BadgeType).values()}">
+        <div th:each="levelBadges : ${badges.levelValues}">
+          <option th:text="|${badges.name},  ${levelBadges.first}, ${levelBadges.second}|"></option>
+        </div>
+      </div>
+    </select>
+
+    <label for="bar">내가 얻은 뱃지: </label>
+    <select name="내가 얻은 뱃지" id="bar">
+      <div th:each="badges : ${analysisData.ownedBadgeMap}">
+        <div th:each="levelBadges : ${badges.value}">
+          <opiton th:text="|${badges.key.name()}, ${levelBadges.key}, ${levelBadges.value}|"></opiton>
+        </div>
+      </div>
+    </select>
+  </div>
+</th:block>
+</html>
+
+
