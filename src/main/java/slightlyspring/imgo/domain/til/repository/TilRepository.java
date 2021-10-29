@@ -12,6 +12,7 @@ public interface TilRepository extends JpaRepository<Til, Long> {
   int countAllByUserId(Long userId);
   List<Til> findByUserId(Long userId);
   List<Til> findByUserId(Long userId, Pageable pageable);
+  List<Til> findByUserIdAndSeriesId(Long userId, Long seriesId, Pageable pageable);
   Page<Til> findAll(Pageable pageable);
 
   Long countByUserIdAndCreatedDateAfter(Long userId, LocalDateTime from);
