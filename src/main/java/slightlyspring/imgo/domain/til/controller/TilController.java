@@ -1,7 +1,6 @@
 package slightlyspring.imgo.domain.til.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +16,11 @@ import slightlyspring.imgo.domain.rival.service.RivalService;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
-import slightlyspring.imgo.domain.tag.repository.TagRepository;
 import slightlyspring.imgo.domain.tag.service.TagService;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.dto.TilForm;
 import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.dto.TilCardData;
-import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.til.service.TilCardService;
 import slightlyspring.imgo.domain.til.service.TilImageService;
 import slightlyspring.imgo.domain.til.service.TilService;
@@ -41,7 +38,6 @@ import slightlyspring.imgo.infra.S3FileUploader;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/til")
 public class TilController {
 
@@ -119,8 +115,11 @@ public class TilController {
         return "redirect:/til/" + tilId ;
     }
 
+    /**
+     * 1. 해당 user 의 모든 til
+     */
     @GetMapping("/{userId}/til-cards")
-    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="id", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity tilCardsByUserId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable, @PathVariable Long userId) {
 
         List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserId(pageable, userId);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
@@ -128,10 +127,27 @@ public class TilController {
         return tilCardResponse;
     }
 
+    /**
+     * 2. 해당 user, 해당 시리즈의 til
+     */
+    @GetMapping("/{userId}/til-cards/{seriesId}")
+    public ResponseEntity tilCardsByUserIdAndSeriesId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable,
+        @PathVariable Long userId,
+        @PathVariable Long seriesId) {
+
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserIdAndSeriesId(pageable, userId, seriesId);
+        ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
+            tilCardDataPages, HttpStatus.OK);
+        return tilCardResponse;
+    }
+
+    /**
+     * 3. 모든 사용자의 til
+     */
     @GetMapping("/til-cards")
     public ResponseEntity tilCards(
-        @PageableDefault(size = 5, sort = "id", direction = Direction.DESC) Pageable pageable) {
-        List<TilCardData> tilCardDataPages = tilCardService.getTilCardData(pageable);
+        @PageableDefault(size = 5, sort = "createdDate", direction = Direction.DESC) Pageable pageable) {
+        List<TilCardData> tilCardDataPages = tilCardService.generateTilCardData(pageable);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
             tilCardDataPages, HttpStatus.OK);
         return tilCardResponse;
