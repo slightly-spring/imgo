@@ -227,8 +227,10 @@ div.dropdown.open > div.list {
     border-radius: 5px;
 }
 
-.rival-box .rival-btn:hover {
-    background: #0f4c1f;
+.rival-box .rival-btn.active {
+    border: solid 1px #156a2b;
+    color: #156a2b;
+    background-color: #fff;
 }
 
 .review-box {

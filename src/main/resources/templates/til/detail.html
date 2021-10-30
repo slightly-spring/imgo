@@ -26,7 +26,7 @@
                         th:if="${til.user.getId().toString().equals(userId)}"
                         th:onclick="deleteConfirm([[${til.id}]])">삭제</button>
             </div>
-            <div class="series-box">
+            <div th:if="${til.series}" class="series-box">
                 <div class="dropdown">
                     <div class="caption" th:text="${til.series.getTitle()}"><img src="/img/down-series.svg"></div>
                     <div class="list">
@@ -70,8 +70,11 @@
                     </a>
                 </div>
                 <div class="rival-box">
-                    <button th:if="${!til.user.getId().toString().equals(userId)}"
-                            type="button" class="rival-btn">라이벌 등록</button>
+                    <button th:if="${!til.user.getId().toString().equals(userId) && userId != null}"
+                            th:text="${isRival == true ? '라이벌 해제' : '라이벌 등록'}"
+                            th:onclick="|clickRivalButton(${til.user.getId()})|"
+                            type="button" class="rival-btn"
+                    ></button>
                 </div>
             </div>
             <!--            <div class="review-box">-->

@@ -19,9 +19,9 @@ $(function() {
 });
 
 async function deleteConfirm(tilId) {
-    let response = confirm("TIL을 삭제하시겠습니까?");
+    let answer = confirm("TIL을 삭제하시겠습니까?");
 
-    if (response) {
+    if (answer) {
         const response = await fetch(`/til/${tilId}`, {
             method: "DELETE"
         });

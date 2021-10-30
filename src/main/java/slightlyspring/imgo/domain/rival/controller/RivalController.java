@@ -1,6 +1,7 @@
 package slightlyspring.imgo.domain.rival.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/rival")
+@Slf4j
 public class RivalController {
 
     private final HttpSession httpSession;

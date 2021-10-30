@@ -21,19 +21,18 @@ public class RivalService {
   static int MAX_NUM = 5;
 
   public boolean isRivalByUserIdAndTargetId(Long userId, Long targetId) {
-    List<Rival> rivals = rivalRepository.findByUserId(userId);
-    for (Rival rival : rivals) {
-      if (rival.getTarget().getId().equals(targetId)) {
-        return true;
-      }
-    }
-    return false;
+    return rivalRepository.existsByUserIdAndTargetId(userId, targetId);
   }
 
   @Transactional
   public Long saveRival(Rival rival) {
     Long userId = rival.getUser().getId();
     Long targetId = rival.getTarget().getId();
+
+    if(userId == targetId) {
+      return 0L;
+    }
+
     //이미 등록되었는지 check 하고, 저장
     List<Rival> rivals = rivalRepository.findByUserId(
         userId);
@@ -48,9 +47,10 @@ public class RivalService {
       return 0L; // 꽉 찼을 때
     }
 
+    // FIXME Circular Reference
     // 새롭게 추가될 때 type2,3 뱃지 업데이트 하기
-    badgeService.updateToUserWithBadgeType(userId, BadgeType.TYPE2);
-    badgeService.updateToUserWithBadgeType(targetId, BadgeType.TYPE3);
+//    badgeService.updateToUserWithBadgeType(userId, BadgeType.TYPE2);
+//    badgeService.updateToUserWithBadgeType(targetId, BadgeType.TYPE3);
 
     return rivalRepository.save(rival).getId();
   }
@@ -59,8 +59,10 @@ public class RivalService {
     return rivalRepository.findByUserId(userId).stream().map(Rival::getTarget).collect(Collectors.toList());
   }
 
-  public void deleteRival(Long userId, Long targetId) {
+  @Transactional
+  public boolean deleteRival(Long userId, Long targetId) {
     rivalRepository.deleteByUserIdAndTargetId(userId, targetId);
+    return true;
   }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import slightlyspring.imgo.domain.rival.service.RivalService;
 import slightlyspring.imgo.domain.series.domain.Series;
 import slightlyspring.imgo.domain.series.repository.SeriesRepository;
 import slightlyspring.imgo.domain.tag.domain.Tag;
@@ -44,6 +45,7 @@ import slightlyspring.imgo.infra.S3FileUploader;
 @RequestMapping("/til")
 public class TilController {
 
+    private final RivalService rivalService;
     private final TilService tilService;
     private final TagService tagService;
     private final UserRepository userRepository;
@@ -55,7 +57,16 @@ public class TilController {
 
     @GetMapping("/{tilId}")
     public String detail(@PathVariable Long tilId, Model model) {
+        // TODO userId using principal
+        Long userId = (Long) httpSession.getAttribute("userId");
+
         Til til = tilRepository.getById(tilId);
+
+        if(userId != null) {
+            boolean isRival = rivalService.isRivalByUserIdAndTargetId(userId, til.getUser().getId());
+            model.addAttribute("isRival", isRival);
+        }
+
         model.addAttribute("til", til);
         return "/til/detail";
     }

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface RivalRepository extends JpaRepository<Rival, Long> {
     List<Rival> findByUserId(Long userId);
+    boolean existsByUserIdAndTargetId(Long userId, Long targetId);
     void deleteByUserIdAndTargetId(Long userId, Long targetId);
 
     Long countByUserId(Long userId);
