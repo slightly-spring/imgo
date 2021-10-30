@@ -147,7 +147,7 @@ public class TilController {
     @GetMapping("/til-cards")
     public ResponseEntity tilCards(
         @PageableDefault(size = 5, sort = "createdDate", direction = Direction.DESC) Pageable pageable) {
-        List<TilCardData> tilCardDataPages = tilCardService.generateTilCardData(pageable);
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardData(pageable);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
             tilCardDataPages, HttpStatus.OK);
         return tilCardResponse;
