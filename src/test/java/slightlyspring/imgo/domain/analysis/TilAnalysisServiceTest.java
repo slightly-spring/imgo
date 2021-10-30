@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.tilAnalysis;
+package slightlyspring.imgo.domain.analysis;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

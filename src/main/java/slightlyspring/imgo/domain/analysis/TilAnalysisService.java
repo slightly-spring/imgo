@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.tilAnalysis;
+package slightlyspring.imgo.domain.analysis;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +25,6 @@ import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
-import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 

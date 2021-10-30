@@ -3,14 +3,64 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
-  <link th:href="@{/css/user/profile.css}" rel="stylesheet"/>
+  <link th:href="@{/css/user/analysis.css}" rel="stylesheet"/>
 </head>
 <th:block layout:fragment="content">
   <div class="content-wrapper">
-    <div th:text="${analysisData.user.nickname}"></div>
-    <div th:text="${analysisData.numTilPast30Days}"></div>
-    <div th:text="${analysisData.numSeriesPast30Days}"></div>
+    <div class="center-content">
+      <div class="top-box">
+        <img src="/img/white-bi.svg" class="title-bi">
+        <span class="title">TIL 분석결과</span>
+        <span th:text="|${analysisData.user.nickname}님은 최근 30일 간 ${analysisData.numTilPast30Days}개의 글과 ${analysisData.numSeriesPast30Days}개의 시리즈를 작성하셨어요!|" class="sub-title">
+        </span>
+        <div class="profile" th:style="|background-image: url(${analysisData.user.profileImg ?: '/img/series-card-placeholder.png'})|">
+        </div>
+      </div>
+      <div class="calendar-box">
+        <span class="title">TIL 작성 캘린더</span>
+        <br><br>캘린더 라이브러리
+      </div>
+      <div class="rank-box">
+        <span class="title">TIL 작성 순위</span>
+        <span class="standard">최근 30일 기준</span>
+        <span class="rank">상위 13%</span>
+        <span class="rank-detail">최근 30일 간 spring 관련 TIL을 상위 13%로 작성했습니다. </span>
+      </div>
+      <div class="ratio-box">
+        <span class="title">TIL 사용 태그 비율</span>
+        <div id="doughnutChart" class="chart"></div>
+        <span class="analysis">최근에는 VPC, git, Spring을 많이 공부하시네요.</span>
+      </div>
+      <div class="continue-box">
+        <span class="title">TIL 작성 지속기간</span>
+        <span class="standard">최근 30일 기준</span>
+        <span class="days" th:text="|연속 ${analysisData.maxContinuousDays}일|"></span>
+        <span class="days-detail" th:text="|최근 30일간 최장 연속 ${analysisData.maxContinuousDays}일 간 TIL을 작성했습니다.|"></span>
+      </div>
+      <div class="mybadge-box">
+        <span class="title">내 뱃지 목록</span>
+        <div class="badge-box">
+          <span class="sub-title">연속 TIL 횟수</span>
+          <ul class="badge-list">
+            <li><img src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span></li>
+            <li><img src="/img/badge-celeb.svg"><span class="badge-name">셀럽</span></li>
+            <li><img src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span></li>
+            <li><img src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span></li>
+            <li><img src="/img/badge-3days.svg"><span class="badge-name">작심3일</span></li>
+          </ul>
+          <span class="sub-title">연속 TIL 횟수</span>
+          <ul class="badge-list">
+            <li><img src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span></li>
+            <li><img src="/img/badge-celeb.svg"><span class="badge-name">셀럽</span></li>
+            <li><img src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span></li>
+            <li><img src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span></li>
+            <li><img src="/img/badge-3days.svg"><span class="badge-name">작심3일</span></li>
+          </ul>
+        </div>
 
+      </div>
+
+    </div>
     <label for="barbar">Top5 Tag 별, 전체에 대한 나의 사용 비율</label>
     <div name="tag 사용빈도" id="barbar">
       <div th:each="tagPair : ${analysisData.tagToRateTilSortedList}">

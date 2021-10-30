@@ -1,0 +1,330 @@
+body {
+    height: auto;
+}
+
+.center-content {
+}
+
+.top-box {
+    background-image: url("../../img/top-bg-yellow.png");
+    padding: 60px 40px 40px 40px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.top-box .title-bi {
+    margin-bottom: 20px;
+}
+
+.top-box .profile {
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 0 auto;
+}
+
+.top-box .title {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+.top-box .sub-title {
+    display: block;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.calendar-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.calendar-box .title {
+    margin-bottom: 20px;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rank-box {
+    padding: 30px;
+    float: left;
+    display: block;
+    height: 200px;
+    width: 490px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 10px
+}
+
+.rank-box .title {
+    margin-bottom: 30px;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rank-box .standard {
+    margin-bottom: 30px;
+    float: right;
+    font-size: 16px;
+    color: #bbb;
+}
+
+.rank-box .rank {
+    font-size: 28px;
+    font-weight: bold;
+    color: #156a2b;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rank-box .rank-detail {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.continue-box {
+    padding: 30px;
+    float: left;
+    display: block;
+    height: 200px;
+    width: 490px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 10px
+}
+
+.continue-box .title {
+    margin-bottom: 30px;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.continue-box .standard {
+    margin-bottom: 30px;
+    float: right;
+    font-size: 16px;
+    color: #bbb;
+}
+
+.continue-box .days {
+    font-size: 28px;
+    font-weight: bold;
+    color: #156a2b;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.continue-box .days-detail {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.ratio-box {
+    padding: 30px;
+    float: right;
+    display: block;
+    height: 420px;
+    width: 490px;;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 10px
+}
+
+.ratio-box .title {
+    margin-bottom: 20px;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ratio-box .donut-chart {
+    margin: 0 auto;
+    font-size: 12px;
+    width: 360px;
+    height: 240px;
+}
+
+.ratio-box .analysis {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin: 60px 0 0 0;
+}
+
+.ratio-box canvas {
+    margin-top: 30px;
+}
+
+.mybadge-box {
+    padding: 30px;
+    float: left;
+    display: block;
+    height: fit-content;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 10px
+}
+
+.mybadge-box .title {
+    margin-bottom: 20px;
+    float: left;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.mybadge-box .badge-box {
+    height: fit-content;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.mybadge-box .badge-list {
+    display: inline-block;
+    padding: 0 0 40px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.mybadge-box ul:last-child {
+    border: none;
+    padding-bottom: 20px;
+}
+
+.mybadge-box .badge-list li {
+    width: 200px;
+    padding: 10px 40px;
+}
+
+.mybadge-box .badge-list li:last-child {
+    margin-right: 0;
+}
+
+.mybadge-box .badge-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.mybadge-box .badge-box .sub-title {
+    display: block;
+    font-size: 16px;
+    margin: 15px 0 5px 0;
+    font-weight: 500;
+}
+
+.title-box .title img {
+    margin: 5px 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.post-detail-box {
+    display: block;
+    float: left;
+}
+
+.post-detail-box .tag {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.post-detail-box .count {
+    display: block;
+}
+
+.edit-box {
+    display: block;
+    float: right;
+}
+
+.edit-box-btn {
+    padding: 0px 20px;
+    font-size: 14px;
+    background: #fff;
+    height: 32px;
+    margin-left: 4px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    color: #444;
+    text-align: center;
+}
+
+.series-box {
+    display: inline-block;
+    line-height: 44px;
+    width: 100%;
+    float: right;
+    margin: 30px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.series-box img {
+    float: right;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.content-box {
+    line-height: 1.75;
+    font-size: 16px;
+    font-weight: 400;
+    color: #222;
+    width: 100%;
+}
+
+#series-list {
+    width: 660px;
+}
+
+.content-list {
+    margin-top: 20px;
+}
+
+.content-list .post {
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.footer_content {
+    margin-top: 60px;
+}

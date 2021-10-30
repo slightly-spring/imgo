@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.tilAnalysis;
+package slightlyspring.imgo.domain.analysis;
 
 import java.util.EnumMap;
 import java.util.List;
