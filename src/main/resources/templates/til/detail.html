@@ -13,10 +13,10 @@
                 <span class="title" th:text="${til.title}"></span>
             </div>
             <div class="post-detail-box">
-                <div th:each="tag : ${til.tilTags}">
-                    <span class="tag" th:text="${tag}"></span>
-                </div>
-<!--                <span class="count" th:text="${'조회수 ' + til.viewCount}"></span>-->
+                <span th:each="tag : ${til.tilTags}">
+                    <span class="tag" th:text="${'#' + tag.getTag().getName()}"></span>
+                </span>
+                <!--                <span class="count" th:text="${'조회수 ' + til.viewCount}"></span>-->
 
             </div>
             <div class="edit-box">
@@ -25,12 +25,14 @@
             </div>
             <div class="series-box">
                 <div class="dropdown">
-                    <div class="caption">스프링 부트와 AWS로 혼자 구현하는 웹 서비스<img src="/img/down-series.svg"></div>
+                    <div class="caption" th:text="${til.series.getTitle()}"><img src="/img/down-series.svg"></div>
                     <div class="list">
-                        <div class="item">C++</div>
-                        <div class="item">Flutter</div>
-                        <div class="item">C++</div>
-                        <div class="item">Flutter</div>
+                        <span th:each="til, stat : ${til.series.getTils()}">
+                             <a th:href="|/til/${til.id}|">
+                                 <div class="item" th:text="${stat.count + '. ' + til.title}">
+                                 </div>
+                             </a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -50,7 +52,8 @@
                 amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </div>
             <div class="button-box">
-                <button type="button" class="like-btn"><img src="/img/like.svg"><span th:text="${til.likeCount}"></span> </button>
+                <button type="button" class="like-btn"><img src="/img/like.svg"><span th:text="${til.likeCount}"></span>
+                </button>
                 <button type="button" class="share-btn"><img src="/img/share.svg">공유</button>
             </div>
             <div class="writer-box">
@@ -64,48 +67,48 @@
                     <button type="button" class="rival-btn">라이벌 등록</button>
                 </div>
             </div>
-<!--            <div class="review-box">-->
-<!--                <span class="review-title">댓글 <strong>0</strong></span>-->
-<!--                <button type="button" class="riview-btn">등록</button>-->
-<!--                <ul class="review-list">-->
-<!--                    <li>-->
-<!--                        <div class="reviewer-profile"></div>-->
-<!--                        <div class="review-detail">-->
-<!--                            <span class="name">Hyun</span>-->
-<!--                            <span class="date">1 days ago</span>-->
-<!--                            <div class="content">-->
-<!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
-<!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
-<!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <div class="reviewer-profile"></div>-->
-<!--                        <div class="review-detail">-->
-<!--                            <span class="name">Hyun</span>-->
-<!--                            <span class="date">1 days ago</span>-->
-<!--                            <div class="content">-->
-<!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
-<!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
-<!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <div class="reviewer-profile"></div>-->
-<!--                        <div class="review-detail">-->
-<!--                            <span class="name">Hyun</span>-->
-<!--                            <span class="date">1 days ago</span>-->
-<!--                            <div class="content">-->
-<!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
-<!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
-<!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
+            <!--            <div class="review-box">-->
+            <!--                <span class="review-title">댓글 <strong>0</strong></span>-->
+            <!--                <button type="button" class="riview-btn">등록</button>-->
+            <!--                <ul class="review-list">-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
         </div>
     </div>
     <script type="text/javascript" th:src="@{/js/til/detail.js}"></script>

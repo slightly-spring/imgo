@@ -33,7 +33,6 @@ body {
 }
 
 .post-detail-box .tag {
-    display: block;
     margin-bottom: 5px;
 }
 
@@ -112,7 +111,7 @@ div.dropdown > div.caption:hover {
     color: #222;
 }
 
-div.dropdown > div.list > div.item:hover {
+div.dropdown > div.list > span > a > div.item:hover {
     background-color: #eee;
     color: #222;
     font-weight: 500;
