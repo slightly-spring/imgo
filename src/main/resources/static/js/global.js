@@ -24,6 +24,28 @@ function openLoginPopup() {
     login.style.display = "block";
 }
 
+async function clickRivalButton(targetId) {
+    const rivalButton = document.querySelector('.rival-btn');
+    const isActive = rivalButton.classList.contains("active");
+    const method =  isActive ? "DELETE" : "POST";
+
+    const response = await fetch(`/rival/${targetId}`, {
+        method
+    });
+
+    if (response.ok) {
+        if (isActive) {
+            rivalButton.classList.remove("active")
+            rivalButton.innerText = "라이벌 해제";
+        } else {
+            rivalButton.classList.add("active")
+            rivalButton.innerText = "라이벌 등록";
+        }
+    } else {
+        alert("오류가 발생하였습니다.")
+    }
+}
+
 window.onload = function () {
     let $tilContainer = $('.til-container').infiniteScroll({
         path: '.pagination__next',

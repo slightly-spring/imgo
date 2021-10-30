@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#292d32;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <g id="vuesax_linear_link-2" data-name="vuesax/linear/link-2" transform="translate(-108 -252)">
+        <g id="link-2" transform="translate(108 252)">
+            <path id="Vector" class="cls-1" d="M8.178 0A4.791 4.791 0 1 1 1.4 0" transform="translate(2.705 9.117)"/>
+            <path id="Vector-2" data-name="Vector" class="cls-1" d="M1.462 8.541a5 5 0 1 1 7.075 0" transform="translate(7.362 2.634)"/>
+        </g>
+    </g>
+</svg>

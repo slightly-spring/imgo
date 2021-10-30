@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.badge.domain.BadgeLevel;
 import slightlyspring.imgo.domain.badge.domain.BadgeType;
-import slightlyspring.imgo.domain.rival.RivalRepository;
+import slightlyspring.imgo.domain.rival.repository.RivalRepository;
 import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;

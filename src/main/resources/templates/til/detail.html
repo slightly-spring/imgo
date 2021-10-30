@@ -3,18 +3,110 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
+    <link th:href="@{/css/til/detail.css}" rel="stylesheet"/>
 </head>
 <th:block layout:fragment="content">
-    <div th:object="${til}">
-        <p th:if="${til.getSeries()}" th:text="*{getSeries().getTitle()}"></p>
-        <p th:text="*{title}"></p>
-        <p th:text="*{createdDate}"></p>
-        <p th:text="*{content}"></p>
+    <div class="content-wrapper">
+        <div class="center-content">
+            <div class="title-box">
+                <span class="sub-title" th:if="${til.getSeries()}" th:text="${til.getSeries().getTitle()}"></span>
+                <span class="title" th:text="${til.title}"></span>
+            </div>
+            <div class="post-detail-box">
+                <span th:each="tag : ${til.tilTags}">
+                    <span class="tag" th:text="${'#' + tag.getTag().getName()}"></span>
+                </span>
+                <!--                <span class="count" th:text="${'조회수 ' + til.viewCount}"></span>-->
 
-        <p th:text="*{getUser().getNickname()}"></p>
-        <p th:text="*{likeCount}"></p>
-        <p th:text="*{viewCount}"></p>
+            </div>
+            <div class="edit-box">
+<!--                <button type="button" class="edit-box-btn">수정</button>-->
 
+                <button type="button" class="edit-box-btn"
+                        th:if="${til.user.getId().toString().equals(userId)}"
+                        th:onclick="deleteConfirm([[${til.id}]])">삭제</button>
+            </div>
+            <div th:if="${til.series}" class="series-box">
+                <div class="dropdown">
+                    <div class="caption" th:text="${til.series.getTitle()}"><img src="/img/down-series.svg"></div>
+                    <div class="list">
+                        <span th:each="til, stat : ${til.series.getTils()}">
+                             <a th:href="|/til/${til.id}|">
+                                 <div class="item" th:text="${stat.count + '. ' + til.title}">
+                                 </div>
+                             </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div th:utext="${til.content}" class="content-box"></div>
+            <div class="button-box">
+                <button type="button" class="like-btn"><img src="/img/like.svg"><span th:text="${til.likeCount}"></span>
+                </button>
+                <button type="button" class="share-btn" onclick="copyUrlToClipboard()"><img src="/img/share.svg">공유</button>
+            </div>
+            <div class="writer-box">
+                <div class="profile" th:style="'background-image:url('+${til.user.getProfileImg()}+');'">
+                </div>
+
+                <div class="writer-info">
+                    <a th:href="|/user/${til.user.getId()}|">
+                        <span class="name" th:text="${til.getUser().getNickname()}"></span>
+                        <span class="description" th:text="${til.getUser().getProfileDescription() ?: 'IMGO must go on!'}"></span>
+                    </a>
+                </div>
+                <div class="rival-box">
+                    <button th:if="${!til.user.getId().toString().equals(userId) && userId != null}"
+                            th:text="${isRival == true ? '라이벌 해제' : '라이벌 등록'}"
+                            th:onclick="|clickRivalButton(${til.user.getId()})|"
+                            type="button" class="rival-btn"
+                    ></button>
+                </div>
+            </div>
+            <!--            <div class="review-box">-->
+            <!--                <span class="review-title">댓글 <strong>0</strong></span>-->
+            <!--                <button type="button" class="riview-btn">등록</button>-->
+            <!--                <ul class="review-list">-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                        <div class="reviewer-profile"></div>-->
+            <!--                        <div class="review-detail">-->
+            <!--                            <span class="name">Hyun</span>-->
+            <!--                            <span class="date">1 days ago</span>-->
+            <!--                            <div class="content">-->
+            <!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+            <!--                                incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur-->
+            <!--                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
+        </div>
     </div>
+    <script type="text/javascript" th:src="@{/js/til/detail.js}"></script>
 </th:block>
 </html>
