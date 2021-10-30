@@ -13,6 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import slightlyspring.imgo.domain.rival.domain.Rival;
+import slightlyspring.imgo.domain.rival.repository.RivalRepository;
+import slightlyspring.imgo.domain.rival.service.RivalService;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -95,7 +98,7 @@ class RivalServiceTest {
         .willReturn(rivals.subList(0,5));
 
     //when
-    Long save = rivalService.save(rivals.get(5));
+    Long save = rivalService.saveRival(rivals.get(5));
 
     //then
     assertThat(save).isEqualTo(0l);

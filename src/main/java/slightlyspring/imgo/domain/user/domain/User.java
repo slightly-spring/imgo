@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import slightlyspring.imgo.domain.auth.domain.UserAccount;
-import slightlyspring.imgo.domain.rival.Rival;
+import slightlyspring.imgo.domain.rival.domain.Rival;
 import slightlyspring.imgo.domain.til.domain.Til;
 import slightlyspring.imgo.domain.til.domain.TilComment;
 

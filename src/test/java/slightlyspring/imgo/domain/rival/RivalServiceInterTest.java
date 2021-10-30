@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +13,9 @@ import slightlyspring.imgo.domain.badge.BadgeService;
 import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.badge.domain.BadgeLevel;
 import slightlyspring.imgo.domain.badge.domain.BadgeType;
+import slightlyspring.imgo.domain.rival.domain.Rival;
+import slightlyspring.imgo.domain.rival.repository.RivalRepository;
+import slightlyspring.imgo.domain.rival.service.RivalService;
 import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
@@ -43,7 +46,7 @@ public class RivalServiceInterTest {
     List<User> users = createUserEntities(numOfRivals*2);
     List<Rival> rivals = createRivalEntities(numOfRivals, users);
     //when
-    Long savedRivalId = rivalService.save(rivals.get(0));
+    Long savedRivalId = rivalService.saveRival(rivals.get(0));
     Rival rival = rivalRepository.getById(savedRivalId);
     User user = rival.getUser();
     User target = rival.getTarget();

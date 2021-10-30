@@ -1,4 +1,4 @@
-package slightlyspring.imgo.domain.rival;
+package slightlyspring.imgo.domain.rival.domain;
 
 import lombok.*;
 
