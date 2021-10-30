@@ -2,7 +2,7 @@ package slightlyspring.imgo.domain.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import slightlyspring.imgo.domain.rival.Rival;
+import slightlyspring.imgo.domain.rival.domain.Rival;
 import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.domain.UserTilRecord;
 

@@ -1,11 +1,14 @@
-package slightlyspring.imgo.domain.rival;
+package slightlyspring.imgo.domain.rival.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import slightlyspring.imgo.domain.badge.BadgeService;
 import slightlyspring.imgo.domain.badge.domain.BadgeType;
+import slightlyspring.imgo.domain.rival.repository.RivalRepository;
+import slightlyspring.imgo.domain.rival.domain.Rival;
 import slightlyspring.imgo.domain.user.domain.User;
 
 @Service
@@ -27,7 +30,8 @@ public class RivalService {
     return false;
   }
 
-  public Long save(Rival rival) {
+  @Transactional
+  public Long saveRival(Rival rival) {
     Long userId = rival.getUser().getId();
     Long targetId = rival.getTarget().getId();
     //이미 등록되었는지 check 하고, 저장

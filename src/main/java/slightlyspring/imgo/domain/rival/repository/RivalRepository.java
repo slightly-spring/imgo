@@ -1,6 +1,8 @@
-package slightlyspring.imgo.domain.rival;
+package slightlyspring.imgo.domain.rival.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import slightlyspring.imgo.domain.rival.domain.Rival;
+
 import java.util.List;
 
 public interface RivalRepository extends JpaRepository<Rival, Long> {
