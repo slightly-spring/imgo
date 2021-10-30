@@ -20,8 +20,11 @@
 
             </div>
             <div class="edit-box">
-                <button type="button" class="edit-box-btn">수정</button>
-                <button type="button" class="edit-box-btn">삭제</button>
+<!--                <button type="button" class="edit-box-btn">수정</button>-->
+
+                <button type="button" class="edit-box-btn"
+                        th:if="${til.user.getId().toString().equals(userId)}"
+                        th:onclick="deleteConfirm([[${til.id}]])">삭제</button>
             </div>
             <div class="series-box">
                 <div class="dropdown">
@@ -54,7 +57,7 @@
             <div class="button-box">
                 <button type="button" class="like-btn"><img src="/img/like.svg"><span th:text="${til.likeCount}"></span>
                 </button>
-                <button type="button" class="share-btn"><img src="/img/share.svg">공유</button>
+                <button type="button" class="share-btn" onclick="copyUrlToClipboard()"><img src="/img/share.svg">공유</button>
             </div>
             <div class="writer-box">
                 <div class="profile">

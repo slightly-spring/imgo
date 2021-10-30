@@ -3,6 +3,7 @@ package slightlyspring.imgo.domain.til.controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -27,8 +28,10 @@ import slightlyspring.imgo.domain.til.service.TilImageService;
 import slightlyspring.imgo.domain.til.service.TilService;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import slightlyspring.imgo.domain.user.service.UserService;
@@ -37,6 +40,7 @@ import slightlyspring.imgo.infra.S3FileUploader;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/til")
 public class TilController {
 
@@ -54,6 +58,21 @@ public class TilController {
         Til til = tilRepository.getById(tilId);
         model.addAttribute("til", til);
         return "/til/detail";
+    }
+
+    @DeleteMapping("/{tilId}")
+    @ResponseBody
+    public ResponseEntity delete(@PathVariable Long tilId, HttpServletRequest request) {
+        // TODO userId using principal
+        Long userId = (Long) httpSession.getAttribute("userId");
+        Til til = tilRepository.getById(tilId);
+
+        if(Objects.equals(til.getUser().getId(), userId)) {
+            tilRepository.deleteById(tilId);
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/write")

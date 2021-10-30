@@ -17,3 +17,33 @@ $(function() {
     });
 
 });
+
+async function deleteConfirm(tilId) {
+    let response = confirm("TIL을 삭제하시겠습니까?");
+
+    if (response) {
+        const response = await fetch(`/til/${tilId}`, {
+            method: "DELETE"
+        });
+        if (response.ok) {
+            alert("삭제 되었습니다.")
+            window.location.href = "/";
+        } else {
+            alert("삭제할 수 없습니다.")
+            window.location.href = document.referrer
+        }
+    }
+
+}
+
+function copyUrlToClipboard(){
+    const dummy   = document.createElement("input");
+    const text    = location.href;
+
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    alert("주소가 클립보드에 복사되었습니다.")
+}

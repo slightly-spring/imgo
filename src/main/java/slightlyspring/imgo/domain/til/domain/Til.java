@@ -60,15 +60,15 @@ public class Til extends CreatedModifiedTimeEntity {
     @JoinColumn(name = "series_id")
     private Series series;
 
-    @OneToMany(mappedBy = "til")
+    @OneToMany(mappedBy = "til", cascade = CascadeType.REMOVE)
     private List<TilComment> tilComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "til")
     private List<UserLikesTil> userLikesTils = new ArrayList<>();
 
-    @OneToMany(mappedBy = "til")
+    @OneToMany(mappedBy = "til", cascade = CascadeType.REMOVE)
     private List<TilTag> tilTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "til")
+    @OneToMany(mappedBy = "til", cascade = CascadeType.REMOVE)
     private List<TilImage> tilImages = new ArrayList<>();
 }
