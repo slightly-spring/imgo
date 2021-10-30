@@ -60,14 +60,18 @@
                 <button type="button" class="share-btn" onclick="copyUrlToClipboard()"><img src="/img/share.svg">공유</button>
             </div>
             <div class="writer-box">
-                <div class="profile">
+                <div class="profile" th:style="'background-image:url('+${til.user.getProfileImg()}+');'">
                 </div>
+
                 <div class="writer-info">
-                    <span class="name" th:text="${til.getUser().getNickname()}"></span>
-                    <span class="description" th:text="${til.getUser().getProfileDescription()}"></span>
+                    <a th:href="|/user/${til.user.getId()}|">
+                        <span class="name" th:text="${til.getUser().getNickname()}"></span>
+                        <span class="description" th:text="${til.getUser().getProfileDescription() ?: 'IMGO must go on!'}"></span>
+                    </a>
                 </div>
                 <div class="rival-box">
-                    <button type="button" class="rival-btn">라이벌 등록</button>
+                    <button th:if="${!til.user.getId().toString().equals(userId)}"
+                            type="button" class="rival-btn">라이벌 등록</button>
                 </div>
             </div>
             <!--            <div class="review-box">-->
