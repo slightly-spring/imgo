@@ -3,6 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
+  <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
   <link th:href="@{/css/user/analysis.css}" rel="stylesheet"/>
 </head>
 <th:block layout:fragment="content">
@@ -18,7 +21,7 @@
       </div>
       <div class="calendar-box">
         <span class="title">TIL 작성 캘린더</span>
-        <br><br>캘린더 라이브러리
+        <div class="calendar" id="cal-heatmap"></div>
       </div>
       <div class="rank-box">
         <span class="title">TIL 작성 순위</span>
@@ -61,41 +64,43 @@
       </div>
 
     </div>
-    <label for="barbar">Top5 Tag 별, 전체에 대한 나의 사용 비율</label>
-    <div name="tag 사용빈도" id="barbar">
-      <div th:each="tagPair : ${analysisData.tagToRateTilSortedList}">
-        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
-      </div>
-    </div>
+<!--    <label for="barbar">Top5 Tag 별, 전체에 대한 나의 사용 비율</label>-->
+<!--    <div name="tag 사용빈도" id="barbar">-->
+<!--      <div th:each="tagPair : ${analysisData.tagToRateTilSortedList}">-->
+<!--        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <label for="foofoo">tag 사용빈도</label>
-    <div name="tag 사용빈도" id="foofoo">
-      <div th:each="tagPair : ${analysisData.tagToRateSortedList}">
-        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
-      </div>
-      <div th:each="tag : ${analysisData.tagTop3ByRate}">
-        <div th:text="|${tag}|"></div>
-      </div>
-    </div>
+<!--    <label for="foofoo">tag 사용빈도</label>-->
+<!--    <div name="tag 사용빈도" id="foofoo">-->
+<!--      <div th:each="tagPair : ${analysisData.tagToRateSortedList}">-->
+<!--        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>-->
+<!--      </div>-->
+<!--      <div th:each="tag : ${analysisData.tagTop3ByRate}">-->
+<!--        <div th:text="|${tag}|"></div>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <label for="foo">전체 뱃지: </label>
-    <select name="전체 뱃지" id="foo">
-      <div th:each="badges : ${T(slightlyspring.imgo.domain.badge.domain.BadgeType).values()}">
-        <div th:each="levelBadges : ${badges.levelValues}">
-          <option th:text="|${badges.name},  ${levelBadges.first}, ${levelBadges.second}|"></option>
-        </div>
-      </div>
-    </select>
+<!--    <label for="foo">전체 뱃지: </label>-->
+<!--    <select name="전체 뱃지" id="foo">-->
+<!--      <div th:each="badges : ${T(slightlyspring.imgo.domain.badge.domain.BadgeType).values()}">-->
+<!--        <div th:each="levelBadges : ${badges.levelValues}">-->
+<!--          <option th:text="|${badges.name},  ${levelBadges.first}, ${levelBadges.second}|"></option>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </select>-->
 
-    <label for="bar">내가 얻은 뱃지: </label>
-    <select name="내가 얻은 뱃지" id="bar">
-      <div th:each="badges : ${analysisData.ownedBadgeMap}">
-        <div th:each="levelBadges : ${badges.value}">
-          <opiton th:text="|${badges.key.name()}, ${levelBadges.key}, ${levelBadges.value}|"></opiton>
-        </div>
-      </div>
-    </select>
-  </div>
+<!--    <label for="bar">내가 얻은 뱃지: </label>-->
+<!--    <select name="내가 얻은 뱃지" id="bar">-->
+<!--      <div th:each="badges : ${analysisData.ownedBadgeMap}">-->
+<!--        <div th:each="levelBadges : ${badges.value}">-->
+<!--          <opiton th:text="|${badges.key.name()}, ${levelBadges.key}, ${levelBadges.value}|"></opiton>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </select>-->
+<!--  </div>-->
+<!--  <script type="text/javascript" th:src="@{/js/chartjs-plugin-labels.js}"></script>-->
+  <script type="text/javascript" th:src="@{/js/user/analysis.js}"></script>
 </th:block>
 </html>
 
