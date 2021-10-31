@@ -47,7 +47,7 @@ public class UserController {
         return "/user/profile";
     }
 
-    @GetMapping("/analysis/{userId}")
+    @GetMapping("/{userId}/analysis")
     public String analysis(@PathVariable Long userId, Model model) {
         if (!userService.isUserExist(userId)) {
             return "404";
