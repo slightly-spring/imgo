@@ -43,23 +43,15 @@
       <div class="mybadge-box">
         <span class="title">내 뱃지 목록</span>
         <div class="badge-box">
-          <span class="sub-title">연속 TIL 횟수</span>
           <ul class="badge-list">
-            <li><img src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span></li>
-            <li><img src="/img/badge-celeb.svg"><span class="badge-name">셀럽</span></li>
-            <li><img src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span></li>
-            <li><img src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span></li>
-            <li><img src="/img/badge-3days.svg"><span class="badge-name">작심3일</span></li>
-          </ul>
-          <span class="sub-title">연속 TIL 횟수</span>
-          <ul class="badge-list">
-            <li><img src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span></li>
-            <li><img src="/img/badge-celeb.svg"><span class="badge-name">셀럽</span></li>
-            <li><img src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span></li>
-            <li><img src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span></li>
-            <li><img src="/img/badge-3days.svg"><span class="badge-name">작심3일</span></li>
+            <li><img th:classappend="${analysisData.validBadgeTypes.contains('TYPE1')} ? 'active'" src="/img/badge-celeb.svg"><span class="badge-name">셀럽</span></li>
+            <li><img th:classappend="${analysisData.validBadgeTypes.contains('TYPE2')} ? 'active'" src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span></li>
+            <li><img th:classappend="${analysisData.validBadgeTypes.contains('TYPE3')} ? 'active'" src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span></li>
+            <li><img th:classappend="${analysisData.validBadgeTypes.contains('TYPE4')} ? 'active'" src="/img/badge-3days.svg"><span class="badge-name">작심3일</span></li>
+            <li><img th:classappend="${analysisData.validBadgeTypes.contains('TYPE5')} ? 'active'" src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span></li>
           </ul>
         </div>
+      </div>
 
       </div>
 
@@ -90,15 +82,6 @@
 <!--      </div>-->
 <!--    </select>-->
 
-<!--    <label for="bar">내가 얻은 뱃지: </label>-->
-<!--    <select name="내가 얻은 뱃지" id="bar">-->
-<!--      <div th:each="badges : ${analysisData.ownedBadgeMap}">-->
-<!--        <div th:each="levelBadges : ${badges.value}">-->
-<!--          <opiton th:text="|${badges.key.name()}, ${levelBadges.key}, ${levelBadges.value}|"></opiton>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </select>-->
-<!--  </div>-->
 <!--  <script type="text/javascript" th:src="@{/js/chartjs-plugin-labels.js}"></script>-->
   <script type="text/javascript" th:src="@{/js/user/analysis.js}"></script>
 </th:block>

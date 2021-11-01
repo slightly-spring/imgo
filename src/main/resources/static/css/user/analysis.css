@@ -238,6 +238,14 @@ body {
     padding: 10px 40px;
 }
 
+.mybadge-box .badge-list li img {
+    filter: grayscale(100%);
+}
+
+.mybadge-box .badge-list li img.active {
+    filter: none;
+}
+
 .mybadge-box .badge-list li:last-child {
     margin-right: 0;
 }

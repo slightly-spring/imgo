@@ -47,10 +47,9 @@ public class RivalService {
       return 0L; // 꽉 찼을 때
     }
 
-    // FIXME Circular Reference
     // 새롭게 추가될 때 type2,3 뱃지 업데이트 하기
-//    badgeService.updateToUserWithBadgeType(userId, BadgeType.TYPE2);
-//    badgeService.updateToUserWithBadgeType(targetId, BadgeType.TYPE3);
+    badgeService.updateToUserWithBadgeType(userId, BadgeType.TYPE2);
+    badgeService.updateToUserWithBadgeType(targetId, BadgeType.TYPE3);
 
     return rivalRepository.save(rival).getId();
   }

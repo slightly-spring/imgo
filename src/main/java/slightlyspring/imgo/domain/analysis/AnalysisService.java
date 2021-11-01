@@ -25,12 +25,13 @@ import slightlyspring.imgo.domain.til.repository.TilRepository;
 import slightlyspring.imgo.domain.til.repository.TilTagRepository;
 import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.user.domain.User;
+import slightlyspring.imgo.domain.user.domain.UserBadge;
 import slightlyspring.imgo.domain.user.repository.UserBadgeRepository;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class TilAnalysisService {
+public class AnalysisService {
 
   private final UserRepository userRepository;
   private final TilRepository tilRepository;
@@ -39,7 +40,7 @@ public class TilAnalysisService {
   private final UserBadgeRepository userBadgeRepository;
   private final BadgeService badgeService;
 
-  public TilAnalysisData getTilAnalysisDataByUserId(Long userId) {
+  public AnalysisData getTilAnalysisDataByUserId(Long userId) {
     // intro
     Long numTilPast30Days = getIntroNumTilPast30DaysByUserId(userId);
     Long numSeriesPast30Days = getIntroNumSeriesPast30DaysByUserId(userId);
@@ -65,7 +66,7 @@ public class TilAnalysisService {
 
 //    setBadges(tilAnalysisData);
 
-    return TilAnalysisData.builder()
+    return AnalysisData.builder()
         .user(userRepository.getById(userId))
         .numTilPast30Days(numTilPast30Days)
         .numSeriesPast30Days(numSeriesPast30Days)
@@ -74,8 +75,14 @@ public class TilAnalysisService {
         .maxContinuousDays(maxContinuousDays)
         .tagToRateSortedList(tagToRateSortedList)
         .tagTop3ByRate(tagTop3ByRate)
-        .ownedBadgeMap(badgeMapByUserId)
+//        .ownedBadgeMap(badgeMapByUserId)
+        .validBadgeTypes(getValidBadgeTypes(userId))
         .build();
+  }
+
+  private List<String> getValidBadgeTypes(Long userId) {
+    List<UserBadge> userBadges = userBadgeRepository.getByUserId(userId);
+    return userBadges.stream().map(UserBadge::getBadge).map(Badge::getBadgeType).map(Enum::toString).collect(Collectors.toList());
   }
 
 

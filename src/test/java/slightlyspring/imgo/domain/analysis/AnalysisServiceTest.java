@@ -20,10 +20,10 @@ import slightlyspring.imgo.domain.user.domain.User;
 import slightlyspring.imgo.domain.user.repository.UserRepository;
 
 @SpringBootTest
-class TilAnalysisServiceTest {
+class AnalysisServiceTest {
 
   @Autowired
-  private  TilAnalysisService tilAnalysisService;
+  private AnalysisService analysisService;
   @Autowired
   private  UserRepository userRepository;
   @Autowired
@@ -43,7 +43,7 @@ class TilAnalysisServiceTest {
     Til til = tilRepository.save(Til.builder().user(user).series(series).build());
 
     //when
-    Long numTilPast30Days = tilAnalysisService.getIntroNumTilPast30DaysByUserId(
+    Long numTilPast30Days = analysisService.getIntroNumTilPast30DaysByUserId(
         user.getId());
 
     //then
@@ -59,7 +59,7 @@ class TilAnalysisServiceTest {
     Til til = tilRepository.save(Til.builder().user(user).series(series).build());
 
     //when
-    Long numSeriesPast30Days = tilAnalysisService.getIntroNumSeriesPast30DaysByUserId(
+    Long numSeriesPast30Days = analysisService.getIntroNumSeriesPast30DaysByUserId(
         user.getId());
 
     //then
@@ -90,7 +90,7 @@ class TilAnalysisServiceTest {
     TilTag tilTagB2 = tilTagRepository.save(TilTag.builder().til(tilB2).tag(tag).build());
 
     //when
-    List<Pair<Tag, Integer>> top5TagToRateTilSortedList = tilAnalysisService.getTop5TagToRateTilSortedListByUserId(
+    List<Pair<Tag, Integer>> top5TagToRateTilSortedList = analysisService.getTop5TagToRateTilSortedListByUserId(
         userA.getId());
 
     //then
@@ -114,7 +114,7 @@ class TilAnalysisServiceTest {
       }
     }
     //when
-    List<Pair<Tag, Integer>> tmp = tilAnalysisService.getTagToRateSortedListByUserId(
+    List<Pair<Tag, Integer>> tmp = analysisService.getTagToRateSortedListByUserId(
         user.getId());
 
     //then

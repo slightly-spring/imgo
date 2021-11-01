@@ -128,7 +128,7 @@ public class BadgeService {
     for (Badge b : badgeList) {
       BadgeType badgeType = b.getBadgeType();
       BadgeLevel level = b.getLevel();
-      if (badgeMap.containsKey(badgeType)){
+      if (!badgeMap.containsKey(badgeType)){
         badgeMap.put(badgeType, new EnumMap<>(BadgeLevel.class));
       }
       badgeMap.get(badgeType).put(level, b);

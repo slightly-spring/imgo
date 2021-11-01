@@ -55,7 +55,7 @@ class BadgeServiceTest {
         Badge tmp = Badge.builder()
             .badgeType(badgeType)
             .level(pair.getFirst())
-            .name(badgeType.name)
+//            .name(badgeType.name)
 //            .description()
 //            .logo()
             .build();

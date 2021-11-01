@@ -13,7 +13,7 @@ import slightlyspring.imgo.domain.user.domain.User;
 
 @Data
 @Builder
-public class TilAnalysisData {
+public class AnalysisData {
 
   // owner
   User user;
@@ -31,5 +31,6 @@ public class TilAnalysisData {
   private List<Pair<Tag,Integer>> tagToRateSortedList;
   private List<Tag> tagTop3ByRate;
   // 얻은 뱃지
-  private EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> ownedBadgeMap;
+//  private EnumMap<BadgeType, EnumMap<BadgeLevel, Badge>> ownedBadgeMap;
+  private List<String> validBadgeTypes;
 }
