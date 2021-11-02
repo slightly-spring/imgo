@@ -3,49 +3,85 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
-  <link th:href="@{/css/user/profile.css}" rel="stylesheet"/>
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css"/>
+    <link th:href="@{/css/user/analysis.css}" rel="stylesheet"/>
 </head>
 <th:block layout:fragment="content">
-  <div class="content-wrapper">
-    <div th:text="${analysisData.user.nickname}"></div>
-    <div th:text="${analysisData.numTilPast30Days}"></div>
-    <div th:text="${analysisData.numSeriesPast30Days}"></div>
+    <div class="content-wrapper">
+        <div class="center-content">
+            <div class="top-box">
+                <img src="/img/white-bi.svg" class="title-bi">
+                <span class="title">TIL 분석결과</span>
+                <span th:text="|${analysisData.user.nickname}님은 최근 30일 간 ${analysisData.numTilPast30Days}개의 글과 ${analysisData.numSeriesPast30Days}개의 시리즈를 작성하셨어요!|"
+                      class="sub-title">
+        </span>
+                <div class="profile"
+                     th:style="|background-image: url(${analysisData.user.profileImg ?: '/img/series-card-placeholder.png'})|">
+                </div>
+            </div>
+            <div class="calendar-box">
+                <span class="title">TIL 작성 캘린더</span>
+                <div class="calendar" id="cal-heatmap"></div>
+            </div>
+            <div class="rank-box">
+                <span class="title">TIL 작성 순위</span>
+                <span class="standard">최근 30일 기준</span>
+                <span class="rank">상위 13%</span>
+                <span class="rank-detail">최근 30일 간 spring 관련 TIL을 상위 13%로 작성했습니다. </span>
+            </div>
+            <div class="ratio-box">
+                <span class="title">TIL 사용 태그 비율</span>
+                <div id="doughnutChart" class="chart"></div>
+                <div th:each="tagPair : ${analysisData.tagToRateSortedList}">
+                    <data class="tagRate" th:data-tag-rate-title="${tagPair.first}" th:data-tag-rate-value="${tagPair.second}"></data>
+<!--                    <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>-->
+                </div>
+                <span class="analysis" th:text="|최근에는 ${analysisData.tagTop3ByRate.toString()} 을 많이 공부하시네요.|"></span>
+            </div>
+            <div class="continue-box">
+                <span class="title">TIL 작성 지속기간</span>
+                <span class="standard">최근 30일 기준</span>
+                <span class="days" th:text="|연속 ${analysisData.maxContinuousDays}일|"></span>
+                <span class="days-detail"
+                      th:text="|최근 30일간 최장 연속 ${analysisData.maxContinuousDays}일 간 TIL을 작성했습니다.|"></span>
+            </div>
+            <div class="mybadge-box">
+                <span class="title">내 뱃지 목록</span>
+                <div class="badge-box">
+                    <ul class="badge-list">
+                        <button data-bs-toggle="popover" title="셀럽" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                            <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE1')} ? 'active'"
+                                 src="/img/badge-celeb.svg">
+                            <span class="badge-name">셀럽</span>
+                        </button>
+                        <button data-bs-toggle="popover" title="너로 정했다" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                            <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE2')} ? 'active'"
+                                 src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span>
+                        </button>
+                        <button data-bs-toggle="popover" title="공공의 적" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                            <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE3')} ? 'active'"
+                                 src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span>
+                        </button>
+                        <button data-bs-toggle="popover" title="작심N일" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                            <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE4')} ? 'active'"
+                                 src="/img/badge-3days.svg"><span class="badge-name">작심N일</span>
+                        </button>
+                        <button data-bs-toggle="popover" title="내일은 출판왕" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                            <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE5')} ? 'active'"
+                                 src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span>
+                        </button>
+                    </ul>
+                </div>
+            </div>
 
-    <label for="barbar">Top5 Tag 별, 전체에 대한 나의 사용 비율</label>
-    <div name="tag 사용빈도" id="barbar">
-      <div th:each="tagPair : ${analysisData.tagToRateTilSortedList}">
-        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
-      </div>
+        </div>
+
     </div>
 
-    <label for="foofoo">tag 사용빈도</label>
-    <div name="tag 사용빈도" id="foofoo">
-      <div th:each="tagPair : ${analysisData.tagToRateSortedList}">
-        <div th:text="|${tagPair.first}, ${tagPair.second}|"></div>
-      </div>
-      <div th:each="tag : ${analysisData.tagTop3ByRate}">
-        <div th:text="|${tag}|"></div>
-      </div>
-    </div>
-
-    <label for="foo">전체 뱃지: </label>
-    <select name="전체 뱃지" id="foo">
-      <div th:each="badges : ${T(slightlyspring.imgo.domain.badge.domain.BadgeType).values()}">
-        <div th:each="levelBadges : ${badges.levelValues}">
-          <option th:text="|${badges.name},  ${levelBadges.first}, ${levelBadges.second}|"></option>
-        </div>
-      </div>
-    </select>
-
-    <label for="bar">내가 얻은 뱃지: </label>
-    <select name="내가 얻은 뱃지" id="bar">
-      <div th:each="badges : ${analysisData.ownedBadgeMap}">
-        <div th:each="levelBadges : ${badges.value}">
-          <opiton th:text="|${badges.key.name()}, ${levelBadges.key}, ${levelBadges.value}|"></opiton>
-        </div>
-      </div>
-    </select>
-  </div>
+    <!--  <script type="text/javascript" th:src="@{/js/chartjs-plugin-labels.js}"></script>-->
+    <script type="text/javascript" th:src="@{/js/user/analysis.js}"></script>
 </th:block>
 </html>
 

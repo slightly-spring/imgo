@@ -50,7 +50,7 @@
                 </ul>
             </div>
             <div class="bottom-btn">
-                <a th:if="${pageData.pageRole == 'mypage'}" href="#">
+                <a th:if="${pageData.pageRole == 'mypage'}" th:href="|/user/${pageData.userProfile.id}/analysis|">
                     <span class="text">내 TIL 분석하기</span>
                     <img src="/img/arrow.svg">
                 </a>

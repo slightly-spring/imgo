@@ -559,6 +559,40 @@ h3 {
     margin-left: 10px;
 }
 
+.badge-box {
+    padding: 20px 20px 60px 20px;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.badge-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.badge-list li {
+    width: 60px;
+    float: left;
+    margin-right: 10px;
+}
+
+.badge-list li:nth-child(3) {
+    margin-right: 0px;
+}
+
+.badge-list img {
+    width: 100%;
+}
+
+.badge-name {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: -0.5px;
+}
+
+
 
 .content-list {
     padding: 0;
