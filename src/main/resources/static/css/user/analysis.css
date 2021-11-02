@@ -233,20 +233,22 @@ body {
     padding-bottom: 20px;
 }
 
-.mybadge-box .badge-list li {
+.mybadge-box .badge-list button {
     width: 200px;
     padding: 10px 40px;
+    background-color: white;
+    border: none;
 }
 
-.mybadge-box .badge-list li img {
+.mybadge-box .badge-list button img {
     filter: grayscale(100%);
 }
 
-.mybadge-box .badge-list li img.active {
+.mybadge-box .badge-list button img.active {
     filter: none;
 }
 
-.mybadge-box .badge-list li:last-child {
+.mybadge-box .badge-list button:last-child {
     margin-right: 0;
 }
 
