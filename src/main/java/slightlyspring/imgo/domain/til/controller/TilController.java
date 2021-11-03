@@ -1,6 +1,8 @@
 package slightlyspring.imgo.domain.til.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -98,9 +100,12 @@ public class TilController {
         // TODO userId using principal
         Long userId = (Long) httpSession.getAttribute("userId");
         List<String> tags = tilForm.getTags();
-
+        String title = tilForm.getTitle();
+        if (title == null || title.trim().isEmpty()) {
+            title = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
         Til.TilBuilder tilBuilder = Til.builder()
-                .title(tilForm.getTitle())
+                .title(title)
                 .content(tilForm.getContent())
                 .sourceType(tilForm.getSourceType())
                 .source(tilForm.getSource())
