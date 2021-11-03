@@ -95,7 +95,7 @@ public class BadgeService {
             .level(pair.getFirst())
             .name(badgeType.badgeName)
 //            .description()
-//            .logo()
+            .logo(badgeType.logo)
             .build();
         badges.add(tmp);
       }

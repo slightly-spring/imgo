@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import slightlyspring.imgo.domain.badge.BadgeService;
 import slightlyspring.imgo.domain.badge.domain.Badge;
 import slightlyspring.imgo.domain.user.service.UserService;
@@ -33,7 +30,7 @@ public class BatchController {
     return jsonReturn;
   }
 
-  @PostMapping("/badges")
+  @GetMapping("/badges")
   public List<Badge> makeBadges() {
     return badgeService.makeBadgesBatch();
   }
