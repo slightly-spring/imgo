@@ -51,24 +51,24 @@
                 <span class="title">내 뱃지 목록</span>
                 <div class="badge-box">
                     <ul class="badge-list">
-                        <button data-bs-toggle="popover" title="셀럽" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                        <button data-bs-toggle="popover" title="셀럽" data-bs-content="받은 최대 좋아요 개수" data-bs-placement="bottom">
                             <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE1')} ? 'active'"
                                  src="/img/badge-celeb.svg">
                             <span class="badge-name">셀럽</span>
                         </button>
-                        <button data-bs-toggle="popover" title="너로 정했다" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                        <button data-bs-toggle="popover" title="너로 정했다" data-bs-content="내가 라이벌로 지정한 사람의 수" data-bs-placement="bottom">
                             <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE2')} ? 'active'"
                                  src="/img/badge-you.svg"><span class="badge-name">너로 정했다</span>
                         </button>
-                        <button data-bs-toggle="popover" title="공공의 적" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                        <button data-bs-toggle="popover" title="공공의 적" data-bs-content="나를 라이벌로 지정한 사람의 수" data-bs-placement="bottom">
                             <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE3')} ? 'active'"
                                  src="/img/badge-enemy.svg"><span class="badge-name">공공의 적</span>
                         </button>
-                        <button data-bs-toggle="popover" title="작심N일" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                        <button data-bs-toggle="popover" title="작심N일" data-bs-content="최대 연속 TIL 작성일" data-bs-placement="bottom">
                             <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE4')} ? 'active'"
                                  src="/img/badge-3days.svg"><span class="badge-name">작심N일</span>
                         </button>
-                        <button data-bs-toggle="popover" title="내일은 출판왕" data-bs-content="And here's some amazing content. It's very engaging. Right?" data-bs-placement="bottom">
+                        <button data-bs-toggle="popover" title="내일은 출판왕" data-bs-content="완료한 시리즈 개수" data-bs-placement="bottom">
                             <img th:classappend="${analysisData.validBadgeTypes.contains('TYPE5')} ? 'active'"
                                  src="/img/badge-king.svg"><span class="badge-name">내일은 출판왕</span>
                         </button>
