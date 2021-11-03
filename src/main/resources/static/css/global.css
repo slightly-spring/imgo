@@ -711,8 +711,8 @@ h3 {
 
 .content-list .post > a > img {
     float: right;
-    height: 160px;
     width: 240px;
+    height: 100%;
     border-radius: 0 10px 10px 0;
     background: #ddd;
 }

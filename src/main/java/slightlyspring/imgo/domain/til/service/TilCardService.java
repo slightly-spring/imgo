@@ -39,12 +39,12 @@ public class TilCardService {
   }
 
   /**
-   * 2. 해당 user, 해당 시리즈의 til
+   * 2. 해당 시리즈의 til
    */
-  public List<TilCardData> getTilCardDataByUserIdAndSeriesId(Pageable pageable ,Long userId, Long seriesId) {
+  public List<TilCardData> getTilCardDataBySeriesId(Pageable pageable, Long seriesId) {
     List<TilCardData> tilCardDataList = new ArrayList<>();
 
-    List<Til> tilPages = tilRepository.findByUserIdAndSeriesId(userId, seriesId, pageable);
+    List<Til> tilPages = tilRepository.findBySeriesId(seriesId, pageable);
 
     return generateTilCardData(tilCardDataList, tilPages);
   }
