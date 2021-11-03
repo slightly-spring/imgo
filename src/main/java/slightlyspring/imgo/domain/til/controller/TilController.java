@@ -128,14 +128,13 @@ public class TilController {
     }
 
     /**
-     * 2. 해당 user, 해당 시리즈의 til
+     * 2. 해당 시리즈의 til
      */
-    @GetMapping("/{userId}/til-cards/{seriesId}")
-    public ResponseEntity tilCardsByUserIdAndSeriesId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable,
-        @PathVariable Long userId,
+    @GetMapping("/til-cards/series/{seriesId}")
+    public ResponseEntity tilCardsBySeriesId(@PageableDefault(size=5, sort="createdDate", direction = Direction.DESC) Pageable pageable,
         @PathVariable Long seriesId) {
 
-        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataByUserIdAndSeriesId(pageable, userId, seriesId);
+        List<TilCardData> tilCardDataPages = tilCardService.getTilCardDataBySeriesId(pageable, seriesId);
         ResponseEntity<List<TilCardData>> tilCardResponse = new ResponseEntity<>(
             tilCardDataPages, HttpStatus.OK);
         return tilCardResponse;
