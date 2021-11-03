@@ -36,10 +36,10 @@ async function clickRivalButton(targetId) {
     if (response.ok) {
         if (isActive) {
             rivalButton.classList.remove("active")
-            rivalButton.innerText = "라이벌 해제";
+            rivalButton.innerText = "라이벌 등록";
         } else {
             rivalButton.classList.add("active")
-            rivalButton.innerText = "라이벌 등록";
+            rivalButton.innerText = "라이벌 해제";
         }
     } else {
         alert("오류가 발생하였습니다.")
