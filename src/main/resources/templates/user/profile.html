@@ -40,9 +40,9 @@
                 </ul>
             </div>
             <div class="stamp-box">
-                <strong class="subtitle">스탬프</strong>
+                <strong class="subtitle">미니 캘린더</strong>
                 <ul class="stamp-list">
-                    <li th:each="day : ${#numbers.sequence(pageData.firstDayOfWeek, pageData.firstDayOfWeek+6)}"
+                    <li th:each="day : ${pageData.miniCalendar}"
                         th:classappend="${pageData.userProfileDetail.isRecorded(day)} ? 'checked'"
                         th:text="${day}"
                         class="day">
