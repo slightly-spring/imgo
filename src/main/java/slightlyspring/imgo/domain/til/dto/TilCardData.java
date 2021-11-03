@@ -21,5 +21,6 @@ public class TilCardData {
   private String createdAt;
   private List<String> tags;
   private String nickname;
+  private Long userId;
   private String tilImageUrl;
 }

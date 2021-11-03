@@ -12,7 +12,11 @@ function getItemHTMLFromTilCard(data) {
             <div class="detail-box">
                 <span class="detail-info">${data.createdAt}</span>
                 <span class="like"><img src="/img/like.svg"/>${data.likeCount}</span>
-                <span class="writer">by ${data.nickname}</span>
+                <span class="writer">
+                    <a href="/user/${data.userId}">
+                        by ${data.nickname}
+                    </a>
+                </span>
             </div>
         </div>
         <a href="/til/${data.tilId}">

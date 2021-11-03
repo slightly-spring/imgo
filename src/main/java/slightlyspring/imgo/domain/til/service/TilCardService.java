@@ -93,6 +93,7 @@ public class TilCardService {
           .createdAt(til.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
           .tags(tagListToStream(tags).map(Tag::toString).collect(Collectors.toList()))
           .nickname(til.getUser().getNickname())
+          .userId(til.getUser().getId())
           .tilImageUrl(getThumbnailFromTil(til))
           .build();
       tilCardDataList.add(tmp);
