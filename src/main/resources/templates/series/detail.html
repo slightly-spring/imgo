@@ -3,34 +3,35 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
+    <link th:href="@{/css/series/detail.css}" rel="stylesheet"/>
 </head>
 <th:block layout:fragment="content">
-    <div th:object="${series}">
-        <p th:text="*{title}"></p>
-        <p th:text="*{createdDate}"></p>
-        <p th:text="*{description}"></p>
-        <p th:text="*{isCompleted()}"></p>
-        <p th:text="*{getUser().getNickname()}"></p>
-        <p th:text="*{likeCount}"></p>
-    </div>
-    <div class="content-box tabcontent">
-        <ul id="tab1" class="content-list">
-            <div class="til-container content-list">
-                <!--        카드 리스트 들어올 부분-->
+    <div class="content-wrapper">
+        <div class="center-content">
+            <div class="title-box">
+                <span class="title">
+                    <span th:text="${series.title}">
+                    </span>
+                    <img src="/img/series-completed.svg">
+                </span>
+                <br/><br/>
+                <p th:text="${series.user.nickname}"></p>
             </div>
-            <p class="pagination" style="display:none">
-                <a class="pagination__next" th:href="|/til/${series.getUser().getId()}/til-cards/${series.getId()}?page=0&size=5|">Next page</a>
-            </p>
-        </ul>
-<!--        <ul id="tab2" class="content-list">-->
-<!--            <div class="series-container content-list">-->
-<!--                &lt;!&ndash;        카드 리스트 들어올 부분&ndash;&gt;-->
-<!--            </div>-->
-<!--            <p class="pagination" style="display:none">-->
-<!--                <a class="pagination__next_series" th:href="|/series/${pageData.userProfile.id}/series-cards?page=0&size=5|">Next page</a>-->
-<!--                &lt;!&ndash;        <a class="pagination__next" th:href="@{ /til/{userId}/til-cards (page=0,size=5) }">Next page</a>&ndash;&gt;-->
-<!--            </p>-->
-<!--        </ul>-->
+
+            <div class="edit-box">
+<!--                <button type="button" class="edit-box-btn">수정</button>-->
+<!--                <button type="button" class="edit-box-btn">삭제</button>-->
+            </div>
+
+            <div class="content-box tabcontent">
+                <div class="til-container content-list">
+                    <!--        카드 리스트 들어올 부분-->
+                </div>
+                <p class="pagination" style="display:none">
+                    <a class="pagination__next" th:href="|/til/til-cards/series/${series.id}?page=0&size=5|">Next page</a>
+                </p>
+            </div>
+        </div>
     </div>
 </th:block>
 </html>
