@@ -78,7 +78,7 @@ async function searchMySeries() {
 }
 
 async function _findMySeries(userId, q) {
-    const url = `/series/${userId}?title=${q}`;
+    const url = `/series/user/${userId}?title=${q}`;
     let response = await fetch(url, {
         method: "GET",
     });
