@@ -1,13 +1,14 @@
-const today = new Date();
 const cal = new CalHeatMap();
+
+// sample calendar
 cal.init({
-    start: today.setDate(today.getDate() - 364),
-    maxDate: today,
-    tooltip: true,
-    domain: "month",
-    range: 13,
+    domain: "year",
     subDomain: "day",
-    highlight: "now"
+    data: "https://cal-heatmap.com/datas-years.json",
+    start: new Date(2000, 0),
+    cellSize: 10,
+    range: 1,
+    legend: [0, 20, 40, 60, 80]
 });
 
 
