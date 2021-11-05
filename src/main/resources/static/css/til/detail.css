@@ -134,6 +134,10 @@ div.dropdown.open > div.list {
     margin-bottom: 60px;
 }
 
+.content-box img {
+    width: 100%;
+}
+
 .button-box {
     padding-bottom: 60px;
     border-bottom: 1px solid #ddd;

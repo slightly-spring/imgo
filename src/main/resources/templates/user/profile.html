@@ -21,8 +21,8 @@
             </div>
             <div class="badge-box">
                 <strong class="subtitle">뱃지</strong>
-                <ul class="badge-list" th:each="userBadge : *{pageData.userProfileDetail.userBadges}">
-                    <li>
+                <ul class="badge-list">
+                    <li th:each="userBadge : *{pageData.userProfileDetail.userBadges}">
                         <img th:src="${userBadge.badge.logo}">
                         <span th:text="${userBadge.badge.name}" class="badge-name"></span>
                     </li>
