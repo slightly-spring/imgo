@@ -18,7 +18,7 @@ public class BatchController {
   private final UserService userService;
   private final BadgeService badgeService;
 
-  @PostMapping("/continuousDays/{userId}")
+  @GetMapping("/continuousDays/{userId}")
   public Map<String, String> updateContinuousDays(@PathVariable Long userId) {
     int nowContinuousDays = userService.updateNowContinuousDaysBatch(userId);
     int maxContinuousDays = userService.updateMaxContinuousDaysBatch(userId);
