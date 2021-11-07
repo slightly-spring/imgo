@@ -108,7 +108,7 @@
 }
 
 .rival-profile.active {
-    outline: 4px solid rgb(255, 222, 114);
+    box-shadow: 0 0 0 4px rgb(255, 222, 114);
 }
 
 .rival-name {
