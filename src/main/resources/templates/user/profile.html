@@ -33,7 +33,9 @@
                 <ul class="rival-list">
                     <li th:each="rival : *{pageData.userProfileDetail.rivals}">
                         <a th:href="|/user/${rival.target.id}|">
-                            <div class="rival-profile" th:style="'background-image:url('+${rival.target.profileImg}+');'">
+                            <div class="rival-profile"
+                                 th:classappend="${pageData.userProfileDetail.isRivalActive(rival)} ? 'active'"
+                                 th:style="'background-image:url('+${rival.target.profileImg}+');'">
                             </div>
                             <span class="rival-name" th:text="${rival.target.nickname}"></span>
                         </a>

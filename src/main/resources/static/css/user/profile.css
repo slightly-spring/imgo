@@ -107,6 +107,10 @@
     margin-right: 12px;
 }
 
+.rival-profile.active {
+    outline: 4px solid rgb(255, 222, 114);
+}
+
 .rival-name {
     float: left;
     display: block;
