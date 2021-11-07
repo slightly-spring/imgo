@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IMGO</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="stylesheet" href="/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/header.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/header.js"></script>
+  </head>
+
+  <body>
+    <header id="header" class="header">
+      <section class="header-main">
+        <nav class="nav">
+          <div class="logo">
+            <a href="/"><img src="/img/top-bi.svg" alt="Jeogiyeo"></a>
+          </div>
+          <input class="menu-btn" type="checkbox" id="menu-btn" />
+          <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+          <ul class="menu">
+<!--	           <li class="first-li"><a class="ios" href=""><div class="download-text">LOGIN</div></a></li>-->
+          </ul>
+        </nav>
+
+
+      </section>
+    </header>
+    <!-- Swiper -->
+    <div class="swiper-container mySwiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide" id="slide-1">
+          <div class="box-content">
+            <div class="sub-content">
+              <img src="img/top-bi.svg">
+
+              <h3>
+                IMGO는 성취감과 학습의지를 주어서 꾸준한 TIL 작성을 독려하는 TIL 플랫폼이에요.<br>IMGO로 하루 TIL을 작성하며 개발을 마무리지어보세요.
+              </h3>
+            </div>
+          <div class="img-content">
+            <img src="img/title.svg">
+          </div>
+
+          </div>
+        </div>
+        <div class="swiper-slide" id="slide-2">
+          <div class="box-content reverse">
+          <div class="sub-content">
+            <h1>
+              TIL 작성을 시작해보세요.
+            </h1>
+            <h3>
+              오늘 공부한 내용을 정리해보세요.<br>코드도 편리하게 넣을 수 있고 마크다운으로도 작성할 수 있어요<br>태그를 달아서 편하게 관리할 수 있어요
+            </h3>
+          </div>
+          <div class="img-content">
+            <img src="img/1.png">
+          </div>
+          </div>
+        </div>
+        <div class="swiper-slide" id="slide-3">
+          <div class="box-content">
+          <div class="sub-content">
+            <h1>
+              시리즈로 묶어서 관리해보세요.
+            </h1>
+            <h3>
+              여러 개의 TIL들을 하나의 시리즈로 관리할 수 있어요.<br>
+              내 시리즈는 다른 사람의 로드맵이 될 수 있어요.
+            </h3>
+          </div>
+          <div class="img-content">
+            <img src="img/2.png">
+          </div>
+          </div>
+        </div>
+        <div class="swiper-slide" id="slide-4">
+          <div class="box-content reverse">
+          <div class="sub-content">
+            <h1>
+              분석을 받아보세요.
+            </h1>
+            <h3>
+              TIL을 작성만 하면, 작성 결과를 분석받을 수 있어요.<br>
+              내가 얼마나 꾸준히 TIL을 작성하고 있는지 점검할 수 있어요.<br>
+              목표를 성취하면 뱃지를 받을 수 있어요.<br>
+            </h3>
+          </div>
+          <div class="img-content">
+            <img src="img/3.png">
+          </div>
+          </div>
+      </div>
+      <div class="swiper-slide" id="slide-5">
+        <div class="box-content">
+        <div class="sub-content">
+          <h1>
+            라이벌과 경쟁해보세요.
+          </h1>
+          <h3>
+            라이벌을 설정하여 경쟁할 수 있어요.<br>
+            라이벌과 함께 TIL을 꾸준히 작성해요.<br>
+          </h3>
+        </div>
+        <div class="img-content">
+            <img src="img/4.png">
+        </div>
+        </div>
+      </div>
+      <div class="swiper-slide" id="slide-6" >
+
+          <div class="another-title">
+            <p>IMGO의 다른 모습이 궁금하신가요?</p>
+            </div>
+            <hr class="another-line"/>
+          <div class="another-menu">
+            <div class="menu-1">
+                <a href="">팀 소개</a>
+            </div>
+            <div class="menu-2">
+              <a href="">기능 소개</a>
+            </div>
+            <div class="menu-3">
+              <a href="">기술 소개</a>
+            </div>
+            <div class="menu-4">
+              <a href="">피드백</a>
+            </div>
+            </div>
+
+
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+
+    <!-- Swiper JS -->
+    <script src="js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        direction: "vertical",
+        slidesPerView: 1,
+        speed: 900,
+        spaceBetween: 0,
+        mousewheel: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+
+   $(document).ready(function(){
+     $(".swiper-wrapper #slide-1").css("background-color", "#faf6f2");
+     $(".swiper-wrapper #slide-3").css("background-color", "#faf6f2");
+     $(".swiper-wrapper #slide-5").css("background-color", "#faf6f2");
+   });
+
+    </script>
+
+  </body>
+</html>

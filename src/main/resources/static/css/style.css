@@ -1,0 +1,78 @@
+html, body {position: relative;  height: 100%;  background: #fff;  font-family: 'Noto Sans KR', sans-serif;  font-size: 14px;  color: #222;  margin: 0;  padding: 0;}
+
+#header {position: fixed; z-index: 50; top:0; left:0; width:100%; background: #fff;  box-shadow: 0 0 4px 2px #00000007;}
+#header-nav {height:80px;}
+#header .header-main .logo {padding:22px 20px; float:left; display: block; height:20px;}
+.header-main {max-width:1200px; width:100%; margin:0 auto;}
+.logo img{height:20px;}
+.menu .ios {display: inline-block; padding:6px 0; border-radius: 30px; border:solid 1px #ddd; width:144px; height:40px; box-sizing: border-box; text-align: center;}
+.menu .android {display: inline-block; padding:6px 0; border-radius: 30px; border:solid 1px #ddd; width:144px; height:40px; box-sizing: border-box; text-align: center;}
+.menu img {width:18px; height:18px; display: inline-block; vertical-align: middle;}
+.menu .download-text {text-decoration: none; margin-left:8px; display:inline-block; color:#222; font-size:14px; font-weight:700; vertical-align: middle;}
+
+h1 {color: #156A2B; font-size:22px; text-align: center;}
+h2 {color: #222; font-size:18px; text-align:center; margin:0px 0px 30px 0px;}
+h3 {color: #444; font-size:14px; font-weight:400; text-align: center;}
+.box-content {display:flex; flex-direction: column; align-items: center; max-width:100%; width:100%; margin:0 auto;}
+.reverse {flex-direction: column;}
+.sub-content { position:absolute; top:160px; width:auto; text-align:left; padding:0 24px; padding-top:40px; background:none !important;}
+.img-content { position:absolute; bottom:160px; background:none !important;}
+.img-content img {margin:0 auto;}
+.download-content{display: block; margin:0 auto 120px auto;}
+#slide-1 .sub-content {top:100px;}
+#slide-1 .img-content {bottom:40px;}
+#slide-1 .sub-content img {height:60px; width:auto; padding:10px 0;}
+#slide-1 .img-content {width:75%;}
+#slide-2 .img-content {width:65%;}
+#slide-3 .img-content {width:50%;}
+#slide-4 .img-content {width:50%; bottom:160px;}
+#slide-5 .img-content {width:50%;}
+#slide-6 {flex-direction: column;}
+.footer_content {position:absolute; bottom: 0; width:100%; max-width:1200px; height:fit-content; background: #eee !important; padding:20px calc(100% - 600px);}
+.logo_footer {display:block; text-align:center; margin:10px auto; }
+.logo_footer img {width:fit-content; height:24px; text-align: center; margin:0 auto; opacity:20%;}
+.footer-text { display: block; text-align:center; float:left; color:#aaa; font-size:14px; line-height:20px; font-weight:normal; text-decoration:none; padding:0 20px; margin:10px auto 0 auto;}
+.footer-text b{display: block; margin:10px 0;}
+.footer-link {text-decoration:none; color:#f8f8f8; display:inline-block; margin:10px 10px 0 0;}
+
+@media (min-width: 1024px) {
+
+  #header .header-main .logo {padding:22px 0px; float:left; display: block; height:20px;}
+
+ #slide-1 .box-content {flex-direction: column;}
+ #slide-1 .sub-content {width:100%;}
+ #slide-1 .sub-content h3 {text-align: center; line-height: 1.6;}
+  #slide-1 .sub-content img {height:40px; width:auto; text-align: center; margin:0 auto;}
+  #slide-1 .img-content {width:65%; margin:30px 0;}
+  #slide-1 .img-content img{ border-radius: 0; border:none; box-shadow: none;}
+  #slide-2 .img-content {width:560px;}
+  #slide-3 .img-content {width:560px;}
+  #slide-4 .img-content {width:560px;}
+  #slide-5 .img-content {width:560px;}
+  #slide-6 .logo-download {height:80px; width:auto; margin:0 auto;}
+  .sub-content {position:inherit; width:640px; text-align:left; padding:0 60px; padding-top:64px; background:none !important;}
+  .img-content {position:inherit; width:560px; background:none !important;}
+  .img-content img { margin:0 auto; border:10px solid #aaa; border-radius:20px;box-shadow: 0px 10px 20px 5px #00000020;}
+  .download-content{display: block; margin:0 auto;}
+  .menu .ios {padding:5px 0;}
+  .menu .android {padding:5px 0; margin-left:10px; }
+  .download-btn {background:transparent !important;}
+  .download-btn img {width:24px; height:24px; display: inline-block; vertical-align: middle;}
+  .download-btn .ios {display: inline-block; padding:16px 0; border-radius: 30px; line-height:24px; border:solid 1px #ddd; width:200px; height:60px; box-sizing: border-box; text-align: center;}
+  .download-btn .android {display: inline-block; padding:16px 0; margin-left:10px; border-radius: 30px; line-height:24px; border:solid 1px #ddd; width:200px; height:60px; box-sizing: border-box; text-align: center;}
+  .download-text {text-decoration: none; margin-left:8px; display:inline-block; color:#222; font-size:18px; font-weight:700; vertical-align: middle;}
+  h1 {text-align: left; font-size:30px;}
+  h2 {text-align: left; font-size:26px; color: #222; margin:0 0 60px 0;}
+  h3 {text-align: left; font-size:22px;}
+  .main-title {font-size:32px; font-weight:bold; text-align:center;}
+  .box-content {display:flex; flex-direction: row; align-items: center; max-width:1200px; width:100%; margin:0 auto;}
+  .reverse {flex-direction: row-reverse;}
+  .another-title{font-size:32px; font-weight:bold;}
+  .another-menu {width:100%; max-width:800px; padding:60px 0;}
+  .another-menu div{width:25%; float:left;}
+  .another-menu a {text-decoration: none; font-size:24px; font-weight:600; color:#156A2B;}
+  .another-line {width:40px; height:3px; background: #222; border:none;}
+  .footer-text {display: block;  float:left; margin-left:40px; margin-top:0px; color:#fff; font-size:14px; line-height:20px; text-align:left; font-weight:normal; padding:0;}
+  .footer-text b{display: initial; margin:0 0 0 20px;}
+  .footer-link {text-decoration:none; color:#f8f8f8; display:inline-block; margin:0px 10px 0 0;}
+}
